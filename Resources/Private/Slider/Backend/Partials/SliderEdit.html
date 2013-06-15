@@ -1,0 +1,49 @@
+
+    
+
+        <h1>Responsive Slider editieren</h1>
+
+
+
+        <f:form method="post" controller="SliderBE" action="sliderUpdate" name="slider" object="{slider}" enctype="multipart/form-data"  >
+            <div class="formRow">
+                <p>Die Slider Höhe und Breite entspricht den Bildern. <br />
+                    Diese Angabe wird benötigt um die Sliderhöhe dynamisch der Breite anzupasen!
+                    <br /><br />
+                </p>
+            </div>
+            
+            <div class="formRow">
+                <label>
+                    Slider Titel: 
+                </label>
+                <f:form.textfield property="sliderHeadline" class="formField w300" value="{slider.sliderHeadline}"/><br />
+            </div>
+
+            <div class="formRow">
+                
+                <label>
+                    Slider Breite: 
+                </label>
+                <f:form.textfield property="sliderImgwidth" class="formField w80" value="{slider.sliderImgwidth}"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label>
+                    Slider Höhe: 
+                </label>
+                <f:form.textfield property="sliderImgheight" class="formField w80" value="{slider.sliderImgheight}"/><br />
+            </div>
+
+
+            <br />
+
+
+            <hr />
+            <div class="formRow ">
+
+                <f:link.action action="index" class="button"> Abbrechen </f:link.action>
+                <f:form.submit name="mySubmit" value="Speichern" class="buttonAbbrechen"/>
+
+            </div>
+        </f:form>
+        
+

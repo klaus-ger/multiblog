@@ -1,0 +1,475 @@
+/* 
+    Document   : page1.css
+    Created on : 15.02.2013, 09:46:47
+    Author     : klausheuer
+    Description:
+        Stylesheet for Responsive Design 
+*/
+
+body {
+    background: url("../images/bg.png") repeat-x scroll 0 0 #f6f6f6;
+    font-family: Georgia, serif;
+    font-size: 12px;
+    line-height: 19px;
+    color: #525252;
+   
+}
+
+a {
+    color: #525252;
+}
+/* this is the fake class for google */
+h1#header {
+    line-height: 0;
+    text-indent: -9999px;
+}
+/* Start Responsive otimaton */
+img, embed, object, video {
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+DIV.csc-textpic-above DIV.csc-textpic-imagewrap,
+DIV.csc-textpic-below DIV.csc-textpic-imagewrap,
+DIV.csc-textpic DIV.csc-textpic-imagewrap UL LI,
+DIV.csc-textpic DIV.csc-textpic-imagewrap DL.csc-textpic-image {
+	float: none;
+}
+.csc-textpic-imagewrap figure{
+    display: inline !important;
+}
+/* END responsive optimation */
+
+.hide-desktop {
+    display: none ;
+}
+img, #logo {
+    height: auto;
+    max-width: 100%;
+    width: auto;
+}
+/* Sections *********************************/
+.wrapper {
+    margin: auto;
+    max-width:990px;
+    width: 98%;
+    overflow: hidden;
+}
+
+#logo {
+    border: none;
+    margin: 60px auto 34px 280px;
+}
+
+#mainNavi {
+    background-image: url("../images/bg_nav.png");
+    xwidth: 960px;
+    background-size: contain;
+}
+#header {
+    max-width: 980px;
+    margin: 0 auto;
+    background-color: #fff;
+    line-height: 0;
+}
+
+#stage, #mainMenu {
+    max-width: 980px;
+    margin: 0 auto;
+    background-color: #fff;
+    clear: both;
+}
+
+#footer {
+    
+    min-height: 80px;
+}
+
+
+/* Sub Sections Header *********************/
+
+#header  img{
+  width:100%; 
+  max-width: 980px;  
+  z-index:0; 
+  xposition:relative; 
+}
+
+.headerContent {
+    width: 100%;
+    max-width: 980px;    
+    display: block;
+    z-index:1; 
+    xposition:absolute;   
+}
+
+/* Col Wrapper and Cols*********************/
+.sliderwrap {
+    width: 95%;
+    margin: auto;
+    margin-top: 20px;
+    display: block;
+    height: 100%;
+}
+.contentwrap {
+    width: 95%;
+    margin: auto;
+    margin-top: 20px;
+    display: block;
+    height: 100%;
+    border-top: 1px solid #ededed;
+}
+
+.wrap1cols {
+    background-image: url("../images/contentbg-3cols.png");
+    background-size: contain;
+}
+
+.wrap2cols {
+    background-image: url("../images/contentbg-2cols.png");
+    background-size: contain;
+}
+
+.wrap3cols {
+    background-image: url("../images/contentbg-3cols.png");
+    background-size: contain;
+}
+
+.clearafter:after { content: ''; display: block; clear: both; }
+
+
+.onecol {
+    width: 100%;
+    float: left;
+    text-align: left !important;
+    margin: 0px;
+}
+
+.twocol-main{
+    float: left;    
+    width: 67%;
+    text-align: left !important;
+    margin: 0px;
+
+}
+
+.twocol-right{
+    float: left;    
+    width: 28%;
+    margin: 0px;
+    margin-left: 5%;
+    text-align: left !important;
+    
+
+}
+
+.threecol {
+    width: 33.33%;
+    float: left;
+    text-align: left !important;
+    margin: 0px;
+    margin-left: 0%;
+}
+.colinside {
+    margin: 20px 20px 20px 20px;
+}
+.colinside p {
+    text-align: left;
+}
+.content {
+    width: 66%;
+    display: inline-block;
+    padding: 1%;
+    border-right: 1px solid #e4e5f0; 
+}
+
+.sidebar {
+    width: 28%;
+    float: right;
+    display: inline-block;
+    padding: 1%;
+}
+
+/* Sub Sections Footer *********************/
+
+.footer-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    
+    padding: 1%;
+}
+
+/* Menüs *************************************/
+
+
+
+
+#mainNavi {
+        line-height: 16px;
+}
+.mainNaviLine{
+    background-image: url("../images/bg_nav_top.png");
+    background-size: contain;
+    xwidth: 960px;
+    height: 1px;
+    display: block;
+}
+.fullNavi ul {
+    height: 40px;
+    
+}
+.fullNavi ul li {
+    float: left;
+    list-style: none outside none;
+    padding: 12px 15px;
+    text-transform: uppercase;
+
+}
+.fullNavi ul li.first {
+    padding-left: 120px;
+}
+.fullNavi ul li a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 1s;
+}
+
+.fullNavi ul li a:hover {
+    color: #9b9297;
+}
+
+.fullNavi ul li.active a{
+    color:#9b9297;
+    font-style: italic;
+}
+
+
+/* Für Unterpunkte keine Float-Eigenschaft */
+.fullNavi ul ul li {
+    float:none;
+    background-color: transparent;
+    z-index: 999;
+}
+
+/* Links auf Unterpunkten sollen die Hintergrundfarbe ändern */
+fullNavi ul ul li.hover, .fullNavi ul ul li:hover {
+    background-color: #ededed;
+}
+
+/* Zweite Ebene */
+.fullNavi ul ul {
+    margin:0;
+    padding: 10px 5px;
+    position: absolute;
+    background-color: #fff;
+    display: none;
+    width: 180px;
+    z-index: 999;
+    border-left: 1px solid #ededed;
+    height: auto;
+}
+
+.fullNavi ul ul li {
+    padding: 5px 5px;
+    border-bottom: 1px solid #ededed;
+}
+/* Zweite Ebene anzeigen */
+fullNavi ul li.hover ul, .fullNavi ul li:hover ul  {
+    display: block;
+}
+
+/* Dritte Ebene */
+.fullNavi ul li.hover ul ul, .fullNavi ul li:hover ul ul {
+    display: none;
+    margin-left: 160px; /* Breite eines Listenelements - Überlagerung */
+    margin-top: -20px; /* Höhe eines Listenelements */
+}
+
+/* Dritte Ebene anzeigen */
+.fullNavi ul li.hover ul li.hover ul, .fullNavi ul li:hover ul li:hover ul {
+    display: block;
+}
+
+
+
+
+
+
+#mobilMenuListe {
+    background-color: #6f7d72;
+   
+}
+.mobilNavi ul {
+    display: block;
+    background-color: #6f7d72;
+    height: auto;
+}
+.mobilNavi ul li {
+      
+         
+      float: none;
+}
+
+.mobilNavi ul li a {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+    display: block;
+    padding: 8px 10px;
+}
+
+.mobilNavi ul ul li a {
+    padding: 8px 25px;
+    border-bottom: 1px solid #fff;
+    background-color: #94a397;
+}
+
+
+/* Elemente *********************************/
+.csc-textpic-intext-right .csc-textpic-image {
+    float: right;
+    margin: 15px 0 0 20px;
+    width: 45%;
+}
+
+
+/* Typografie ******************************/
+
+h1, h2 {
+    font-size: 21px;
+    font-weight: bold;
+    color: #535222;
+    margin: 10px 0 15px 0;
+}
+h2 {
+    font-size: 16px;
+    margin: 10px 0 5px 0;
+}
+p {
+    font-size: 13px;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+.sidebar p {
+    font-size: 90%;
+}
+
+
+b, strong {
+    font-weight: bold;
+}
+
+i {
+    font-style: italic;
+}
+
+a.button {
+    background: #E6E6E6;
+    border: 1px solid #D3D3D3;
+    text-decoration: none;
+    font-size: 90% !important;
+    padding: 0.1em 1em !important;
+    border-radius: 4px;
+    display: inline-block;
+    
+}
+a.button:hover {
+    background: #555;
+   color: #fff;
+    
+}
+/* media querie handhelds less than 760px  and greater than 360px********************************/
+/* class for Galaxy (380px) an IPhone (320 px) */
+/* class name: mobil */
+@media screen and  (min-width: 230px) and (max-width: 759px) {
+    .xwrapper {
+        width: 300px;
+        width: 95%;
+        overflow: hidden;
+    }
+    .hide-mobile {
+        display: none;
+    }
+    .hide-desktop {
+        display: block;
+    }
+    
+    #logo {
+        border: none;
+        margin: 30px auto 34px 20px;
+        width: 250px;
+    }
+    #mainNavi {
+        background-image: url("../images/bg_nav.png");
+        background-size: contain;
+        xwidth: 320px;
+    }
+    
+    .mainNaviLine{
+        background-image: url("../images/bg_nav_top.png");
+        background-size: contain;
+        xwidth: 360px;
+    }
+    ul.mainNavi li.first {
+        padding-left: 20px;
+    }
+    ul.mainNavi li {
+        padding: 12px 12px;
+    }
+    .contentwrap {
+        background-image: none;
+    }
+    .threecol, .twocol-main, .twocol-right {
+        float: none;
+        width: 100%;
+        margin: 0%;
+    }
+    
+}
+
+/* media querie handhelds for IPad ********************************/
+/* class name: pad */
+@media screen and (min-width: 760px) and (max-width: 970px) {
+    .xwrapper {
+        width: 760px;
+        width: 95%;
+        overflow: hidden;
+    }
+    .hide-mobile {
+        display: block;
+    }
+    .hide-pad {
+        display: none;
+    }
+    .hide-desktop {
+        display: none;
+    }
+    
+    #logo {
+        border: none;
+        margin: 60px auto 34px 200px;
+    }
+    #mainNavi {
+        background-image: url("../images/bg_nav.png");
+        background-size: contain;
+        xwidth: 760px;
+    }
+    
+    .mainNaviLine{
+        background-image: url("../images/bg_nav_top.png");
+        background-size: contain;
+        xwidth: 760px;
+    }
+    ul.mainNavi li.first {
+        padding-left: 20px;
+    }
+    ul.mainNavi li {
+        padding: 12px 12px;
+    }
+    
+}
+
+.hidden {
+    display: none;
+}

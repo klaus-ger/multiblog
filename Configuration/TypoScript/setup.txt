@@ -1,0 +1,168 @@
+
+
+
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:responsive_template/Configuration/TypoScript/menuLib.txt">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:responsive_template/Configuration/TypoScript/slidersetup.ts">
+
+lib.slider         < styles.content.get
+lib.content        < styles.content.getLeft
+lib.contentRight   < styles.content.getRight
+lib.contentBorder  < styles.content.getBorder
+
+lib.logo = IMAGE
+lib.logo.file = {$plugin.tx_responsivetemplate.settings.logofile}
+lib.logo.imageLinkWrap = 1
+lib.logo.imageLinkWrap.enable = 1
+lib.logo.imageLinkWrap.typolink.parameter = {$plugin.tx_responsivetemplate.settings.baseUrl} 
+ 
+lib.header = TEXT
+lib.header {
+    data = page:title
+}
+
+
+tt_content.image.20 {
+  imageStdWrap.dataWrap = <div class="csc-textpic-imagewrap"> | </div>
+  imageColumnStdWrap.dataWrap = <div class="csc-textpic-imagecolumn"> | </div>
+}
+
+tt_content.image.20 {
+  rendering {
+    dl {
+      imageRowStdWrap.dataWrap = <div class="csc-textpic-imagerow"> | </div>
+      imageLastRowStdWrap.dataWrap = <div class="csc-textpic-imagerow csc-textpic-imagerow-last"> | </div>
+      oneImageStdWrap.dataWrap = <dl class="csc-textpic-image###CLASSES###" > | </dl>
+    }
+    ul {
+      imageRowStdWrap.dataWrap = <div class="csc-textpic-imagerow"><ul> | </ul></div>
+      imageLastRowStdWrap.dataWrap = <div class="csc-textpic-imagerow csc-textpic-imagerow-last"><ul> | </ul></div>
+      oneImageStdWrap.dataWrap = <li class="csc-textpic-image###CLASSES###"> | </li>
+    }
+    div {
+      imageRowStdWrap.dataWrap = <div class="csc-textpic-imagerow"> | </div>
+      imageLastRowStdWrap.dataWrap = <div class="csc-textpic-imagerow csc-textpic-imagerow-last"> | </div>
+      oneImageStdWrap.dataWrap = <div class="csc-textpic-image###CLASSES###"> | </div>
+    }
+    simple {
+      imageStdWrap.dataWrap = <div class="csc-textpic-imagewrap csc-textpic-single-image"> | </div>
+    }
+  }
+}
+
+tt_content.image.20 {
+  renderMethod = figure
+  rendering {
+    figure {
+      imageRowStdWrap.dataWrap = <div class="csc-textpic-imagerow"> | </div>
+      imageLastRowStdWrap.dataWrap = <div class="csc-textpic-imagerow csc-textpic-imagerow-last"> | </div>
+      noRowsStdWrap.wrap = 
+      oneImageStdWrap.dataWrap = <figure class="csc-textpic-image"> | </figure>
+      imgTagStdWrap.wrap =   |  
+      editIconsStdWrap.wrap = <div> | </div>
+      caption.wrap = <figcaption> | </figcaption>
+      caption.required = 1
+    }
+  }
+}
+
+## PAGE ===============================================##
+
+page = PAGE
+page {
+
+    typeNum = 0
+    shortcutIcon = myicon.ico
+    insertClassesFromRTE = 1
+
+    10 = FLUIDTEMPLATE 
+    10 {
+        file.stdWrap.cObject = CASE
+        file.stdWrap.cObject {
+            key.data = levelfield:-1, backend_layout_next_level, slide
+            key.override.field = backend_layout
+            
+            3 = TEXT
+            3.value         = EXT:responsive_template/Resources/Private/html/Template/ThreeCols.html
+            3.insertData = 1
+
+            2 = TEXT
+            2.value         = EXT:responsive_template/Resources/Private/html/Template/OneCol.html
+            2.insertData = 1
+
+            1 = TEXT
+            1.value         = EXT:responsive_template/Resources/Private/html/Template/TwoCols.html
+            1.insertData = 1
+
+
+            default = TEXT
+            default.value   =  EXT:responsive_template/Resources/Private/html/Template/TwoCols.html
+            default.insertData = 1
+        }
+
+        partialRootPath     = EXT:responsive_template/Resources/Private/html/Partial/
+        layoutRootPath      = EXT:responsive_template/Resources/Private/html/Layout/
+    }
+      
+    meta {
+        viewport            = width=device-width, initial-scale=1.0
+    }
+
+    includeCSS {
+        reset               = EXT:responsive_template/Resources/Public/css/reset.css
+        reset.media         = screen
+        reset.forceOnTop    = 1
+
+        sitestyle           = EXT:responsive_template/Resources/Public/css/sitestyle.css
+        sitestyle.media     = screen
+
+        ownstyle           = {$plugin.tx_responsivetemplate.settings.owncss}
+        ownstyle.media     = screen
+    }
+    	
+    includeJSlibs {
+        modernizr           = EXT:responsive_template/Resources/Public/javascript/modernizr-2.6.1.min.js
+        modernizr.forceOnTop= 1
+    }
+
+    includeJSFooterlibs  {
+        jquery              = EXT:responsive_template/Resources/Public/javascript/jquery-1.8.0.min.js
+        jquery.forceOnTop   = 1       
+    }
+
+    includeJSFooter {   
+        sitescript          = EXT:responsive_template/Resources/Public/javascript/sitescript.js
+    }
+
+
+
+}
+
+
+## CONFIGURATION ==============================================================#
+config {
+    doctype                             = html5
+    baseURL                             = {$plugin.tx_responsivetemplate.settings.baseUrl}
+   
+    renderCharset                       = utf-8
+    metaCharset                         = utf-8
+    pageNotFound_handling               = 1
+    xhtml_cleaning                      = all
+
+    removeDefaultJS                     = external
+    inlineStyle2TempFile                = 1
+
+    language                            = {$plugin.tx_responsivetemplate.settings.languagekey}
+    locale_all                          = {$plugin.tx_responsivetemplate.settings.languageall}
+    htmlTag_langKey                     = de
+    admPanel                            = 0
+    debug                               = 0
+    cache_period                        = 43200
+    cache_clearAtMidnight               = 1
+    sendCacheHeaders                    = 1
+    tx_realurl_enable                   = {$plugin.tx_responsivetemplate.settings.realUrl}
+    #simulateStaticDocuments            = 0
+    disablePrefixComment                = 1
+
+
+}
+

@@ -1,0 +1,18 @@
+<div class="tx-t3dev-slider">
+    <div class="hidden">
+        <div class="imgwidth">{slider.sliderImgwidth}</div>
+        <div class="imgheight">{slider.sliderImgheight}</div>
+    </div>
+<div id="slideshowWrapper">
+    <div class="t3devslider">
+<f:for each="{sliderimages}" as="slide" iteration="iteration">
+            <f:image src="uploads/responsivetemplate/slider/{slide.sliderImage}"  alt="My Image" 
+         style="position:{f:if(condition:'{iteration.isFirst}', then:'absolute', else:' absolute')};"/>
+        
+ 
+</f:for>
+    </div>
+
+<div class="tx-t3dev-sliderclear">&nbsp;</div>
+</div>
+</div>

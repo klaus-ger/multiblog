@@ -1,0 +1,32 @@
+
+<table>
+    <tr class="header">
+        <td>
+            <strong>  Slider</strong>
+        </td>
+        <td></td>
+    </tr>
+    <f:for each="{slider}" as="slide"> 
+        <f:cycle values="{0: 'even', 1: 'odd'}" as="cycle">
+            <tr class="{cycle}">
+
+                <td width="250px">
+            <f:format.crop maxCharacters="70" append="&nbsp;[...]">{slide.sliderHeadline}</f:format.crop>
+
+            </td>
+            <td width="60px" align="center">
+            <f:link.action action="sliderEdit" controller="SliderBE" arguments="{slider: slide}">
+                <f:image src="EXT:responsive_template/Resources/Public/icons/backendicons/edit.gif" width="16" height="16" alt="abbrechen" />
+            </f:link.action>
+            <f:link.action action="sliderDelete" controller="SliderBE" arguments="{slider: slide}"onclick="return confirm('Slider löschen?');">
+                <f:image src="EXT:responsive_template/Resources/Public/icons/backendicons/delete.gif" width="16" height="16" alt="Datensatz löschen" />
+            </f:link.action>
+
+            </td>
+            </tr>
+        </f:cycle>	
+    </f:for>
+</table>
+<br /><br />
+<f:link.action action="sliderNew" class="button"> neuen Slider erstellen </f:link.action>
+

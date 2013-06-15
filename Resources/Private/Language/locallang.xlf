@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-02-24T16:24:24Z" product-name="t3dev_slider">
+		<header/>
+		<body>
+
+			<trans-unit id="tx_t3devslider_domain_model_slider">
+				<source>t3dev_silder</source>
+			</trans-unit>
+			<trans-unit id="tx_t3devslider_domain_model_slider.slider_id">
+				<source>The Slider ID</source>
+			</trans-unit>
+			<trans-unit id="tx_t3devslider_domain_model_slider.slider_headline">
+				<source>The Headline for the Slider</source>
+			</trans-unit>
+			<trans-unit id="tx_t3devslider_domain_model_slider.slider_text">
+				<source>The Text for the Sliderimage</source>
+			</trans-unit>
+			<trans-unit id="tx_t3devslider_domain_model_slider.slider_prev_image">
+				<source>The prev Image</source>
+			</trans-unit>
+			<trans-unit id="tx_t3devslider_domain_model_slider.slider_image">
+				<source>The SliderImage</source>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>

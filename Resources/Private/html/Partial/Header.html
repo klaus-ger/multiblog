@@ -1,0 +1,26 @@
+<div class="header">
+    <h1 id="header"><f:cObject typoscriptObjectPath="lib.header" /></h1>
+    </div>
+
+<div id="logo">
+        <f:cObject typoscriptObjectPath="lib.logo" />           
+</div>
+
+<div id="mainNavi">
+    <span class="mainNaviLine">&nbsp;</span>
+    
+    <div class="fullNavi hide-mobile">
+        <f:cObject typoscriptObjectPath="lib.mainMenu" />
+    </div>
+    
+    <div class="hide-desktop"style=" padding: 0 40%;">
+        <ul class="mainNavi jqueryMenu" >
+            <li> <a href="#">Menü</a></li>
+        </ul>
+    </div>
+    <div id="mobilMenuListe"class=" mobilNavi hide-desktop hidden">
+        <f:cObject typoscriptObjectPath="lib.mainMenu" />  
+    </div>
+    <span class="mainNaviLine">&nbsp;</span>
+</div>
+

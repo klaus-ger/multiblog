@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-02-24T16:24:24Z" product-name="t3dev_slider">
+		<header/>
+		<body>
+
+			<trans-unit id="slider_id.description">
+				<source>The Slider ID</source>
+			</trans-unit>
+			<trans-unit id="slider_headline.description">
+				<source>The Headline for the Slider</source>
+			</trans-unit>
+			<trans-unit id="slider_text.description">
+				<source>The Text for the Sliderimage</source>
+			</trans-unit>
+			<trans-unit id="slider_prev_image.description">
+				<source>The prev Image</source>
+			</trans-unit>
+			<trans-unit id="slider_image.description">
+				<source>The SliderImage</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

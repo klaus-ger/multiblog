@@ -1,0 +1,10 @@
+<div class="t3devslider">
+<f:for each="{sliderimages}" as="slide" iteration="iteration">
+            <f:image src="uploads/tx_t3devslider/{slide.sliderImage}"  alt="My Image" 
+         style="position:{f:if(condition:'{iteration.isFirst}', then:'absolute', else:' absolute')};"/>
+        
+ 
+</f:for>
+</div>
+
+<div class="tx-t3dev-sliderclear">&nbsp;</div>
