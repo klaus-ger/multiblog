@@ -1,0 +1,154 @@
+
+<div id="multiblog">
+    <div id="multiblogindex_maincolumn">
+
+        <div class="multiblogindex_blogtitel">
+            <f:if condition="{blogs.blogbild}">
+            <f:image src="uploads/multiblog/blogbilder/{blogs.blogbild}" alt="profilbild" width="20px"/>
+            </f:if>
+            <f:link.action action="index" controller="Entry" arguments="{bloguid: blogs.uid}">{blogs.blogtitel}</f:link.action>
+        </div>
+
+
+        <!-- Blog header --------------------------------------->
+
+
+
+        <div class="multiblogindex_entryheader">
+
+            <span class="multiblogindex_entryheader_linkleft">
+                <f:if condition="{next.entrytitel}">		
+                    <f:link.action action="index" controller="Entry" arguments="{bloguid: next.blogid, uid: next.uid}">
+                        &laquo; {next.entrytitel} 
+                    </f:link.action>
+                </f:if>
+            </span>
+
+            <span class="multiblogindex_entryheader_linkright">
+               	<f:if condition="{prev.entrytitel}">	
+                    <f:link.action action="index" controller="Entry" arguments="{bloguid: prev.blogid,uid: prev.uid}">
+                        {prev.entrytitel} &raquo;
+                    </f:link.action>
+                </f:if>
+            </span>
+
+            <br class="clear-all">
+
+        </div>
+
+       
+
+            <div class="xmultiblogindex_flashrender">
+                <f:FlashMessages class="multiblogindex_flashrender"/>
+            </div>
+
+            <!-- blogbild ---->
+            <div class="multibloglist_image">
+            </div>
+
+            <!--Blogtitel--->
+            <div class="multiblogindex_titel">
+                <h2>{entry.entrytitel}</h2>
+            </div>
+
+            <!-- Blog Text --->
+            <f:if condition="{entry.entrypicture}">
+                <f:then>
+
+                    <f:if condition="{entry.entrypictureposition} == 1">
+                        <f:image src="uploads/multiblog/{entry.entrypicture}" height="100" alt="© www.Gentledom.de" /><br />
+                        <div class="multiblogentry">
+                            <p><f:format.html>{entry.entryanleser}</f:format.html></p>
+                            <p><f:format.html>{entry.entrytext}</f:format.html></p>
+                        </div>
+                    </f:if>
+
+                    <f:if condition="{entry.entrypictureposition} == 2">
+                        <div style="float: right; padding: 0 5px 0 20px;">
+                           
+                                <f:image src="uploads/multiblog/{entry.entrypicture}" width="200" alt="© www.Gentledom.de" />
+                            
+                            <br />
+                        </div>
+                        <div class="multiblogentry">
+                            <f:format.html>{entry.entryanleser}</f:format.html>
+                            <f:format.raw>{entry.entrytext}</f:format.raw>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </f:if>
+                    <f:if condition="{entry.entrypictureposition} == 3">
+                        <div class="multiblogentry">
+                            <f:format.html>{entry.entryanleser}</f:format.html>
+                            <f:format.raw>{entry.entrytext}</f:format.raw>
+                        </div><br />
+                        <f:image src="uploads/multiblog/{entry.entrypicture}" height="100" alt="© www.Gentledom.de" />
+                    </f:if>
+
+
+                </f:then>
+                <f:else>
+                    <div class="multiblogentry">
+                        <f:format.html>{entry.entryanleser}</f:format.html>
+                        <f:format.raw>{entry.entrytext}</f:format.raw>
+                    </div>
+
+                </f:else>
+            </f:if>	
+
+
+
+            <!-- Blog Footer -->
+
+            
+            <div class="multiblogindex_entryfooter">  	      
+                <p><f:translate key="LLL:{settings.langFile}:post.DateText" />&nbsp;<f:format.date format="d.m.Y">{entry.entrydate}</f:format.date> <br />
+                <f:translate key="LLL:{settings.langFile}:post.CategoryText" /> 		<f:if condition="{entry.entrykategorie1.uid} > 1">
+                    {entry.entrykategorie1.kategorie}
+                </f:if>
+
+                <f:if condition="{entry.entrykategorie2.uid} > 1">
+                    &nbsp;|&nbsp; {entry.entrykategorie2.kategorie}
+                </f:if>
+                <f:if condition="{entry.entrykategorie3.uid} > 1">
+                    &nbsp;|&nbsp; {entry.entrykategorie3.kategorie}
+                </f:if>
+                <f:if condition="{entry.entrykategorie4.uid} > 1">
+                    &nbsp;|&nbsp; {entry.entrykategorie4.kategorie}
+                </f:if>
+                </p>	
+                
+
+            </div>
+
+
+
+            <f:render partial="CommentEntry" arguments="{comments: comments, entry: entry, blogs: blogs, newComment: newComment}"/>
+
+    </div> <!-- end maincolun -->
+    <div id="multiblogindex_rightcolumn">
+ 
+        <f:render partial="TeaserLetzteArtikel" arguments="{teaserentrys: teaserentrys}"/>
+        
+        <f:render partial="TeaserKategorie" arguments="{topkategorie: topkategorie, subkategorie: subkategorie, blogs: blogs}"/>
+
+        <f:render partial="TeaserLetzteKommentare" arguments="{teasercomments: teasercomments}"/>
+        
+        <f:render partial="TeaserAlleArtikel" arguments="{blogs: blogs}"/>
+        
+        
+        <f:if condition="{0:meta} == {0:blogs.uid}">
+        <f:render partial="TeaserMeta" arguments="{teasercomments: teasercomments}"/>
+        </f:if>
+        
+        <br />
+        <f:if condition="{0:settings.singleBlog} == {0:'0'}">
+        <f:link.page pageUid="{settings.viewAllBlogsUid}">
+            <div class="button">Zurück zur Blogübersicht</div>
+        </f:link.page>
+        </f:if>
+        <br /><br />
+        
+
+    </div> <!-- End rightcolumn -->
+
+</div>

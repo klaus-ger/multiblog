@@ -1,0 +1,69 @@
+<h1>Artikel erstellen</h1>
+
+    <table class="multiblog-edit-list">
+        <tr class="multiblog-edit-list-header">
+            <td>
+                Titel  
+            </td>
+            <td>
+                Kategoiren
+            </td>
+            <td>
+                Status
+            </td>
+            <td>
+                Date
+            </td>
+        </tr>
+
+        <f:for each="{userentrys}" as="entry">
+            <tr>
+            <td class="multiblog-edit-textlink">
+            <f:link.action action="artikelEdit" arguments="{singleEntry: entry.uid}" class="multiblog-edit-textlink">
+                <f:format.crop maxCharacters="22" append="&nbsp;...">{entry.entrytitel}</f:format.crop>
+            </f:link.action>
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="30%">
+            <f:if condition="{entry.entrykategorie1.uid} > 1">
+                {entry.entrykategorie1.kategorie}
+            </f:if>
+
+            <f:if condition="{entry.entrykategorie2.uid} > 1">
+                &nbsp;|&nbsp; {entry.entrykategorie2.kategorie}
+            </f:if>
+
+
+
+            <f:if condition="{entry.entrykategorie3.uid} > 1">
+                &nbsp;|&nbsp; {entry.entrykategorie3.kategorie}
+            </f:if>
+
+
+
+            <f:if condition="{entry.entrykategorie4.uid} > 1">
+                &nbsp;|&nbsp; {entry.entrykategorie4.kategorie}
+            </f:if>
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="10%">
+            <f:if condition="{entry.entrystatus}">
+                <f:then>
+                    <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.online" />
+                </f:then>
+                <f:else>
+                    <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.draft" />
+                </f:else>
+            </f:if>
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="12%">
+            <f:format.date format="d.m.Y">{entry.entrydate}</f:format.date>
+            </td>
+            </tr>  
+
+
+        </f:for>
+
+    </table>
+
+
+
+

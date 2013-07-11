@@ -1,72 +1,27 @@
 ## Define custom categories
 # customsubcategory =1_pagesettings= General Settings
-# customsubcategory =2_logosettings= Logo
-# customsubcategory =3_slider= Slider Plugin
+# customsubcategory =2_css= CSS Settings
 
 
+plugin.tx_multiblog {
 
+    settings {
+        langFile = typo3conf/ext/multiblog/Resources/Private/Language/locallang.xml
 
-plugin.tx_responsivetemplate {
-	settings {
-                # cat=responsive Template/1_pagesettings/#020; type=string; label= Base URL: base URL Format http://www.meineDomain.de/
-		baseUrl = http://www.meineDomain.de/
-                # cat=responsive Template/1_pagesettings/#040; type=boolean; label= Real URL: activate RealURL? (realURL EXT must be installed)
-		realUrl = 0
-                #cat=responsive Template/1_pagesettings/#060; type=string; label= Language Key: Constant for config "language" and "htmlTag_langKey" like de or en
-		languagekey = en
-                #cat=responsive Template/1_pagesettings/#070; type=string; label= Language locale_all: Constant for config "locale_all" like de_DE.UTF8 or en_US.UTF8
-		languageall = en_US.UTF8
-                #cat=responsive Template/1_pagesettings/#080; type=file{css}; label= Own CSS: You can add here your own CSS (overwrites the sytestile.css) Don NOT storage this file in the Extension Folder, it will lost by updates!
-		owncss = fileadmin 
-                # cat=responsive Template/2_logosettings/#110; type=string; label= Header Logo: choose your header logo file, max width 990px. 
-		logofile = fileadmin/
-		
-                # cat=responsive Template/3_slider/#010; type=string; label= Storage PID Slider: Pid of slider storage folder angeben
-		sliderPid = 
-                }
-}
-
-
-config {
-
-    no_cache                = 1
-
-    baseUrl                 = {$plugin.tx_responsivetemplate.settings.baseUrl}
-    shortcutIcon            = EXT:responsive_template/Resources/Public/icons/frontendicons/favicon.ico
-
-
-
-
-    meta {
-        viewport            = width=device-width
-        robots              = index,follow
-        apple-mobile-web-app-capable = no
-        compatible          = IE=edge,chrome=1
+        # cat=multiblog/1_pagesettings/#010; type=string; label=storage Folder: The pid of the storage folder for the blog data.
+	storagePid = 14
+        # cat=multiblog/1_pagesettings/#020; type=string; label= Blog Overview page (pid): pid of the list will all blogs, only neccessarry if you use more than one Blog, the overview page
+	viewAllBlogsUid  = 
+        # cat=multiblog/1_pagesettings/#030; type=string; label=Blog Singel Page (pid): The pid of the blog page (PlugIn multiblog: singleblog) 
+	viewSingleBlogUid  = 
+        # cat=multiblog/1_pagesettings/#040; type=string; label=Blog Edit Page (pid): The pid of the blog edit page (Plugin multiblog: blogedit)
+	viewEditBlogUid  = 
+        # cat=multiblog/1_pagesettings/#050; type=string; label= Special Blog (uid): Show only one Blog in multiple Installation, normaly not neccessary to set here anything, see manual.
+	singleBlog = 
+	
+        # cat=multiblog/2_css/a; type=string; label=Default CSS File: The CSS File is located in EXT:multiblog/Resources/Public/Stylesheets.
+	CSSFile = multiblog-responsive.css
+      
     }
 
-    headerComment           = 
-
-    apple {
-        touch-icon          = EXT:responsive_template/Resources/Public/icons/frontendicons/apple-touch-icon-precomposed.png
-        touch-icon-72       = EXT:responsive_template/Resources/Public/icons/frontendicons/apple-touch-icon-72x72-precomposed.png
-        touch-icon-114      = EXT:responsive_template/Resources/Public/icons/frontendicons/apple-touch-icon-114x114-precomposed.png
-        startup             = EXT:responsive_template/Resources/Public/icons/frontendicons/apple-startup.png
-    }
-
-
-    
 }
-
-
-
-
-
-
-###############################
-#### Lokale Testumgebungen ####
-###############################
-
-[globalString = ENV:HTTP_HOST=localhost:8888]
-    config.baseUrl = http://localhost:8888/*/
-[global]
-

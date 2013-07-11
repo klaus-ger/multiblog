@@ -1,0 +1,62 @@
+{namespace meineExt=Tx_Multiblog_ViewHelpers}
+<!-- Sub Template für blogEdit Kategorien 
+*    Ext: Multiblog
+-->
+
+<div class="kategorieEditList">
+    <h2>Kategorieverwaltung</h2>
+
+    <div class="multiblog_teaser">
+        <div class="multiblog_teaserTyphead">
+            <b>Deine Blog-Kategorien </b>
+        </div>
+        <f:for each="{topkategorie}" as="topkat">
+            <div class="kategorieEditRow">
+                <div class="kategorieEditTopKat">
+                    {topkat.kategorie}
+                </div>
+            </div>
+
+            <f:for each="{subkategorie}" as="subkat">
+
+                <f:if condition="{subkat.topkategorie} == {topkat.uid}">
+                    <div class="kategorieEditRow">
+                        <div class="teaserKatSubkat">
+                            &nbsp;&nbsp;» {subkat.kategorie}
+                        </div>
+                    </div>
+
+
+                </f:if>
+            </f:for>
+        </f:for>
+    </div>
+</div>
+
+<div class="kategorieEditForm">
+    <b>Neue Kategorie hinzufügen:</b>
+    <f:form method="post" controller="Blogedit" action="settingsCreateKategorie" name="newKat" object="{newKat}" enctype="multipart/form-data"  >
+        
+         <f:form.textfield property="blogid" class="hidden" value="{newKat.blogid}"/>
+          
+         <div class="kategorieEditFormRow">
+            <div class="kategorieEditLabel">
+                Kategorie:
+            </div>
+            <f:form.textfield property="kategorie" class="kategorieEditInput" value="{newKat.kategorie}"/><br />
+        </div>
+        <div class="kategorieEditFormRow">
+            <div class="kategorieEditLabel">
+                Wenn Sub Kategorie, bitte hier Hauptkategorie auswählen: <br>
+            </div>
+            <div class="kategorieEditLabel">
+                <meineExt:select additionalOptions="{0 : '-- Kategorie wählen --'}" sortByOptionLabel="kategorie" name="topkategorie" property="topkategorie" options="{topkategorie}" optionValueField="uid" optionLabelField="kategorie" />
+            </div>
+        </div>    
+        <div class="kategorieEditFormRow">
+            <f:form.submit class="submit button-left" value="Kategorie erstellen"/>
+        </div>
+    </f:form>   
+</div>
+
+<div class="spacer-large clear">.</div>

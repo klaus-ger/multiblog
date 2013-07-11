@@ -1,0 +1,52 @@
+<!-- Sub Template für blogEdit Header 
+*    Ext: Gentleblog
+-->
+<h2><f:translate key="LLL:{settings.langFile}:blogedit.commentlist.header" /></h2>
+
+
+
+<div class="spacer"></div>
+<div class="muliblog-editlist">
+<div class="multiblog_paginator">
+    <span class="multiblog_paginator_text"><f:translate key="LLL:{settings.langFile}:blogedit.articlelist.pagenavi" /></span>
+    <f:widget.paginate objects="{comments}" as="pagecomments"  configuration="{itemsPerPage: 10, insertAbove: 1, insertBelow: 1}">
+        <br class="clear-all">
+        </div>
+
+
+
+        <f:for each="{pagecomments}" as="comment">
+
+            <div class="row">
+
+                <div class="colDate">
+                    <f:format.date format="d.m.Y">{comment.commentdate}</f:format.date>
+                </div>
+
+                <div class="colContent">
+                    <f:format.crop maxCharacters="22" append="&nbsp;...">{comment.commenttitel}</f:format.crop>
+                </div>
+
+                <div class="colKat">                
+                     <f:format.crop maxCharacters="18" append="&nbsp;...">{comment.entryid.entrytitel}</f:format.crop>
+                </div>
+
+                <div class="colStatus">
+                    <f:if condition="{comment.commentproved}">
+                        <f:then>
+                            <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.status.online" />
+                        </f:then>
+                        <f:else>
+                            <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.status.hidden" />
+                        </f:else>
+                    </f:if>
+                </div>
+
+                <f:link.action action="commentEdit" arguments="{uid: comment.uid}" class="button">
+                    <f:translate key="LLL:{settings.langFile}:blogedit.commentlist.edit" />
+                </f:link.action>
+                
+            </div>
+        </f:for>
+    </f:widget.paginate>
+</div>

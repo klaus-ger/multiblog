@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for multiblog</description>
+    </meta>
+    <data type="array">
+        
+        <languageKey index="default" type="array">
+            <label index="widget.AllArticles.Header">All Posts</label>
+            <label index="widget.AllArticles.LinkText">All Posts</label>
+            <label index="widget.Categorie.Header">Category</label>
+            <label index="widget.NewArticle.Header">Recent Posts</label>
+            <label index="widget.NewArticle.Category">Categories</label>
+            <label index="widget.Comments.Header">Recent Comments</label>
+            <label index="widget.Comments.Text">posted on</label>
+            <label index="widget.AboutBlog.Header">About this Blog</label>
+            
+            <label index="post.DateText">Posted on:</label>
+            <label index="post.CategoryText">Categories: </label>
+            
+            <label index="comments.Header">Comments:</label>
+            <label index="comments.DateText">posted on</label>
+            <label index="comments.NoCommets">No Comments</label>
+            <label index="comments.WriteComment">Leave a comment:</label>
+            <label index="comments.form.MailInfoText">Your e-mail address is not visible!</label>
+            <label index="comments.form.label.titel">Comment Title:</label>
+            <label index="comments.form.label.comment">Comment:</label>
+            <label index="comments.form.releasenote">Your Comment is visible after aproval.</label>
+            <label index="comments.form.label.comment">Comment:</label>
+            <label index="comments.form.buttonSend">send Comment</label>
+            <label index="comments.form.placeholder.name">name</label>
+            <label index="comments.form.placeholder.email">Your email, not visible!</label>
+            <label index="comments.form.placeholder.title">comment title</label>
+            
+            
+            <label index="blogedit.menu.article">Articles</label>
+            <label index="blogedit.menu.article.all">All Articles</label>
+            <label index="blogedit.menu.article.edit">Edit Article</label>
+            <label index="blogedit.menu.article.create">Create Article</label>
+            <label index="blogedit.menu.article.category">Categories</label>
+            <label index="blogedit.menu.comments">Comments</label>
+            <label index="blogedit.menu.comments.edit">Edit Comments</label>
+            <label index="blogedit.menu.comments.new">New Comments</label>
+            <label index="blogedit.menu.comments.all">All Comments</label>
+            <label index="blogedit.menu.settings">Settings</label>
+            <label index="blogedit.menu.settings.widgets">Widgets</label>
+            <label index="blogedit.menu.settings.blogstyle">Blogstyle</label>
+            <label index="blogedit.menu.settings.user">User Settings</label>
+            
+            <label index="blogedit.articlelist.header">All Articles</label>
+            <label index="blogedit.articlelist.article">Article</label>
+            <label index="blogedit.articlelist.category">Categories</label>
+            <label index="blogedit.articlelist.status">Status</label>
+            <label index="blogedit.articlelist.date">Date</label>
+            <label index="blogedit.articlelist.info">To edit an entry just click on the article-title!</label>
+            
+            <label index="blogedit.articleedit.header">Article Edit</label>
+            <label index="blogedit.articleedit.status">Status: </label>
+            <label index="blogedit.articleedit.date">Article Date: </label>
+            <label index="blogedit.articleedit.sticky">Article sticky: </label>
+            <label index="blogedit.articleedit.stickytext">(Holds the article in fornt of the Blog.)</label>
+            <label index="blogedit.articleedit.title">Article Title: </label>
+            <label index="blogedit.articleedit.firsttext">Introduction:</label>
+            <label index="blogedit.articleedit.entry">Entry:</label>
+            <label index="blogedit.articleedit.categories">Categories:</label>
+            <label index="blogedit.articleedit.image">Image:</label>
+            <label index="blogedit.articleedit.imageposition">Image Position:</label>
+            <label index="blogedit.articleedit.imagepositiontop">top</label>
+            <label index="blogedit.articleedit.imagepositionright">right</label>
+            <label index="blogedit.articleedit.imagepositionbottom">bottom</label>
+            <label index="blogedit.articleedit.imageremove">Delete Image: </label>
+            <label index="blogedit.articlecreate.header">Create new Article</label>
+            
+            <label index="blogedit.category.header">Category List</label>
+            <label index="blogedit.category.list">Existing Categories:</label>
+            <label index="blogedit.category.add">Add new Category:</label>
+            <label index="blogedit.category.label.newcategory">New Category: </label>
+            <label index="blogedit.category.label.secondlevel">If new Category should be used on second level, pleaser choose main category:</label>
+            
+            <label index="blogedit.comments.headerall">All Comments</label>
+            <label index="blogedit.comments.commenttitle">Comment Title</label>
+            <label index="blogedit.comments.post">Entry</label>
+            <label index="blogedit.comments.status">Status</label>
+            <label index="blogedit.comments.status.hidden">hidden</label>
+            <label index="blogedit.comments.status.online">online</label>
+            <label index="blogedit.comments.date">Date</label>
+            <label index="blogedit.comments.headeredit">Edit Comment</label>
+            <label index="blogedit.comments.writeon"> wrote on </label>
+            <label index="blogedit.comments.toentry"> to entry: </label>
+            <label index="blogedit.comments.entry.title">Comment Title: </label>
+            <label index="blogedit.comments.entry.comment">Comment: </label>
+            <label index="blogedit.comments.entry.reply">Reply to this Comment: </label>
+            <label index="blogedit.comments.nocontent">No new Comments. </label>
+            
+            <label index="blogedit.widgets.header">Sidebar Widgets</label>
+            <label index="blogedit.widgets.info">Activate here the sidebar widgets.</label>
+            <label index="blogedit.widgets.label.aboutblog">About This Blog</label>
+            <label index="blogedit.widgets.infotext.aboutblog">You can add a text in the Blog Settings.</label>
+            <label index="blogedit.widgets.label.recentpost">Recent Posts</label>
+            <label index="blogedit.widgets.infotext.recentpost">Shows the last 5 Posts with link to the single Pages.</label>
+            <label index="blogedit.widgets.label.category">Categories</label>
+            <label index="blogedit.widgets.infotext.category">Shows the blog categories with link to categorie page.</label>
+            <label index="blogedit.widgets.label.comments">Comments</label>
+            <label index="blogedit.widgets.infotext.comments">Shows the last 5 Comments with link to the single post.</label>
+            <label index="blogedit.widgets.label.allposts">All Posts</label>
+            <label index="blogedit.widgets.infotext.allposts">Shows a link to a page with all posts (like the category view) (Helpful if you use the singel-entry-layout)</label>
+            
+            <label index="blogedit.blogstyle.header">Blog Style</label>
+            <label index="blogedit.blogstyle.info">You can set here the style of the blog startpage.</label>
+            <label index="blogedit.blogstyle.singleentry.header">Single Entry</label>
+            <label index="blogedit.blogstyle.singleentry.infotext">Shows the last (or sticky) entry with comments as blog start page.</label>
+            <label index="blogedit.blogstyle.blog.header">Blog Style</label>
+            <label index="blogedit.blogstyle.blog.infotext">Shows the last 8 entrys with a link to the single pages and - if set - the sticky post on top.</label>
+            <label index="blogedit.blogstyle.teaserimages.header">Teaser Images</label>
+            <label index="blogedit.blogstyle.teaserimages.infotext">Use the Post Images as Teaser Image in "Blog Style View" and "Category View".</label>
+            
+            <label index="blogedit.usersettings">User Settings</label>
+            <label index="blogedit.usersettings.mail.lable">Email Address</label>
+            <label index="blogedit.usersettings.mail.infotext">The system will sent a info mail to this address if new commets are written.</label>
+            <label index="blogedit.usersettings.aboutthisblog">The text for the widget "About this blog".</label>
+            
+            <label index="blogedit.button.cancel">Cancel</label>
+            <label index="blogedit.button.update">Update Article</label>
+            <label index="blogedit.button.createarticle">Create Article</label>
+            <label index="blogedit.button.commentupdate">Update Comment</label>
+            <label index="blogedit.button.commentdelete">Delete Comment</label>
+            <label index="blogedit.button.createcategory">Create Category</label>
+            <label index="blogedit.button.updatewidgets">Update Widgets</label>
+            <label index="blogedit.button.updateblogstyle">Update Blogstyle</label>
+            <label index="blogedit.button.updateusersettings">Update User Settings</label>
+            	
+            <label index="blogedit.articlestatus.online">online</label>
+            <label index="blogedit.articlestatus.draft">draft</label>
+            
+            <label index="post.readmore">read more</label>					
+        </languageKey>
+        
+        <languageKey index="de" type="array">
+            <label index="widget.AllArticles.Header">Artikelübersicht</label>
+            <label index="widget.AllArticles.LinkText">Alle Artikel in der Übersicht</label>
+            <label index="widget.Categorie.Header">Kategorien</label>
+            <label index="widget.NewArticle.Header">Neuste Artikel</label>
+            <label index="widget.NewArticle.Category">Kategorie</label>
+            <label index="widget.Comments.Header">Neue Kommentare</label>
+            <label index="widget.Comments.Text">schrieb am</label>
+            
+            <label index="post.DateText">Geschrieben am:</label>
+            <label index="post.CategoryText">Einsortiert in:</label>
+            <label index="post.readmore">read more</label>	
+            
+            <label index="comments.Header">Kommentare:</label>
+            <label index="comments.DateText">schrieb am</label>
+            <label index="comments.NoCommets">Noch keine Kommentare.</label>
+            <label index="comments.WriteComment">Einen Kommentar schreiben:</label>
+            <label index="comments.form.MailInfoText">Die e-mailadresse wird nicht veröffentlicht!</label>
+            <label index="comments.form.label.titel">Kommentar Titel:</label>
+            <label index="comments.form.label.comment">Kommentar:</label>
+            <label index="comments.form.releasenote"> Dein Kommentar wird erst sichtbar nachdem er von einem Moderator freigeschalten wurde!</label>
+            <label index="comments.form.label.comment">Kommentar:</label>
+            <label index="comments.form.buttonSend">Kommentar absenden</label>
+            <label index="comments.form.placeholder.name">Name</label>
+            <label index="comments.form.placeholder.email">email, wird nicht veröffentlicht!</label>
+            <label index="comments.form.placeholder.title">Kommentartitel</label>
+            
+            <label index="blogedit.menu.article">Artikel</label>
+            <label index="blogedit.menu.comments">Kommentare</label>
+            <label index="blogedit.menu.settings">Einstellungen</label>
+            <label index="blogedit.menu.manual">System Infos</label>	
+            <label index="blogedit.menu.blogview">Zurück zur Blogansicht</label>
+            
+            <label index="blogedit.articlelist.header">Artikel Übersicht</label>
+            <label index="blogedit.articlelist.newarticle">Neuen Artikel erstellen</label>
+            <label index="blogedit.articlelist.pagenavi">Seite: </label>
+            <label index="blogedit.articlelist.articleedit">Artikel bearbeiten</label>
+            	
+            <label index="blogedit.articlestatus.online">online</label>
+            <label index="blogedit.articlestatus.draft">Entwurf</label>
+            
+            <label index="blogedit.articleedit.header">Artikel editieren</label>
+            <label index="blogedit.articleedit.status">Status: </label>
+            <label index="blogedit.articleedit.title">Titel: </label>
+            <label index="blogedit.articleedit.firsttext">Anleser:</label>
+            <label index="blogedit.articleedit.entry">Beitrag:</label>
+            <label index="blogedit.articleedit.categories">Kategorien:</label>
+            <label index="blogedit.articleedit.image">Bild auswählen:</label>
+            <label index="blogedit.articleedit.imageposition">Bild Position:</label>
+            <label index="blogedit.articleedit.imagepositiontop">oben</label>
+            <label index="blogedit.articleedit.imagepositionright">rechts</label>
+            <label index="blogedit.articleedit.imagepositionbottom">unten</label>
+            <label index="blogedit.articleedit.imageremove">Bild löschen: </label>
+            <label index="blogedit.articlecreate.header">Neuen Artikel erstellen</label>
+            
+            <label index="blogedit.commentlist.header">Kommentar Übersicht</label>
+            <label index="blogedit.commentlist.edit">Kommentar bearbeiten</label>
+            
+            <label index="blogedit.commentedit.header">Kommentar bearbeiten</label>
+            <label index="blogedit.commentedit.status">Kommentar Status: </label>
+            <label index="blogedit.commentedit.status.online">online</label>
+            <label index="blogedit.commentedit.status.hidden">nicht sichtbar</label>
+            <label index="blogedit.commentedit.writeon"> schrieb am </label>
+            <label index="blogedit.commentedit.toentry"> zum Beitrag: </label>
+            <label index="blogedit.commentedit.entry.title">Kommentar Titel: </label>
+            <label index="blogedit.commentedit.entry.comment">Kommentar: </label>
+            <label index="blogedit.commentedit.entry.reply">Auf diesen Kommentar antworten: </label>
+            
+            <label index="blogedit.button.cancel">abbrechen</label>
+            <label index="blogedit.button.update">Artikel aktualisieren</label>
+            <label index="blogedit.button.createarticle">Artikel erstellen</label>
+            <label index="blogedit.button.commentupdate">Kommentar aktualisieren</label>
+            
+        </languageKey>
+    </data>
+</T3locallang>

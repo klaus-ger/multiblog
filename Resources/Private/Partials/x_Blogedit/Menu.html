@@ -1,0 +1,28 @@
+<!-- Sub Template für blogEdit Header 
+*    Ext: Gentleblog
+-->
+
+
+
+<ul class="tab">
+    <li class="{f:if(condition: '{0:menu} == {0:"artikel"}', then: ' active', else: ' ')}">
+        <f:link.action action="index" controller="Blogedit"> <f:translate key="LLL:{settings.langFile}:blogedit.menu.article" /></f:link.action>
+    </li>
+    <li class="{f:if(condition: '{0:menu} == {0:"kommentare"}', then: ' active', else: ' ')}">
+        <f:link.action action="commentIndex" controller="Blogedit"><f:translate key="LLL:{settings.langFile}:blogedit.menu.comments" /></f:link.action>
+    </li>
+    <li class="{f:if(condition: '{0:menu} == {0:"einstellungen"}', then: ' active', else: ' ')}">
+        <f:link.action action="settingsIndex" controller="Blogedit"><f:translate key="LLL:{settings.langFile}:blogedit.menu.settings" /></f:link.action>     
+    </li>
+    <li class="{f:if(condition: '{0:menu} == {0:"anleitung"}', then: ' active', else: ' ')}">
+        <f:link.action action="manualIndex" controller="Blogedit"><f:translate key="LLL:{settings.langFile}:blogedit.menu.manuals" /></f:link.action>
+    </li>
+        
+    <f:link.page pageUid="{settings.viewSingleBlogUid}">
+            <div class="button backToBlog"><f:translate key="LLL:{settings.langFile}:blogedit.menu.blogview" /></div>
+    </f:link.page>
+    
+</ul>
+
+
+

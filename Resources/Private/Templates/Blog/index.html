@@ -1,0 +1,33 @@
+
+<!-- Listview of the Blogs --->
+
+<div id="multiblogList">
+
+    <f:for each="{blogs}" as="blog">
+
+        <div class="blogTeaser">
+
+            <div class="image">
+                <f:image src="uploads/multiblog/blogbilder/{blog.blogbild}" alt="profilbild" width="60px"/> 
+            </div>
+
+            <!--Blogtitel--->
+            <div class="titel">
+                {blog.blogtitel}
+            </div>
+
+            <!-- Blog Teasertext --->	
+            <div class="teaserText">
+                {blog.blogdescription}
+            </div>
+            
+            <f:link.action pageUid="{settings.viewSingleBlogUid}" action="index" controller="Entry" arguments="{bloguid: blog.uid}">
+                <div class="multibloglist_link button">
+                    » zum Blog
+                </div>
+            </f:link.action>
+        </div>
+
+    </f:for>
+    <div class="clear-all">&nbsp;</div>
+</div>

@@ -1,0 +1,41 @@
+{namespace meineExt=Tx_Multiblog_ViewHelpers}
+<!-- Sub Template für blogEdit Settings
+*    Ext: Multiblog
+-->
+<div class="settingsTextblock">
+
+<h2>Blogeinstellungen</h2>
+<p><br />Ihr könnt hier einen Artikel auf der Blogstartseite "anpinnen". <br />
+    Das bedeutet unabhängig vom Datum des Eintrags wird dieser immer als erstes angezeigt. <br>
+</p>
+
+
+<f:form method="post" controller="Blogedit" action="settingsCreateStickyPost" name="blog" object="{blog}" enctype="multipart/form-data"  >
+
+    <f:form.textfield property="uid" class="hidden" value="{blog.uid}"/>
+
+    <div class="settingsEditFormRow">
+        <div class="kategorieEditLabel">
+            Artikel:
+        
+        <meineExt:select additionalOptions="{999 : 'kein Artikel anpinnen'}" sortByOptionLabel="entrytitel" name="stickyPost" property="stickyPost" options="{entrys}" optionValueField="uid" optionLabelField="entrytitel" />
+    
+       
+
+        </div>   </div> 
+
+
+
+
+
+    <div class="kategorieEditFormRow">
+        <f:form.submit class="submit button" value="Artikel festpinnen"/>
+    </div>
+</f:form>   
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</div>

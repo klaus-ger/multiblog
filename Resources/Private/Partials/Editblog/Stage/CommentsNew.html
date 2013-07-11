@@ -1,0 +1,70 @@
+<div class="multiblog-edit-stage clearafter">
+<h1><f:translate key="LLL:{settings.langFile}:blogedit.comments.headerall" /></h1>
+
+    <table class="multiblog-edit-list">
+        <tr class="multiblog-edit-list-header">
+            <td>
+                <f:translate key="LLL:{settings.langFile}:blogedit.comments.commenttitle" />  
+            </td>
+            <td>
+                <f:translate key="LLL:{settings.langFile}:blogedit.comments.post" />
+            </td>
+            <td>
+                <f:translate key="LLL:{settings.langFile}:blogedit.comments.status" />
+            </td>
+            <td>
+                <f:translate key="LLL:{settings.langFile}:blogedit.comments.date" />
+            </td>
+        </tr>
+        <f:if condition="{comments}">
+            <f:then>
+
+        <f:for each="{comments}" as="comi">
+            <f:cycle values="{0: 'even', 1: 'odd'}" as="cycle">
+                     
+            <tr class="{cycle}">
+            <td class="multiblog-edit-textlink">
+                <f:link.action action="commentEdit" arguments="{uid: comi.uid}" class="multiblog-edit-textlink">
+                       <f:format.crop maxCharacters="50" append="&nbsp;...">{comi.commenttitel}</f:format.crop>                       
+                </f:link.action>
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="30%"><f:format.crop maxCharacters="50" append="&nbsp;...">{comi.entryid.entrytitel}</f:format.crop>
+            
+            
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="10%">
+            <f:if condition="{comi.commentproved}">
+                <f:then>
+                    <f:translate key="LLL:{settings.langFile}:blogedit.comments.status.online" />
+                </f:then>
+                <f:else>
+                    <f:translate key="LLL:{settings.langFile}:blogedit.comments.status.hidden" />
+                </f:else>
+            </f:if>
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="12%">
+            <f:format.date format="d.m.Y">{comi.commentdate}</f:format.date>
+            </td>
+            </tr>  
+
+            </f:cycle>
+        </f:for>
+                                
+            </f:then>
+            <f:else>
+                <tr>
+                    <td colspan="4">
+                        <f:translate key="LLL:{settings.langFile}:blogedit.comments.nocontent" />
+                    </td>
+                </tr>   
+            </f:else>
+        </f:if>
+    </table>
+
+<p style="text-align: left; font-size: 80%; margin-top: 10px;">
+    <f:translate key="LLL:{settings.langFile}:blogedit.articlelist.info" />
+</p>
+</div>
+
+
+

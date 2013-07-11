@@ -1,0 +1,54 @@
+<div class="multiblog-edit-stage clearafter">
+    <h1><f:translate key="LLL:{settings.langFile}:blogedit.blogstyle.header" /></h1>
+
+    <f:translate key="LLL:{settings.langFile}:blogedit.blogstyle.info" />
+    <br >
+    <f:form method="post" controller="Blogedit" action="blogstyleUpdate" name="blog" object="{blog}" enctype="multipart/form-data"  >
+   
+        <div class="multiblog-edit-category-colleft">
+        <br />
+        <f:form.radio property="blogstyle" value="1" checked="{blog.blogstyle} == 1"/> 
+        
+        
+        <b><f:translate key="LLL:{settings.langFile}:blogedit.blogstyle.blog.header" /></b>
+        <br />
+        <f:translate key="LLL:{settings.langFile}:blogedit.blogstyle.blog.infotext" />
+        </div>
+        
+        <div class="multiblog-edit-category-colright">
+        <br />
+        <f:form.radio property="blogstyle" value="0" checked="{blog.blogstyle} == 0"/>      
+       
+        
+        <b><f:translate key="LLL:{settings.langFile}:blogedit.blogstyle.singleentry.header" /></b>
+        <br />
+        <f:translate key="LLL:{settings.langFile}:blogedit.blogstyle.singleentry.infotext" />
+        </div>
+        
+        
+        <br /><br />
+        <div style="display: block; width: 90%;">
+        <f:form.checkbox property="blogstyleTeaserimages" value="1" checked="{blog.blogstyleTeaserimages} == 1"/>   
+        <b><f:translate key="LLL:{settings.langFile}:blogedit.blogstyle.teaserimages.header" /></b>
+        <br />
+        <f:translate key="LLL:{settings.langFile}:blogedit.blogstyle.teaserimages.infotext" />
+        </div>
+        
+        <br /><br />
+        <div class="kategorieEditFormRow">
+            <f:form.submit class="submit button-left" value="{f:translate(key:'blogedit.button.updateblogstyle')}"/>
+        </div>
+    </f:form>   
+    
+    
+    
+
+        
+
+
+
+
+</div>
+
+
+

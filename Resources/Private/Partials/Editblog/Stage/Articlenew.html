@@ -1,0 +1,104 @@
+{namespace meineExt=Tx_Multiblog_ViewHelpers}
+
+<div class="multiblog-edit-stage clearafter">
+    <h1><f:translate key="LLL:{settings.langFile}:blogedit.articlecreate.header" /></h1>
+
+    <f:form method="post" controller="Blogedit" action="artikelCreate" name="entry" object="{entry}" enctype="multipart/form-data" noCacheHash="true" >
+
+
+        <div class="hidden">
+            <f:form.textfield property="uid" /><br />
+            <f:form.textfield property="blogid" /><br />
+            <f:form.textfield property="entrystatus" /><br />
+            
+            <f:form.textfield property="currentpicture" /><br />
+        </div>
+
+        <p class="blogedit-status">
+        <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.date" />
+        <f:form.textfield id="datepicker"  property="entrydate" value="{f:format.date(date: '{entry.entrydate}', format: 'd.m.Y')}" size="12" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.status" />
+        <f:form.radio property="entrystatus" value="1" /> <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.online" /> &nbsp;&nbsp;
+        <f:form.radio property="entrystatus" value="0" /> <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.draft" />       
+        </p>
+
+
+        <div class="multiblog-edit-form-label">
+            <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.title" /> <br />
+        </div>
+
+
+        <f:form.textfield property="entrytitel" value="{entrytitel}" class="multiblog-edit-form-textfield"/><br />
+
+        <div class="multiblog-edit-form-label">
+            <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.firsttext" /><br />
+        </div>
+
+        <f:form.textarea property="entryanleser" class="multiblog-edit-form-textarea"  value="{entryanleser}" rows="10" cols="90"/>
+
+        <br />
+
+
+        <div class="multiblog-edit-form-label">
+            <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.entry" /> <br />
+        </div>
+        <f:form.textarea id="editor"  property="entrytext" class="blogedit-beitrag" value="{entrytext}"  rows="10" cols="90"/><br />
+
+
+        <div class="multiblog-edit-form-label">
+            <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.categories" /> <br />
+
+        </div>
+        <meineExt:select additionalOptions="{1 : '-- Kategorie wählen --'}" sortByOptionLabel="kategorie" name="entrykategorie1" property="entrykategorie1" options="{kategorie}" optionValueField="uid" optionLabelField="kategorie" />
+        <meineExt:select additionalOptions="{1 : '-- Kategorie wählen --'}" sortByOptionLabel="kategorie" name="entrykategorie2" property="entrykategorie2" options="{kategorie}" optionValueField="uid" optionLabelField="kategorie" />
+        <meineExt:select additionalOptions="{1 : '-- Kategorie wählen --'}" sortByOptionLabel="kategorie" name="entrykategorie3" property="entrykategorie3" options="{kategorie}" optionValueField="uid" optionLabelField="kategorie" />
+        <meineExt:select additionalOptions="{1 : '-- Kategorie wählen --'}" sortByOptionLabel="kategorie" name="entrykategorie4" property="entrykategorie4" options="{kategorie}" optionValueField="uid" optionLabelField="kategorie" />
+
+
+
+
+        <br /><br />
+
+        <div style="float: left; width: 300px;">
+
+            <div class="multiblog-edit-form-label">
+                <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.image" /> <br />
+            </div>
+
+            <f:form.upload property="entrypicture"  />
+
+            <br /><br />
+            <div class="multiblog-edit-form-label">
+                <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imageposition" /> 
+            </div>
+
+            <p>
+            <f:form.radio property="entrypictureposition" value="1" /> <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositiontop" /> &nbsp;&nbsp;&nbsp;&nbsp;
+            <f:form.radio property="entrypictureposition" value="2" /> <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionright" /> &nbsp;&nbsp;&nbsp;&nbsp;
+            <f:form.radio property="entrypictureposition" value="3" /> <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionbottom" /> 
+            <br />
+            <br />
+            </p>
+
+        </div>
+
+        <br/><br />
+        <f:if condition="{entry.entrypicture}">
+            <f:image src="uploads/multiblog/{entry.entrypicture}" width="100" alt="My Image" />
+            <br />
+
+            <p><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imageremove" /> 
+            <f:form.checkbox property="entrypicturedelete" value="1"  />
+            <p>
+        </f:if>
+
+        <div style ="clear: both;"></div>
+
+        <br /><br /><hr /><br />
+
+        <input type="button" class="button" value="{f:translate(key:'blogedit.button.cancel')}" name="back_button" onClick="javascript:history.back(1)" />
+        <f:form.submit class="submit button-right " value="{f:translate(key:'blogedit.button.createarticle')}"/>
+        <p>&nbsp;</p>
+    </f:form>
+</div>

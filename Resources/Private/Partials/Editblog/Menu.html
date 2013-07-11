@@ -1,0 +1,88 @@
+<!-- Sub Template für blogEdit Header 
+*    Ext: Gentleblog
+-->
+
+
+<div class="multiblog-edit-menu clearafter">
+    <br />
+    <ul>
+        <li class="{f:if(condition: '{0:main-menu} == {0:"articles"}', then: ' first on', else: ' first')}">
+            <f:translate key="LLL:{settings.langFile}:blogedit.menu.article" />
+        </li>
+        <li class="{f:if(condition: '{0:menu} == {0:"articles-all"}', then: ' active', else: ' ')}">
+            <f:link.action action="index" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.article.all" />
+            </f:link.action>
+        </li>
+        <f:if condition="{0:menu} == {0:'article-edit'}">
+        <li class="{f:if(condition: '{0:menu} == {0:"article-edit"}', then: ' active', else: ' ')}">
+            <f:link.action action="index" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.article.edit" />
+            </f:link.action>
+        </li>
+        </f:if>
+        <li class="{f:if(condition: '{0:menu} == {0:"articlecreate"}', then: ' active', else: ' ')}">
+            <f:link.action action="artikelNew" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.article.create" />
+            </f:link.action>
+        </li>
+        <li class="{f:if(condition: '{0:menu} == {0:"category"}', then: ' active', else: ' ')}">
+            <f:link.action action="kategoryShow" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.article.category" />
+            </f:link.action>
+        </li>
+    </ul>
+    <div class="multiblog-edit-menu-spacer"></div>
+    <ul>
+        <li class="{f:if(condition: '{0:main-menu} == {0:"comments"}', then: ' first on', else: ' first')}">
+            <f:translate key="LLL:{settings.langFile}:blogedit.menu.comments" />
+        </li>
+        <li class="{f:if(condition: '{0:menu} == {0:"newcomments"}', then: ' active', else: ' ')}">
+            <f:link.action action="commentsShowNew" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.comments.new" />
+            </f:link.action>
+        </li>
+        <li class="{f:if(condition: '{0:menu} == {0:"allcomments"}', then: ' active', else: ' ')}">
+            <f:link.action action="commentsShowAll" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.comments.all" />
+            </f:link.action>
+        </li>
+        <f:if condition="{0:menu} == {0:'commentedit'}">
+        <li class="{f:if(condition: '{0:menu} == {0:"commentedit"}', then: ' active', else: ' ')}">
+            <f:link.action action="index" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.comments.edit" />
+            </f:link.action>
+        </li>
+        </f:if>
+    </ul>
+     <div class="multiblog-edit-menu-spacer"></div>
+    <ul>
+        <li class="{f:if(condition: '{0:main-menu} == {0:"settings"}', then: ' first on', else: ' first')}">
+            <f:translate key="LLL:{settings.langFile}:blogedit.menu.settings" />
+        </li>
+        <li class="{f:if(condition: '{0:menu} == {0:"widgets"}', then: ' active', else: ' ')}">
+            <f:link.action action="widgetsShow" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.settings.widgets" />
+            </f:link.action>
+        </li>
+        <li class="{f:if(condition: '{0:menu} == {0:"blogstyle"}', then: ' active', else: ' ')}">
+            <f:link.action action="blogstyleShow" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.settings.blogstyle" />
+            </f:link.action>
+        </li>
+        <li class="{f:if(condition: '{0:menu} == {0:"usersettings"}', then: ' active', else: ' ')}">
+            <f:link.action action="usersettingsShow" controller="Blogedit">
+                <f:translate key="LLL:{settings.langFile}:blogedit.menu.settings.user" />
+            </f:link.action>
+        </li>
+    </ul>
+     <div class="multiblog-edit-menu-spacer"></div>
+     <p>&nbsp;</p>
+     <p style="text-align: left; font-size: 80%; margin-top: 10px; margin-left:25px;">
+        multiblog 0.9.1</p>
+
+
+</div>
+
+
+

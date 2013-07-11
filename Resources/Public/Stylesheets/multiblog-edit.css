@@ -1,0 +1,328 @@
+/*************************************************************/
+/* general Styling */
+/*************************************************************/
+.clearafter:after { content: ''; display: block; clear: both; }
+
+#multiblog-edit {
+    font-family: Verdana,​Arial,​sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+    background: #fff url(images/multiblog-menu-bg.jpg) 100% 100% repeat-y; 
+    background-position: left;
+}
+
+.multiblog-edit-header {
+    height: 30px;
+    background-color: #999;
+    border-bottom: 1px solid #333;
+    width: 100%;
+    color: #ededed;
+    line-height: 30px;
+}
+
+/* Menu Styling ******************/
+.multiblog-edit-menu {
+    width: 160px;
+    xbackground: #ededed url(images/multiblog-menu-bg.jpg) 100% 100% repeat-y ; 
+    xbackground-color: #ededed;
+    height: 100%;
+    
+    float: left;
+}
+
+.multiblog-edit-menu ul {
+    line-height: 24px;
+}
+
+.multiblog-edit-menu ul li {
+    margin: 4px 0 4px 15px;
+    padding-left: 10px;
+    height: 24px;
+}
+
+.multiblog-edit-menu ul li.first {
+    font-size: 14px;
+    font-weight: bold;
+    color: #999;
+    margin-left: 5px;
+}
+
+.multiblog-edit-menu ul li.active{
+     background: #ededed url(images/multiblog-menu-activelg-bg.jpg) 100% 100% no-repeat; 
+}
+
+.multiblog-edit-menu ul li a:hover {
+   text-decoration: underline;
+}
+
+.multiblog-edit-menu ul li.active a{
+   color: #fff;
+}
+
+.multiblog-edit-menu ul li.on{
+   color: #800000;
+}
+
+.multiblog-edit-menu-spacer {
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 1px solid #f9f9f9;
+    width: 145px;
+}
+
+/* Stage Styling */
+.multiblog-edit-stage {
+margin-left: 20%;
+
+}
+.multiblog-edit-stage p {
+    text-align: left;
+}
+.multiblog-edit-stage h1 {
+    font-size: 21px;
+    margin: 20px 0 10px 0;
+    color: #cccccc;
+}
+
+
+/* List Styling */
+.multiblog-edit-list {
+    
+    width: 95%;
+}
+.multiblog-edit-list-header  {
+    background-color: #aaaaaa;
+}
+.multiblog-edit-list tr {
+    border: 1px solid #dfdfdf;
+}
+.multiblog-edit-list tr.odd {
+    background-color: #ededed;
+}
+
+.multiblog-edit-list td {
+    padding: 10px;
+}
+
+.multiblog-edit-list-smalltext {
+    font-size: 90%;
+}
+
+ .multiblog-edit-textlink a:hover  {
+    text-decoration: underline !important;
+    color: #800000;
+}
+
+
+/* paginator */
+
+ul.f3-widget-paginator li {
+    background-color: #ededed;
+    padding: 3px 8px;
+    border: 1px solid #999;
+    margin:  5px 0;
+}
+
+ul.f3-widget-paginator li.current {
+    background-color: #dfdfdf;
+    border: 1px solid #999;
+}
+
+
+
+/* Form Styling */
+.multiblog-edit-form-label {
+    display: block;
+    margin: 20px 0 5px 0;
+}
+
+.multiblog-edit-form-textfield {
+    width: 650px;
+    padding: 3px;
+}
+.multiblog-edit-form-textarea {
+    width: 650px;
+    padding: 3px;
+    font-family: Verdana,​Arial,​sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+        
+}
+
+.button-right {
+    float: right;
+    margin-right: 10px;
+}
+/* Genral Stylings */
+.hidden {
+    display: none;
+}
+
+/*Kategory Edit */
+.multiblog-edit-category-colleft{
+    width: 40%;
+    float: left;
+}
+
+.multiblog-edit-category-colright{
+    width: 30%;
+    float: left;
+    margin-left: 20%;
+}
+/*************************************************************/
+/* Edit Stage an Tabs */
+/*************************************************************/
+#multiblog .editStage {
+    position: relative; 
+    padding: .2em; 
+    font-family: Verdana,Arial,sans-serif; 
+    font-size: 1.1em;
+    border: 1px solid #aaaaaa;;
+    -moz-border-radius: 4px; 
+    -webkit-border-radius: 4px; 
+    -khtml-border-radius: 4px; 
+    border-radius: 4px;
+    background-color: #fff;
+    
+}
+
+#multiblog .editStage .content {
+    padding: 10px 10px 10px 20px;
+}
+
+
+
+.backToBlog {
+    float: right;
+    font-size: 10px;
+}
+
+#multiblog ul.submenu {
+    border-right: 1px solid #E8E8E8;
+    width: 150px;
+    float: left;
+    margin: 0 20px 0 -22px;
+    padding-left: 10px;
+}
+#multiblog ul.submenu li{
+    border-bottom: 1px dotted #E8E8E8;
+    padding: 5px;
+}
+
+#multiblog ul.submenu li.active{
+   background: #fff ; 
+   display: block;
+   font-weight: bold;
+}
+/*************************************************************/
+/* Table Styling */
+/*************************************************************/
+#multiblog .row {
+
+	padding-top:  10px;
+        padding-bottom: 10px;
+	line-height: 14px;
+	border-bottom: 1px solid #E8E8E8;
+
+}
+#multiblog .alignTop {
+     vertical-align: top;
+     line-height: 19px;
+}
+
+#multiblog .colDate {
+    width: 8%;
+    display: inline-block;
+     overflow: hidden;
+}
+
+#multiblog .colContent {
+    width: 40%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+#multiblog .colKat {
+    width: 20%;
+    display: inline-block;
+}
+#multiblog .colStatus {
+    width: 10%;
+    display: inline-block;
+}
+#multiblog .colNews {
+    width: 60%;
+    display: inline-block;
+    line-height: 19px;
+}
+/*************************************************************/
+/* Paginator */
+/*************************************************************/
+#multiblog ul {
+	list-style: none;
+}
+
+
+/*************************************************************/
+/* Settings Kategorie editieren */
+/*************************************************************/
+.settingsTextblock {
+    margin-left: 180px;
+    display: block;
+}
+
+
+#multiblog .kategorieEditList {
+    margin-left: 20px;
+    width: 300px;
+    float: left;
+}
+.kategorieEditRow {
+	padding-top:  10px;
+        padding-bottom: 10px;
+	line-height: 14px;
+	border-bottom: 1px solid #E8E8E8;
+}
+.kategorieEditTopKat {
+    width: 150px;
+}
+
+#multiblog .kategorieEditForm {
+    background-color: #F9F9F9;
+    padding: 15px;
+    width: 300px;
+    float: right;
+    border-left: 1px solid #E8E8E8;
+}
+
+.kategorieEditFormRow {
+	padding-top:  10px;
+        padding-bottom: 10px;
+	line-height: 14px;
+}
+.kategorieEditLabel {
+    margin: 5px 0;
+    display: block;
+}
+.kategorieEditInput {
+    width: 100%
+}
+.kategorieEditFormRow select {
+    width: 100%
+}
+/*************************************************************/
+/*  */
+/*************************************************************/
+.spacer {
+    margin-bottom: 18px!important;    
+}
+.spacer-small {
+    margin-bottom: 9px;    
+}
+.spacer-large {
+    margin-bottom: 36px;    
+}
+.clear {
+    clear: both;
+}

@@ -1,0 +1,74 @@
+<div class="multiblog-edit-stage clearafter">
+    <h1><f:translate key="LLL:{settings.langFile}:blogedit.widgets.header" /></h1>
+
+    <f:translate key="LLL:{settings.langFile}:blogedit.widgets.info" />
+    <br >
+    
+    <f:form method="post" controller="Blogedit" action="widgetsUpdate" name="blog" object="{blog}" enctype="multipart/form-data"  >
+        <table class="multiblog-edit-list">
+            <tr class="even">
+                <td>
+                    <f:form.checkbox property="widgetAboutBlog" value="1" checked="{blog.widgetAboutBlog} == 1" />
+                </td>
+                <td>
+                    <b><f:translate key="LLL:{settings.langFile}:blogedit.widgets.label.aboutblog" /></b>
+                    <br />
+                     <f:translate key="LLL:{settings.langFile}:blogedit.widgets.infotext.aboutblog" />
+                </td>
+            </tr>
+            <tr class="odd">
+                <td>
+                    <f:form.checkbox property="widgetRecentPost" value="1" checked="{blog.widgetRecentPost} == 1" />
+                </td>
+                <td>
+                    <b><f:translate key="LLL:{settings.langFile}:blogedit.widgets.label.recentpost" /></b>
+                    <br />
+                    <f:translate key="LLL:{settings.langFile}:blogedit.widgets.infotext.recentpost" />
+                </td>
+            </tr>
+            <tr class="even">
+                <td>
+                    <f:form.checkbox property="widgetCategory" value="1" checked="{blog.widgetCategory} == 1" />
+                </td>
+                <td>
+                    <b><f:translate key="LLL:{settings.langFile}:blogedit.widgets.label.category" /></b>
+                    <br />
+                     <f:translate key="LLL:{settings.langFile}:blogedit.widgets.infotext.category" />
+                </td>
+            </tr>
+            <tr class="odd">
+                <td>
+                    <f:form.checkbox property="widgetComments" value="1" checked="{blog.widgetComments} == 1" />
+                </td>
+                <td>
+                    <b><f:translate key="LLL:{settings.langFile}:blogedit.widgets.label.comments" /></b>
+                    <br />
+                    <f:translate key="LLL:{settings.langFile}:blogedit.widgets.infotext.comments" />
+                </td>
+            </tr>
+            <tr class="even">
+                <td>
+                    <f:form.checkbox property="widgetAllPosts" value="1" checked="{blog.widgetAllPosts} == 1" />
+                </td>
+                <td>
+                    <b><f:translate key="LLL:{settings.langFile}:blogedit.widgets.label.allposts" /></b>
+                    <br />
+                     <f:translate key="LLL:{settings.langFile}:blogedit.widgets.infotext.allposts" />
+                </td>
+            </tr>
+        </table> 
+        
+        
+
+        <div class="kategorieEditFormRow">
+            <f:form.submit class="submit button-left" value="{f:translate(key:'blogedit.button.updatewidgets')}"/>
+        </div>
+    </f:form>   
+
+
+
+
+</div>
+
+
+

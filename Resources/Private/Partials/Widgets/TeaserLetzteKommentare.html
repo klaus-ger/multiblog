@@ -1,0 +1,30 @@
+<!-- Widget Template neue Kommentare
+*    Ext: Multiblog
+-->
+
+
+<div class="multiblog_widget">
+
+    <div class="multiblog_widgetheader">
+        <f:translate key="LLL:{settings.langFile}:widget.Comments.Header" />
+    </div>
+    <div class="multiblog_widgetcontent"> 
+        <f:for each="{teasercomments}" as="teasercomment">
+
+            <div class="multiblog_widgetLastComment_subhead">
+                {teasercomment.commentname} <f:translate key="LLL:{settings.langFile}:widget.Comments.Text" /> <f:format.date format="d.m.Y">{teasercomment.commentdate}</f:format.date>
+            </div>
+
+            <div class="multiblog_widgetLastComment_head">
+                {teasercomment.commenttitel}
+            </div>	
+
+            <div class="multiblog_widgetLastComment_text">
+                <f:format.crop maxCharacters="70" append="&nbsp;...">{teasercomment.commenttext}</f:format.crop>
+                <f:link.action action="showSingleEntry" controller="Entry" arguments="{blogid: teasercomment.blogid, uid: teasercomment.entryid}"><em> [mehr]</em></f:link.action>
+
+            </div>	
+
+        </f:for>
+    </div>
+</div>

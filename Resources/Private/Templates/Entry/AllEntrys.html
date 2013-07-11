@@ -1,0 +1,79 @@
+<!-- Template für All Article View
+*    Ext: Multiblog
+-->
+<div id="multiblog">
+
+    <div id="multiblogindex_maincolumn">
+
+        <div class="multiblogindex_blogtitel">
+            <f:if condition="{blogs.blogbild}">
+            <f:image src="uploads/multiblog/blogbilder/{blogs.blogbild}" alt="profilbild" width="20px"/>
+            </f:if>
+            <f:link.action action="index" controller="Entry" arguments="{bloguid: blogs.uid}">{blogs.blogtitel}</f:link.action>
+        </div>
+        Alle Blogeinträge in der Übersicht.
+
+        <!-- Blog header --------------------------------------->
+
+
+
+        <div class="multiblogindex_entryheader">
+
+            <div class="multiblog_paginator">
+                
+                <f:widget.paginate objects="{entrys}" as="userentrys"  configuration="{itemsPerPage: 35, insertAbove: 0, insertBelow: 1}">
+                    <br class="clear-all">
+                    </div>
+                    </div>
+                    <br />
+                    <f:for each="{userentrys}" as="entry">
+                        <!--Blogtitel--->
+                        <div class="multiblogindex_titel">
+                            <f:link.action action="index" controller="Entry" arguments="{bloguid: entry.blogid, uid: entry.uid}">
+                                <h2>{entry.entrytitel}</h2>
+                            </f:link.action>
+                        </div>
+
+                        <!-- Blog Teasertext --->	
+                        <div class="">
+                            <f:format.html>{entry.entryanleser}</f:format.html>
+                            <p><f:link.action action="index" controller="Entry" arguments="{bloguid: entry.blogid, uid: entry.uid}"><em> [weiterlesen ... ]</em></f:link.action>
+                            </p>
+                        </div> 
+
+
+                        <!-- Blog Footer -->
+                        <div class="multiblogindex_entryKatViewFooter">
+                            <p>Geschrieben am: <f:format.date format="d.m.Y">{entry.entrydate}</f:format.date> |
+                            Einsortiert in:   		<f:if condition="{entry.entrykategorie1.uid} > 1">
+                                {entry.entrykategorie1.kategorie}
+                            </f:if>
+
+                            <f:if condition="{entry.entrykategorie2.uid} > 1">
+                                ,&nbsp;{entry.entrykategorie2.kategorie}
+                            </f:if>
+                            <f:if condition="{entry.entrykategorie3.uid} > 1">
+                                ,&nbsp;{entry.entrykategorie3.kategorie}
+                            </f:if>
+                            <f:if condition="{entry.entrykategorie4.uid} > 1">
+                                ,&nbsp;{entry.entrykategorie4.kategorie}
+                            </f:if>
+
+
+
+                            </p>
+                        </div>
+
+
+
+
+                    </f:for>	
+
+                </f:widget.paginate>
+            </div> <!-- end maincolun -->
+
+    <div id="multiblogindex_rightcolumn">    
+        <f:render partial="Rightcolumn" arguments="{_all}"/>
+    </div> <!-- End rightcolumn -->
+
+        </div>

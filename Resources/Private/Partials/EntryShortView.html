@@ -1,0 +1,44 @@
+<div class="multiblog-post clearafter">
+                
+            <f:if condition="{blog.blogstyleTeaserimages}">
+                <div class="multiblog-thumb">
+                    <f:image src="typo3conf/ext/multiblog/Resources/Public/Stylesheets/images/clear.gif" width="200" height="10" alt="My Image" />
+                    <f:if condition="{entry.entrypicture}">
+                        <f:image src="uploads/multiblog/{entry.entrypicture}" width="200"  alt="My Image" class="multiblog-thumb-image"/>
+                    </f:if>
+                    
+                </div>
+            </f:if>
+                
+            <div class="{f:if(condition: '{0:blog.blogstyleTeaserimages} == {0:"1"}', then: ' multiblog-entry-thumb', else: ' ')}">
+     
+                
+            <div class="multiblogindex_titel">
+                <h2>{entry.entrytitel}</h2>
+            </div>
+            <div class="multiblogindex_entryfooter">  	      
+                <p><f:translate key="LLL:{settings.langFile}:post.DateText" />&nbsp;<f:format.date format="d.m.Y">{entry.entrydate}</f:format.date>&nbsp;
+                <f:translate key="LLL:{settings.langFile}:post.CategoryText" /> 		<f:if condition="{entry.entrykategorie1.uid} > 1">
+                    {entry.entrykategorie1.kategorie}
+                </f:if>
+
+                <f:if condition="{entry.entrykategorie2.uid} > 1">
+                    &nbsp;|&nbsp; {entry.entrykategorie2.kategorie}
+                </f:if>
+                <f:if condition="{entry.entrykategorie3.uid} > 1">
+                    &nbsp;|&nbsp; {entry.entrykategorie3.kategorie}
+                </f:if>
+                <f:if condition="{entry.entrykategorie4.uid} > 1">
+                    &nbsp;|&nbsp; {entry.entrykategorie4.kategorie}
+                </f:if>
+                </p>	
+            </div>
+
+            <div class="multiblogentry">
+                <p><f:format.html>{entry.entryanleser}</f:format.html></p>
+            </div>
+                <f:link.action action="showSingleEntry" arguments="{uid: entry.uid, blogid: blog.uid}" class="button button-right">
+                <f:translate key="LLL:{settings.langFile}:post.readmore" />
+            </f:link.action>
+                 </div>
+            </div>

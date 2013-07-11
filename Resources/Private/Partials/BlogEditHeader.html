@@ -1,0 +1,29 @@
+<!-- Sub Template für blogEdit Header 
+*    Ext: Gentleblog
+-->
+<f:for each="{blogs}" as="blog">
+	<div class="gentleblogindex_blogtitel">
+		
+			<f:image src="uploads/multiblog/blogbilder/{blog.blogbild}" alt="profilbild" width="20px"/>
+			{blog.blogtitel}
+			
+		
+	</div>
+	
+
+<div class="gentleblogindex_entryheader">
+	
+      <f:link.action action="blogEditIndex" controller="Entry" additionalParams="{tx_gentleblog_blogedit:{blogid: '{blog.uid}'}}">
+       Artikel 
+     </f:link.action>
+     
+     	&nbsp;&nbsp;|&nbsp;&nbsp;
+     <f:link.action action="commentEditIndex" controller="Comment" additionalParams="{tx_gentleblog_blogedit:{blogid: '{blog.uid}'}}">
+       Kommentare 
+     </f:link.action>
+
+	   &nbsp;&nbsp;|&nbsp;&nbsp;Kategorien&nbsp;&nbsp; |&nbsp;&nbsp; Blog Einstellungen
+
+	<br class="clear-all">
+</div>
+</f:for>

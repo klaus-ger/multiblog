@@ -1,0 +1,55 @@
+{namespace meineExt=Tx_Gentleblog_ViewHelpers}
+<!-- Sub Template für blogEdit Header 
+*    Ext: Gentleblog
+-->
+<h2><f:translate key="LLL:{settings.langFile}:blogedit.commentedit.header" /></h2>
+
+  
+
+<f:form method="post" controller="Blogedit" action="commentUpdate" name="comment" object="{comment}" enctype="multipart/form-data" onsubmit="rteMove()" >
+	
+	
+	<div class="multiblogEditEntry_hidden">
+		
+		<f:form.textfield property="uid" /><br />
+	</div>
+	
+	<p>
+	<f:translate key="LLL:{settings.langFile}:blogedit.commentedit.status" />
+	<f:form.radio property="commentproved" value="1" /> <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.status.online" /> &nbsp;&nbsp;
+	<f:form.radio property="commentproved" value="0" /> <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.status.hidden" />
+	</p>
+	<br />
+	<p>{comment.commentname} ({comment.commentmail}) <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.writeon" /> <f:format.date format="d.m.Y">{comment.commentdate}</f:format.date> <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.toentry" /> <br />
+	    <b>{comment.entryid.entrytitel}</b>
+	</p>
+	<br />
+	<div class="multiblogEditEntry_label">
+            <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.entry.title" /> <br />
+	</div>
+	
+	<f:form.textfield property="commenttitel" class="blogedit-titel" /><br />
+	
+	<div class="multiblogEditEntry_label">
+            <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.entry.comment" /><br />
+	</div>
+	
+	<f:form.textarea property="commenttext" class="blogedit-anleser" id="tx-blogexample-content" rows="10" cols="90"><textarea id="tx-blogexample-content" rows="10" cols="90" /></f:form.textarea>
+	<br />
+
+
+	<div class="multiblogEditEntry_label">
+            <f:translate key="LLL:{settings.langFile}:blogedit.commentedit.entry.reply" /><br />
+	</div>
+
+<f:form.textarea id="editor" rows="5" cols="40" property="commentreply" rows="10" cols="90" value="{comment.commentreply}" />
+	
+
+<div style ="clear: both;"></div>
+
+<br /><br /><hr /><br />
+
+        <input type="button" class="button" value="{f:translate(key:'blogedit.button.cancel')}" name="back_button" onClick="javascript:history.back(1)" />
+	
+	<f:form.submit class="submit button button-left" value="{f:translate(key:'blogedit.button.commentupdate')}"/>
+</f:form>

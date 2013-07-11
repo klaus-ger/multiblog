@@ -1,0 +1,83 @@
+
+{namespace meineExt=Tx_Gentleblog_ViewHelpers}
+{namespace vhe = Tx_Fluid_ViewHelpers_Form}
+
+<div id="gentleblogEditEntry">
+	
+	
+	<f:render partial="BlogEditHeader" arguments="{blogs: blogs}"/>
+
+
+
+<div class="gentleblogEditIndex_header">
+	Neuen Artikel anlegen: 
+</div>
+
+
+
+		
+<f:script>	
+<f:form method="post" controller="Entry" action="create" name="newEntry" object="{newEntry}" enctype="multipart/form-data" onsubmit="rteMove()" >
+	
+	
+	<div class="gentleblogEditEntry_hidden">
+		
+		<f:form.textfield property="blogid" /><br />
+		<f:form.textfield property="entrystatus" /><br />
+	</div>
+	
+	<p>
+	Artikel Status: 
+	<f:form.radio property="entrystatus" value="1" /> Online &nbsp;&nbsp;
+	<f:form.radio property="entrystatus" value="0" /> Entwurf
+	</p>
+	
+	
+	<div class="gentleblogEditEntry_label">
+		Titel: <br />
+	</div>
+	
+	
+	<f:form.textfield property="entrytitel" class="gentleblogEditEntry_titelfield" value="{entry.entrytitel}"/><br />
+	
+	<div class="gentleblogEditEntry_label">
+		Anleser:<br />
+	</div>
+	
+	<f:form.textarea property="entryanleser" class="gentleblogEditEntry_anleserfield" id="tx-blogexample-content" rows="10" cols="90"><textarea id="tx-blogexample-content" rows="10" cols="90" /></f:form.textarea>
+	<br />
+
+
+	<div class="gentleblogEditEntry_label">
+		Beitrag: <br />
+	</div>
+
+<f:form.rte name="entrytext" rows="5" cols="40" property="entrytext" rows="5" cols="40" value="{entry.entrytext}" />
+	
+	<div class="gentleblogEditEntry_label">
+		Kategorien: <br />
+
+	</div>
+<f:form.select property="entrykategorie1" id="tx-blogexample-author" options="{kategorie}" optionLabelField="kategorie" sortByOptionLabel="kategorie"/>
+<f:form.select property="entrykategorie2" id="tx-blogexample-author" options="{kategorie}" optionLabelField="kategorie" sortByOptionLabel="kategorie"/>
+
+<f:form.select property="entrykategorie3" id="tx-blogexample-author" options="{kategorie}" optionLabelField="kategorie"><select id="tx-blogexample-author"><option>dummy</option></select></f:form.select>
+
+<f:form.select property="entrykategorie4" id="tx-blogexample-author" options="{kategorie}" optionLabelField="kategorie" sortByOptionLabel="kategorie"/>
+
+<br /><br />
+	<f:form.submit class="submit" value="Beitrag aktualisieren"/>
+</f:form>
+
+</f:script>
+
+
+
+
+<!---Änderungsformular --->
+	
+
+
+</div> <!-- end maincolun -->
+
+

@@ -1,0 +1,20 @@
+<!-- Widget Template für Alle Artikel
+*    Ext: Multiblog
+-->
+
+
+<div class="multiblog_widget">
+
+    <div class="multiblog_widgetheader">
+        <f:translate key="LLL:{settings.langFile}:widget.AllArticles.Header" />
+    </div>
+
+
+    <f:link.action action="allEntrys" controller="Entry" arguments="{blogid: blog.uid}">
+
+        <div class="teaserKatSubkat">
+            » <f:translate key="LLL:{settings.langFile}:widget.AllArticles.LinkText" />
+        </div>
+    </f:link.action>
+
+</div>

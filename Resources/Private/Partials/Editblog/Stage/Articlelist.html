@@ -1,0 +1,61 @@
+<div class="multiblog-edit-stage clearafter">
+<h1><f:translate key="LLL:{settings.langFile}:blogedit.articlelist.header" /></h1>
+<f:widget.paginate objects="{entrys}" as="userentrys"  configuration="{itemsPerPage: 10, insertAbove: 1, insertBelow: 0}">
+
+    <table class="multiblog-edit-list">
+        <tr class="multiblog-edit-list-header">
+            <td>
+                <f:translate key="LLL:{settings.langFile}:blogedit.articlelist.article" />  
+            </td>
+            <td>
+                <f:translate key="LLL:{settings.langFile}:blogedit.articlelist.category" />
+            </td>
+            <td>
+                <f:translate key="LLL:{settings.langFile}:blogedit.articlelist.status" />
+            </td>
+            <td>
+                <f:translate key="LLL:{settings.langFile}:blogedit.articlelist.date" />
+            </td>
+        </tr>
+
+        <f:for each="{userentrys}" as="entry">
+            <f:cycle values="{0: 'even', 1: 'odd'}" as="cycle">
+                     
+            <tr class="{cycle}">
+            <td class="multiblog-edit-textlink">
+                <f:link.action action="artikelEdit" arguments="{singleEntry: entry.uid}" class="multiblog-edit-textlink">
+                       <f:format.crop maxCharacters="50" append="&nbsp;...">{entry.entrytitel}</f:format.crop>
+                </f:link.action>
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="30%">
+            <f:format.crop maxCharacters="30" append="&nbsp;..."><f:if condition="{entry.entrykategorie1.uid} > 1">{entry.entrykategorie1.kategorie}</f:if><f:if condition="{entry.entrykategorie2.uid} > 1">, {entry.entrykategorie2.kategorie}</f:if><f:if condition="{entry.entrykategorie3.uid} > 1">, {entry.entrykategorie3.kategorie}</f:if><f:if condition="{entry.entrykategorie4.uid} > 1">, {entry.entrykategorie4.kategorie}</f:if></f:format.crop>
+            
+            
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="10%">
+            <f:if condition="{entry.entrystatus}">
+                <f:then>
+                    <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.online" />
+                </f:then>
+                <f:else>
+                    <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.draft" />
+                </f:else>
+            </f:if>
+            </td>
+            <td class="multiblog-edit-list-smalltext" width="12%">
+            <f:format.date format="d.m.Y">{entry.entrydate}</f:format.date>
+            </td>
+            </tr>  
+
+            </f:cycle>
+        </f:for>
+
+    </table>
+</f:widget.paginate>
+<p style="text-align: left; font-size: 80%; margin-top: 10px;">
+    <f:translate key="LLL:{settings.langFile}:blogedit.articlelist.info" />
+</p>
+</div>
+
+
+
