@@ -35,7 +35,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
                           commentEdit, commentUpdate,
                           widgetsShow, widgetsUpdate, blogstyleShow, blogstyleUpdate,
                           usersettingsShow, usersettingsUpdate,
-                          manualIndex, loginfailed',
+                          manualIndex, login',
             
            'Comment'  => 'commentEditIndex,commentEdit,update,create',
            'Blognews' => 'einstellungen, news'
@@ -46,7 +46,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
                           commentsShowAll, commentsDelete, commentsShowNew,
                           commentEdit, commentUpdate,
                           widgetsShow, widgetsUpdate, blogstyleShow, blogstyleUpdate,
-                          usersettingsShow, usersettingsUpdate',
+                          usersettingsShow, usersettingsUpdate, login',
 	   'Comment'  => 'commentEditIndex,commentEdit,update,create',
            'Blognews' => 'einstellungen, news'
             )

@@ -188,9 +188,9 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         }
 
         //Check is already a sticky post exist and set it to sticky = 0
-        if($entry['entrysticky'] == '1') {
+        if ($entry['entrysticky'] == '1') {
             $stickyEntry = $this->entryRepository->findStickyPost($blogid);
-            if($stickyEntry[0]) {
+            if ($stickyEntry[0]) {
                 $stickyEntry[0]->setEntrysticky('0');
                 $this->entryRepository->update($stickyEntry[0]);
             }
@@ -212,6 +212,7 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         $updateEntry->setEntrypictureposition($entry['entrypictureposition']);
         $updateEntry->setEntrydate($entry['entrydate']);
         $updateEntry->setEntrysticky($entry['entrysticky']);
+        $updateEntry->setEntrycommentoption($entry['entrycommentoption']);
 
 
 
@@ -311,16 +312,16 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         if ($entry['entrypicturedelete'] == 1) {
             $entrypicture = NULL;
         }
-        
+
         //Check is already a sticky post exist and set it to sticky = 0
-        if($entry['entrysticky'] == '1') {
+        if ($entry['entrysticky'] == '1') {
             $stickyEntry = $this->entryRepository->findStickyPost($blogid);
-            if($stickyEntry[0]) {
+            if ($stickyEntry[0]) {
                 $stickyEntry[0]->setEntrysticky('0');
                 $this->entryRepository->update($stickyEntry[0]);
             }
         }
-        
+
         // Loads the original entry an set the array to objects, 
         // we do this in reason of the new property mapping in 6.1 versus 4.5 / 4.7
         // it's silly - I know this :)
@@ -338,6 +339,7 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         $newEntry->setEntrypicture($entrypicture);
         $newEntry->setEntrypictureposition($entry['entrypictureposition']);
         $newEntry->setEntrydate($entry['entrydate']);
+        $updateEntry->setEntrycommentoption($entry['entrycommentoption']);
 
         $newEntry->setPid('11');
 
@@ -377,8 +379,7 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         $this->view->assign('menu', 'newcomments');
         $this->view->assign('comments', $comments);
     }
-    
-    
+
     /**
      * Shows a single Kommentar for editing 
      * 
@@ -423,8 +424,8 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         $this->commentRepository->remove($comment);
         $this->redirect('commentsShowAll');
     }
-    
-  public function kategoryShowAction() {
+
+    public function kategoryShowAction() {
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
         $newKat = new Tx_Multiblog_Domain_Model_Kategorie;
@@ -451,6 +452,7 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
 
         $this->redirect('kategoryShow');
     }
+
     /**
      * Shows the Widgetpage
      * 
@@ -459,24 +461,24 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
         $this->view->assign('blog', $this->blogRepository->findByUid($blogUid));
-        
+
 
         $this->view->assign('menu', 'widgets');
         $this->view->assign('main-menu', 'settings');
     }
-    
+
     /**
      * update the widgets setting
      * 
      */
     public function widgetsUpdateAction(Tx_Multiblog_Domain_Model_Blog $blog) {
-        
+       
         $this->blogRepository->update($blog);
-        
-        $this->redirect('widgetsShow');   
+
+        $this->redirect('widgetsShow');
     }
 
-     /**
+    /**
      * Shows the Blogstylepage
      * 
      */
@@ -484,11 +486,11 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
         $this->view->assign('blog', $this->blogRepository->findByUid($blogUid));
-        
+
 
         $this->view->assign('menu', 'blogstyle');
         $this->view->assign('main-menu', 'settings');
-    }   
+    }
 
     /**
      * update the widgets setting
@@ -497,10 +499,10 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
     public function blogstyleUpdateAction(Tx_Multiblog_Domain_Model_Blog $blog) {
         $this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
         $this->blogRepository->update($blog);
-        
-        $this->redirect('blogstyleShow');   
+
+        $this->redirect('blogstyleShow');
     }
-    
+
     /**
      * Shows the User Settings
      * 
@@ -509,23 +511,23 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
         $this->view->assign('blog', $this->blogRepository->findByUid($blogUid));
-        
+
 
         $this->view->assign('menu', 'usersettings');
         $this->view->assign('main-menu', 'settings');
     }
-    
+
     /**
      * update the widgets setting
      * 
      */
     public function usersettingsUpdateAction(Tx_Multiblog_Domain_Model_Blog $blog) {
-        
+
         $this->blogRepository->update($blog);
-        
-        $this->redirect('usersettingsShow');   
-    }   
-    
+
+        $this->redirect('usersettingsShow');
+    }
+
     /**
      * Finds the BlogUid by Logged In FE User
      * 
@@ -539,7 +541,7 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
             $blogUid = $blog[0]->getUid();
             return $blogUid;
         } else {
-            $this->redirect('loginfailed');
+            $this->redirect('login');
         }
     }
 
@@ -547,9 +549,34 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
      * if the login is dated out
      */
 
-    public function loginfailedAction() {
+    public function loginAction() {
+        $user = $GLOBALS['TSFE']->fe_user->user;
+        //Tx_Extbase_Utility_Debugger::var_dump($user);
+        if ($user['uid'] == '') {
+            if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'])) {
+                $_params = array();
+                foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'] as $funcRef) {
+                    list($onSub, $hid) = t3lib_div::callUserFunction($funcRef, $_params, $this);
+                    $onSubmitAr[] = $onSub;
+                    $extraHiddenAr[] = $hid;
+                }
+            }
 
-        $this->view->assign();
+            if (count($onSubmitAr)) {
+                $onSubmit = implode('; ', $onSubmitAr) . '; return true;';
+            }
+
+            if (count($extraHiddenAr)) {
+                $extraHidden = implode(LF, $extraHiddenAr);
+            }
+            
+            $this->view->assign('storagePid', $this->settings['storagePid']);
+            $this->view->assign('onSubmit', $onSubmit);
+            $this->view->assign('extraHidden', $extraHidden);
+            $this->view->assign('currentPid', t3lib_div::_GP('id'));
+        } else {
+            $this->redirect('index');
+        }
     }
 
 }

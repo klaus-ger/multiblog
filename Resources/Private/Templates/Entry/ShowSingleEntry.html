@@ -120,10 +120,10 @@
 
             </div>
 
-
-
-            <f:render partial="CommentEntry" arguments="{comments: comments, entry: entry, blogs: blogs, newComment: newComment}"/>
-
+            <f:if condition="{entry.entrycommentoption}">
+                <f:render partial="CommentEntry" arguments="{comments: comments, entry: entry, blogs: blogs, newComment: newComment}"/>
+            </f:if>
+            
     </div> <!-- end maincolun -->
 
     <div id="multiblogindex_rightcolumn">    

@@ -24,8 +24,8 @@ plugin.tx_multiblog {
             viewAllBlogsUid  = {$plugin.tx_multiblog.settings.viewAllBlogsUid}
             viewSingleBlogUid= {$plugin.tx_multiblog.settings.viewSingleBlogUid}
             viewEditBlogUid  = {$plugin.tx_multiblog.settings.viewEditBlogUid}
-            CSSFile          = {$plugin.tx_multiblog.settings.CSSFile}
             singleBlog       = {$plugin.tx_multiblog.settings.singleBlog}
+            CSSCustomer      = {$plugin.tx_multiblog.settings.csscustomer}
         }
 }
 
@@ -33,9 +33,11 @@ plugin.tx_multiblog {
 page.includeCSS {
    
     tx_multiblog_file_1 = EXT:multiblog/Resources/Public/Stylesheets/smoothness/jquery-ui-1.9.2.custom.css
-    tx_multiblog_file_2 = EXT:multiblog/Resources/Public/Stylesheets/{$plugin.tx_multiblog.settings.CSSFile}
+    tx_multiblog_file_2 = EXT:multiblog/Resources/Public/Stylesheets/multiblog-responsive.css
     tx_multiblog_file_3 = EXT:multiblog/Resources/Public/JavaScript/CLEditor/jquery.cleditor.css
     tx_multiblog_file_4 = EXT:multiblog/Resources/Public/Stylesheets/multiblog-edit.css
+    tx_multiblog_file_5 = {$plugin.tx_multiblog.settings.csscustomer}
+        
 }
 
 page.includeJSFooter {

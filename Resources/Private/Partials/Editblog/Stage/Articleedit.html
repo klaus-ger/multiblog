@@ -97,7 +97,12 @@
         </f:if>
 
         <div style ="clear: both;"></div>
-
+        
+        <p class="blogedit-status">
+        <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.allowcomments" /> 
+        <f:form.checkbox property="entrycommentoption" value="1"  checked="{entry.entrycommentoption} == 1 "/>
+        </p>
+        
         <br /><br /><hr /><br />
 
         <input type="button" class="button" value="{f:translate(key:'blogedit.button.cancel')}" name="back_button" onClick="javascript:history.back(1)" />

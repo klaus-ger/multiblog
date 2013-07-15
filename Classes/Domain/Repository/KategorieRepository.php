@@ -21,7 +21,7 @@ class Tx_Multiblog_Domain_Repository_KategorieRepository extends Tx_Extbase_Pers
                                         $query->greaterThan('uid', '1')
                                 )
                         )
-                        //->setOrderings(Array('isOnline' => Tx_Extbase_Persistence_Query::ORDER_DESCENDING))
+                        ->setOrderings(Array('kategorie' => Tx_Extbase_Persistence_Query::ORDER_ASCENDING))
                         //-> setLimit (10)
                         ->execute();
     }

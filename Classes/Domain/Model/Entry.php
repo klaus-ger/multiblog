@@ -124,6 +124,14 @@ class Tx_Multiblog_Domain_Model_Entry extends Tx_Extbase_DomainObject_AbstractEn
      */
     protected $entrysticky;
     
+        
+    /**
+     * The Entry Comment Option
+     * @var int
+     * 
+     */
+    protected $entrycommentoption;
+    
     
     public function __construct() {
         $this->entrydate = new DateTime();
@@ -318,6 +326,17 @@ class Tx_Multiblog_Domain_Model_Entry extends Tx_Extbase_DomainObject_AbstractEn
         $this->entrysticky = $entrysticky;
     }
 
+        /**
+     *
+     * Sets the entrycommentoption
+     * @param int $entrycommentoption 
+     * @return void
+     *
+     */
+    Public Function setEntrycommentoption($entrycommentoption) {
+        $this->entrycommentoption = $entrycommentoption;
+    }
+    
     /** GETTERS *************************** */
     /**
      *
@@ -474,6 +493,16 @@ class Tx_Multiblog_Domain_Model_Entry extends Tx_Extbase_DomainObject_AbstractEn
      */
     Public Function getEntrysticky() {
         Return $this->entrysticky;
+    }
+    
+        /**
+     *
+     * Gets the entrycommentoption
+     * @return int entrycommentoption
+     *
+     */
+    Public Function getEntrycommentoption() {
+        Return $this->entrycommentoption;
     }
 }
 

@@ -64,7 +64,8 @@ CREATE TABLE tx_multiblog_domain_model_entry (
  	entrykategorie4 int(11) DEFAULT '1' NOT NULL,
  	entrydate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
 	entrystatus INT(11) UNSIGNED DEFAULT '0' NOT NULL,
-        entrysticky INT(11) UNSIGNED DEFAULT '0' NOT NULL,  
+        entrysticky INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+        entrycommentoption INT(3) UNSIGNED DEFAULT '1' NOT NULL,  
 
 
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,

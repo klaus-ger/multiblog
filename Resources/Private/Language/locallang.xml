@@ -15,6 +15,8 @@
             <label index="widget.Comments.Header">Recent Comments</label>
             <label index="widget.Comments.Text">posted on</label>
             <label index="widget.AboutBlog.Header">About this Blog</label>
+            <label index="widget.Meta.Header">Meta</label>
+            <label index="widget.Meta.Linktext">» Blog edit</label>
             
             <label index="post.DateText">Posted on:</label>
             <label index="post.CategoryText">Categories: </label>
@@ -33,6 +35,7 @@
             <label index="comments.form.placeholder.email">Your email, not visible!</label>
             <label index="comments.form.placeholder.title">comment title</label>
             
+            <label index="login.Header">Please login for editing: </label>
             
             <label index="blogedit.menu.article">Articles</label>
             <label index="blogedit.menu.article.all">All Articles</label>
@@ -70,6 +73,7 @@
             <label index="blogedit.articleedit.imagepositionright">right</label>
             <label index="blogedit.articleedit.imagepositionbottom">bottom</label>
             <label index="blogedit.articleedit.imageremove">Delete Image: </label>
+            <label index="blogedit.articleedit.allowcomments">Allow Comments: </label>
             <label index="blogedit.articlecreate.header">Create new Article</label>
             
             <label index="blogedit.category.header">Category List</label>
@@ -144,6 +148,9 @@
             <label index="widget.NewArticle.Category">Kategorie</label>
             <label index="widget.Comments.Header">Neue Kommentare</label>
             <label index="widget.Comments.Text">schrieb am</label>
+            <label index="widget.AboutBlog.Header">Über diesen Blog</label>
+            <label index="widget.Meta.Header">Meta</label>
+            <label index="widget.Meta.Linktext">» Blog editieren</label>
             
             <label index="post.DateText">Geschrieben am:</label>
             <label index="post.CategoryText">Einsortiert in:</label>
@@ -162,6 +169,8 @@
             <label index="comments.form.placeholder.name">Name</label>
             <label index="comments.form.placeholder.email">email, wird nicht veröffentlicht!</label>
             <label index="comments.form.placeholder.title">Kommentartitel</label>
+            
+            <label index="login.Header">Bitte für die Bearbeitung einloggen: </label>
             
             <label index="blogedit.menu.article">Artikel</label>
             <label index="blogedit.menu.comments">Kommentare</label>
@@ -189,6 +198,7 @@
             <label index="blogedit.articleedit.imagepositionright">rechts</label>
             <label index="blogedit.articleedit.imagepositionbottom">unten</label>
             <label index="blogedit.articleedit.imageremove">Bild löschen: </label>
+            <label index="blogedit.articleedit.allowcomments">Kommentarfunktion aktivieren: </label>
             <label index="blogedit.articlecreate.header">Neuen Artikel erstellen</label>
             
             <label index="blogedit.commentlist.header">Kommentar Übersicht</label>

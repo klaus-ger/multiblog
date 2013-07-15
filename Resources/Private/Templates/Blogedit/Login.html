@@ -1,0 +1,44 @@
+
+<!-- Blog Edit Main Template -->
+
+<div id="multiblog">
+    <div class="editStage">
+        
+       
+                    <form class="login"
+                  action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}"
+                  method="post" onsubmit="{onSubmit}">
+                
+                        <h2><f:translate key="LLL:{settings.langFile}:login.Header" /></h2>
+                    <ptextbase:flashMessages renderMode="div"
+                                             messageCssClasses="{0: 'alert alert-success', 1: 'alert alert-warning', 2: 'alert alert-error'}"/>
+
+
+                    <input class="multiblogindex_commentformfield" type="text" id="user" name="user"  placeholder="BENUTZERNAME"/>
+
+                    <input class="multiblogindex_commentformfield" type="password" id="pass" name="pass"  placeholder="PASSWORD"/><br />
+
+
+                    
+                        <input class="button" id="button" type="submit" name="submit" value="OK"/>
+                    
+
+                    <div class="felogin-hidden">
+                        <input type="hidden" name="logintype" value="login"/>
+                        <input type="hidden" name="id" value="{currentPid}"/>
+                        <input type="hidden" name="redirect_url" value="{currentPid}"/>
+                        <input type="hidden" name="pid" value="{storagePid}"/>
+                        <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
+                    </div>
+                
+            </form>  
+        
+    </div>
+    <div class="spacer-large"></div>  
+
+</div>    
+  
+
+   
+
+
