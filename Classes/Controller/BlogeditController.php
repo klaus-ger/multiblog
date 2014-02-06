@@ -341,7 +341,7 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
         $newEntry->setEntrydate($entry['entrydate']);
         $updateEntry->setEntrycommentoption($entry['entrycommentoption']);
 
-        $newEntry->setPid('11');
+        $newEntry->setPid($this->settings['storagePid');
 
         //Tx_Extbase_Utility_Debugger::var_dump($entry);
         //$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
