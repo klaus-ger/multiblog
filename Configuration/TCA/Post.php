@@ -283,6 +283,7 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                 'size' => 30
             ),
         ),
+       
     ),
 );
 ?>
