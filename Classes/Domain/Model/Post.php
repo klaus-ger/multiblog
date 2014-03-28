@@ -92,6 +92,22 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $postcommentoption;
     
+        /**
+     * SEO Description
+     *
+     * @var \string
+     * 
+     */
+    protected $postseodescription;
+    
+        /**
+     * Link for real URL
+     *
+     * @var \string
+     * 
+     */
+    protected $postlink;
+    
             /**
          * Image
          * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
@@ -115,7 +131,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * __construct
 	 *
-	 * @return Abonement
+	 * @return Category
 	 */
 	public function __construct() {
 		//Do not remove the next line: It would break the functionality

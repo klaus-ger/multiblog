@@ -10,26 +10,31 @@ $TCA['tx_multiblog_domain_model_post'] = array(
         'showRecordFieldList' => 'posttitel, poststicky,category',
     ),
     'types' => array(
-        '1' => array('showitem' => '--div--;Entry;;;1-1-1, 
+        '1' => array('showitem' => '--div--;Post;;;1-1-1, 
                                     blogid,
                                     posttitel,
-                                    poststicky,
+                                    
                                     postdate,
-                                    poststatus,
-                                    postcommentoption,
-                                    --div--;Content;;;1-1-1, 
+                                    --palette--;Settings;post,
+                                    
+                                    --div--;Teaser;;;1-1-1,
                                     postintro,
                                     image,
-                                    files,
-                                    postcontent,
-                                    --div--;Image;;;1-1-1,
                                     
-                                    postpicture,
-                                    --div--;Meta;;;1-1-1,
-                                    category'),
+                                    
+                                    --div--;Content;;;1-1-1, 
+                                    postcontent,
+                                    
+                                    --div--;Post Meta;;;1-1-1,
+                                    category,
+                                    
+                                    --div--;SEO Options;;;1-1-1,
+                                    postlink,
+                                    postseodescription'),
     ),
     'palettes' => array(
         '1' => array('showitem' => ''),
+        'post' => array('showitem' => 'poststatus, postcommentoption, poststicky,', 'canNotCollapse' => 1),
     ),
     'columns' => array(
         'sys_language_uid' => array(
@@ -180,18 +185,28 @@ $TCA['tx_multiblog_domain_model_post'] = array(
         ),
         'poststicky' => array(
             'exclude' => 0,
-            'label' => 'sticky',
+            'label' => 'Sticky',
             'config' => array(
                 'type' => 'check',
-                'default' => '0'
+                'default' => '0',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'Hold post in front'
+                    )
+                )
             ),
         ),
         'postcommentoption' => array(
             'exclude' => 0,
-            'label' => 'postcommentoption',
+            'label' => 'Comments',
             'config' => array(
                'type' => 'check',
-                'default' => '1'
+                'default' => '1',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'Allowed'
+                    )
+                )
             ),
         ),
  'image' => array(
@@ -249,6 +264,23 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                         'script' => 'wizard_add.php',
                     ),
                 ),
+            ),
+        ),
+        'postseodescription' => array(
+            'exclude' => 0,
+            'label' => 'Description for Meta Field',
+            'config' => array(
+                'type' => 'text',
+                'cols' => 48,
+                'rows' => 6,
+            ),
+        ),
+        'postlink' => array(
+            'exclude' => 0,
+            'label' => 'Url link',
+            'config' => array(
+                'type' => 'input',
+                'size' => 30
             ),
         ),
     ),

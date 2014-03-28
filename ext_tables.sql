@@ -22,7 +22,8 @@ CREATE TABLE tx_multiblog_domain_model_blog (
         widget_all_posts TINYINT(4) UNSIGNED DEFAULT '1' NOT NULL, 
         blogstyle int(11) DEFAULT '0' NOT NULL,
         blogstyle_teaserimages int(11) DEFAULT '0' NOT NULL,
-
+        blogseotitle varchar(255) DEFAULT '' NOT NULL,
+        blogseodescription varchar(255) DEFAULT '' NOT NULL,
 
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,
 	t3ver_id int(11) DEFAULT '0' NOT NULL,
@@ -64,7 +65,8 @@ CREATE TABLE tx_multiblog_domain_model_post (
         postcontent text,
         image varchar(255) DEFAULT '' NOT NULL,
         files varchar(255) DEFAULT '' NOT NULL,
-
+        postseodescription varchar(255) DEFAULT '' NOT NULL,
+        postlink varchar(255) DEFAULT '' NOT NULL,
 
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,
 	t3ver_id int(11) DEFAULT '0' NOT NULL,

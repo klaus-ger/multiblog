@@ -58,8 +58,8 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * @inject 
      */
     protected $commentRepository;
-    
-   /**
+
+    /**
      * @var T3developer\Multiblog\Domain\Repository\CategoryRepository 
      * @inject 
      */
@@ -85,8 +85,9 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         } else {
             //load last Post
         }
-        
+
         $this->setSidebarValues($blog->getUid());
+        $this->setSeoHeader($blog->getUid(), 0);
         
         $this->view->assign('blog', $blog);
         $this->view->assign('posts', $posts);
@@ -101,15 +102,16 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $post = $this->postRepository->findByUid($post);
         $blog = $this->blogRepository->findByUid($post->getBlogid());
         $content = $this->contentRepository->findByPostid($post->getuid());
-        
+
         $comments = $this->commentRepository->findApprovedByPostid($post->getUid());
-        
-        
+
+
         //find prev / next posts
         $prev = $this->postRepository->findPreviousEntry($post->getPostdate()->getTimestamp(), $blog->getUid());
         $next = $this->postRepository->findNextEntry($post->getPostdate()->getTimestamp(), $blog->getUid());
-        
+
         $this->setSidebarValues($blog->getUid());
+        $this->setSeoHeader($blog->getUid(), $post->getUid());
         
         $this->view->assign('post', $post);
         $this->view->assign('content', $content);
@@ -119,27 +121,28 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->view->assign('next', $next[0]);
         $this->view->assign('blog', $blog);
     }
+
     /**
      * Add a new Comment
      * @dontvalidate identifier
      */
-    public function ajaxNewCommentAction(){
-        if($this->request->hasArgument('blogid')){
+    public function ajaxNewCommentAction() {
+        if ($this->request->hasArgument('blogid')) {
             $blogid = $this->request->getArgument('blogid');
         }
-        if($this->request->hasArgument('postid')){
+        if ($this->request->hasArgument('postid')) {
             $postid = $this->request->getArgument('postid');
         }
-        if($this->request->hasArgument('name')){
+        if ($this->request->hasArgument('name')) {
             $name = $this->request->getArgument('name');
         }
-        if($this->request->hasArgument('email')){
+        if ($this->request->hasArgument('email')) {
             $email = $this->request->getArgument('email');
         }
-        if($this->request->hasArgument('text')){
+        if ($this->request->hasArgument('text')) {
             $text = $this->request->getArgument('text');
         }
-        
+
         $newComment = new \T3developer\Multiblog\Domain\Model\Comment;
         $newComment->setBlogid($blogid);
         $newComment->setPostid($postid);
@@ -147,26 +150,58 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $newComment->setCommentmail($email);
         $newComment->setCommenttext($text);
         $newComment->setCommentdate(time());
-        
+
         $this->commentRepository->add($newComment);
         $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
         $persistenceManager->persistAll();
-        
-        
+
+
         exit;
     }
-    
+
     /**
      * Sidebar values
      * 
      * @param int $blogId Blog Uid
      * @return array Sidebarvalues
      */
-    public function setSidebarValues($blogId){
-        
+    public function setSidebarValues($blogId) {
+
         $sidebar['categories'] = $this->categoryRepository->findByBlogid($blogId);
         $sidebar['comments'] = $this->commentRepository->findLastByBlogid($blogId, 3);
         $this->view->assign('sidebar', $sidebar);
+    }
+
+    /**
+     * Seo Header Data
+     * 
+     * @param int $blogId Blog Uid
+     * @param int $postId Blog Uid
+     */
+    public function setSeoHeader($blogId, $postId = 0) {
+        $seo['title'] = '';
+        $seo['description'] = '';
+        
+        $blog = $this->blogRepository->findByUid($blogId);
+        
+        if($postId > 0) {
+            //Single Post Focus
+            $post = $this->postRepository->findByUid($postId);
+            $seo['title'] = $post->getPosttitel();
+            $seo['description'] = $post->Postseodescription();
+        }
+        
+        if($postId == 0 || $seo['title'] =''){
+            $seo['title'] = $blog->getBlogseotitle();
+        }
+        if($postId == 0 || $seo['description'] =''){
+            $seo['description'] = $blog->getBlogseodescription();
+        }
+        
+        
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta name="description" content="'. $seo['description'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->setTitle($seo['title']);
+        
     }
 }
 

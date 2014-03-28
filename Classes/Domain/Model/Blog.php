@@ -143,6 +143,20 @@ class Blog extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $blogstyleTeaserimages;
 
+    /**
+     * SEO Description
+     *
+     * @var \string
+     */
+    protected $blogseodescription;
+
+    /**
+     * Seo Titel tag for the blog
+     *
+     * @var \string
+     */
+    protected $blogseotitle;
+
     public function getBlogtitel() {
         return $this->blogtitel;
     }
@@ -261,6 +275,22 @@ class Blog extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setBlogstyleTeaserimages($blogstyleTeaserimages) {
         $this->blogstyleTeaserimages = $blogstyleTeaserimages;
+    }
+
+    public function getBlogseodescription() {
+        return $this->blogseodescription;
+    }
+
+    public function setBlogseodescription($blogseodescription) {
+        $this->blogseodescription = $blogseodescription;
+    }
+
+    public function getBlogseotitle() {
+        return $this->blogseotitle;
+    }
+
+    public function setBlogseotitle($blogseotitle) {
+        $this->blogseotitle = $blogseotitle;
     }
 
 }

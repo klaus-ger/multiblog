@@ -10,10 +10,25 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, blogtitel, blogowner',
     ),
     'types' => array(
-        '1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, blogtitel, blogowner'),
+        '1' => array('showitem' => '  --div--;General Settings;;;1-1-1 
+                                    , blogtitel
+                                    , blogowner
+                                    , blogwritermail
+                                    , blogcss
+                                    , blogpicture
+                                    , lastentry
+                                    
+                                    , --div--;Widgets;;;1-1-1
+                                    , --palette--;Widgets;widgets
+                                    , blogdescription; About Blog text
+                                    , --div--;Layout;;;1-1-1
+                                    , blogstyle
+                                    , blogstyle_teaserimages
+                                    , sticky_post'),
     ),
     'palettes' => array(
         '1' => array('showitem' => ''),
+        'widgets' => array('showitem' => 'widget_about_blog, widget_recent_post;;1, widget_category, widget_comments, widget_all_posts ', 'canNotCollapse' => 1)
     ),
     'columns' => array(
         'sys_language_uid' => array(
@@ -62,7 +77,6 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                 'type' => 'check',
             ),
         ),
-
         'blogtitel' => array(
             'exclude' => 0,
             'label' => 'Blogtitel',
@@ -72,7 +86,7 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                 'eval' => 'trim,required'
             ),
         ),
-         'blogowner' => array(
+        'blogowner' => array(
             'exclude' => 0,
             'label' => 'Blogowner',
             'config' => array(
@@ -83,7 +97,6 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                 'maxitems' => 1,
             )
         ),
-        
         'blogwritermail' => array(
             'exclude' => 0,
             'label' => 'Blog Owner mail',
@@ -92,15 +105,15 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                 'size' => 30
             ),
         ),
-         'blogdescription' => array(
+        'blogdescription' => array(
             'exclude' => 0,
             'label' => 'Blogdescription',
             'config' => array(
-                'type' => 'input',
-                'size' => 30
+                'type' => 'text',
+                
             ),
         ),
-         'blogcss' => array(
+        'blogcss' => array(
             'exclude' => 0,
             'label' => 'Blog CSS',
             'config' => array(
@@ -108,7 +121,7 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                 'size' => 30
             ),
         ),
-         'blogpicture' => array(
+        'blogpicture' => array(
             'exclude' => 0,
             'label' => 'Blogpicture',
             'config' => array(
@@ -116,63 +129,90 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                 'size' => 30
             ),
         ),
-         'lastentry' => array(
+        'lastentry' => array(
             'exclude' => 0,
             'label' => 'Last Entry',
             'config' => array(
                 'type' => 'input',
-                'size' => 30
+                'size' => '12',
+                'max' => '20',
+                'eval' => 'datetime',
+                'checkbox' => '0',
             ),
         ),
         'sticky_post' => array(
-            'exclude' =>'sticky Post',
+            'exclude' => 0,
+            'label' => 'sticky Post',
             'config' => array(
-                'type' => 'input',
-                'size' => 30
+                'type' => 'check',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'Enabled'
+                    )
+                )
             ),
         ),
-        
         'widget_about_blog' => array(
             'exclude' => 0,
-            'label' => 'Widget About Blog',
+            'label' => 'About Blog',
             'config' => array(
-                'type' => 'input',
-                'size' => 30
+                'type' => 'check',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'Enabled'
+                    )
+                )
             ),
         ),
         'widget_recent_post' => array(
             'exclude' => 0,
-            'label' => 'Widget Recent Post',
+            'label' => 'Recent Posts',
             'config' => array(
-                'type' => 'input',
-                'size' => 30
+                'type' => 'check',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'Enabled'
+                    )
+                )
             ),
         ),
         'widget_category' => array(
             'exclude' => 0,
-            'label' => 'Widget Category',
+            'label' => 'Categories',
             'config' => array(
-                'type' => 'input',
-                'size' => 30
+                'type' => 'check',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'Enabled'
+                    )
+                )
             ),
         ),
         'widget_comments' => array(
             'exclude' => 0,
-            'label' => 'Widget Comments',
+            'label' => 'Last Comments',
             'config' => array(
-                'type' => 'input',
-                'size' => 30
+                'type' => 'check',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'Enabled'
+                    )
+                )
             ),
         ),
-         'widget_all_posts' => array(
+        'widget_all_posts' => array(
             'exclude' => 0,
-            'label' => 'Widget All Posts',
+            'label' => 'All Posts',
             'config' => array(
-                'type' => 'input',
-                'size' => 30
+                'type' => 'check',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'Enabled'
+                    )
+                )
             ),
         ),
-         'blogstyle' => array(
+        'blogstyle' => array(
             'exclude' => 0,
             'label' => 'Blogstyle',
             'config' => array(
@@ -180,7 +220,7 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                 'size' => 30
             ),
         ),
-         'blogstyle_teaserimages' => array(
+        'blogstyle_teaserimages' => array(
             'exclude' => 0,
             'label' => 'Teaserimages',
             'config' => array(
@@ -188,7 +228,22 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                 'size' => 30
             ),
         ),
-        
+        'blogseotitle' => array(
+            'exclude' => 0,
+            'label' => 'Seo Title',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100
+            ),
+        ),
+        'blogseodescription' => array(
+            'exclude' => 0,
+            'label' => 'Seo Title',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100
+            ),
+        ),
     ),
 );
 ?>
