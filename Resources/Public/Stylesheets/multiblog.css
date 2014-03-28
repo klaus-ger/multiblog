@@ -6,9 +6,9 @@
 /* general Styling */
 /*************************************************************/
 .clearafter:after { content: ''; display: block; clear: both; }
- a {text-decoration: none;}
+a {text-decoration: none;}
 
- .wrapper {
+.wrapper {
     margin: 0 auto;
     max-width: 1200px;
     padding: 50px 20px;
@@ -17,7 +17,7 @@
 .section-comments {
     background-color: #F3F2F4;
 }
- .multiblog-content {
+.multiblog-content {
     float: left;
     width: 70%;
 }
@@ -99,6 +99,10 @@ i {
     margin-bottom: 10px;
     clear: both;
 }
+.multiblog-content-image-right {
+    float: right;
+    width: 250px;
+}
 /*section-labels*/
 .multiblog.next-link, .multiblog.prev-link {
     float: left;
@@ -122,7 +126,7 @@ i {
     margin-bottom: 20px;
 }
 .multiblog.commentname {
-        font-family: Coda,serif;
+    font-family: Coda,serif;
     font-size: 16px;
     font-weight: 600;
 }
@@ -152,17 +156,30 @@ i {
 /*************************************************************/
 
 .multiblog_widget {
-   border-bottom: 1px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
     margin-bottom: 10px;
     padding-bottom: 10px;  
 }
 .multiblog_widgetheader {
-        font-family: Coda, serif;
+    font-family: Coda, serif;
     font-size: 18px;
     font-weight: 300;
     letter-spacing: -1px;
     word-spacing: 2px;
     color: #5B6169;
+}
+
+
+.multiblog_widgetLastComment_entry {
+    border-bottom: 1px dotted #EDEDED;
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+.multiblog_widgetLastComment_subhead {
+    font-family: Coda, serif;
 }
 /*************************************************************/
 /* Frontend editing
@@ -190,7 +207,7 @@ i {
     width: 160px;
     font-family: Coda, serif;
     height: 100%;
-    
+
     float: left;
 }
 
@@ -212,19 +229,19 @@ i {
 }
 
 .multiblog-edit-menu ul li.active{
-     background: #ededed url(../icons/multiblog-menu-activelg-bg.jpg) 100% 100% no-repeat; 
+    background: #ededed url(../icons/multiblog-menu-activelg-bg.jpg) 100% 100% no-repeat; 
 }
 
 .multiblog-edit-menu ul li a:hover {
-   text-decoration: underline;
+    text-decoration: underline;
 }
 
 .multiblog-edit-menu ul li.active a{
-   color: #fff;
+    color: #fff;
 }
 
 .multiblog-edit-menu ul li.on{
-   color: #800000;
+    color: #800000;
 }
 
 .multiblog-edit-menu-spacer {
@@ -235,7 +252,7 @@ i {
 
 /* Stage Styling */
 .multiblog-edit-stage {
-margin-left: 20%;
+    margin-left: 20%;
 
 }
 .multiblog-edit-stage p {
@@ -251,7 +268,7 @@ margin-left: 20%;
 
 /* List Styling */
 .multiblog-edit-list {
-    
+
     width: 95%;
 }
 .multiblog-edit-list-header  {
@@ -272,7 +289,7 @@ margin-left: 20%;
     font-size: 90%;
 }
 
- .multiblog-edit-textlink a:hover  {
+.multiblog-edit-textlink a:hover  {
     text-decoration: underline !important;
     color: #800000;
 }
@@ -310,7 +327,7 @@ ul.f3-widget-paginator li.current {
     font-family: Verdana,​Arial,​sans-serif;
     font-size: 12px;
     font-weight: normal;
-        
+
 }
 
 .button-right {
@@ -338,8 +355,8 @@ ul.f3-widget-paginator li.current {
     line-height: 1;
     text-indent: 1px;  
     padding-left: 18px;
-    }
-    
+}
+
 #multiblog form.login .button {
     background: none repeat scroll 0 0 #E6E6E6;
     border: 1px solid #D3D3D3;
@@ -381,7 +398,7 @@ ul.f3-widget-paginator li.current {
     -khtml-border-radius: 4px; 
     border-radius: 4px;
     background-color: #fff;
-    
+
 }
 
 #multiblog .editStage .content {
@@ -408,30 +425,30 @@ ul.f3-widget-paginator li.current {
 }
 
 #multiblog ul.submenu li.active{
-   background: #fff ; 
-   display: block;
-   font-weight: bold;
+    background: #fff ; 
+    display: block;
+    font-weight: bold;
 }
 /*************************************************************/
 /* Table Styling */
 /*************************************************************/
 #multiblog .row {
 
-	padding-top:  10px;
-        padding-bottom: 10px;
-	line-height: 14px;
-	border-bottom: 1px solid #E8E8E8;
+    padding-top:  10px;
+    padding-bottom: 10px;
+    line-height: 14px;
+    border-bottom: 1px solid #E8E8E8;
 
 }
 #multiblog .alignTop {
-     vertical-align: top;
-     line-height: 19px;
+    vertical-align: top;
+    line-height: 19px;
 }
 
 #multiblog .colDate {
     width: 8%;
     display: inline-block;
-     overflow: hidden;
+    overflow: hidden;
 }
 
 #multiblog .colContent {
@@ -457,7 +474,7 @@ ul.f3-widget-paginator li.current {
 /* Paginator */
 /*************************************************************/
 #multiblog ul {
-	list-style: none;
+    list-style: none;
 }
 
 
@@ -476,10 +493,10 @@ ul.f3-widget-paginator li.current {
     float: left;
 }
 .kategorieEditRow {
-	padding-top:  10px;
-        padding-bottom: 10px;
-	line-height: 14px;
-	border-bottom: 1px solid #E8E8E8;
+    padding-top:  10px;
+    padding-bottom: 10px;
+    line-height: 14px;
+    border-bottom: 1px solid #E8E8E8;
 }
 .kategorieEditTopKat {
     width: 150px;
@@ -494,9 +511,9 @@ ul.f3-widget-paginator li.current {
 }
 
 .kategorieEditFormRow {
-	padding-top:  10px;
-        padding-bottom: 10px;
-	line-height: 14px;
+    padding-top:  10px;
+    padding-bottom: 10px;
+    line-height: 14px;
 }
 .kategorieEditLabel {
     margin: 5px 0;

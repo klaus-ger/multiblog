@@ -10,7 +10,7 @@
     </div>
     <div class="multiblog_widgetcontent"> 
         <f:for each="{sidebar.comments}" as="teasercomment">
-
+            <div class="multiblog_widgetLastComment_entry clearafter">
             <div class="multiblog_widgetLastComment_subhead">
                 {teasercomment.commentname} <f:translate key="LLL:{settings.langFile}:widget.Comments.Text" /> <f:format.date format="d.m.Y">@{teasercomment.commentdate}</f:format.date>
             </div>
@@ -20,7 +20,7 @@
                 <f:link.action action="singleView" controller="Blog" arguments="{post: teasercomment.postid}"><em> [mehr]</em></f:link.action>
 
             </div>	
-
+            </div>
         </f:for>
     </div>
 </div>
