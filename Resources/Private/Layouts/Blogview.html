@@ -8,12 +8,15 @@
         </div>
     </div>
 </div>
+
+<f:if condition="{post.postcommentoption} == 1">
 <div class="section-comments clearafter">
-<div class="wrapper">
-    <div class="multiblog">
-        <div class="multiblog-content">
-            <f:render partial="Blogview/Comments" arguments="{_all}" />
+    <div class="wrapper">
+        <div class="multiblog">
+            <div class="multiblog-content">
+                <f:render partial="Blogview/Comments" arguments="{_all}" />
+            </div>
         </div>
     </div>
 </div>
-</div>
+</f:if>
