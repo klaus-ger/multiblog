@@ -65,6 +65,7 @@ CREATE TABLE tx_multiblog_domain_model_post (
         postcontent text,
         image varchar(255) DEFAULT '' NOT NULL,
         files varchar(255) DEFAULT '' NOT NULL,
+         
         postseodescription varchar(255) DEFAULT '' NOT NULL,
         postlink varchar(255) DEFAULT '' NOT NULL,
 
@@ -99,7 +100,8 @@ CREATE TABLE tx_multiblog_domain_model_content (
 	postid INT(11) UNSIGNED DEFAULT '0' NOT NULL,
 	postcontent text,
  	postpicture varchar(255) DEFAULT '' NOT NULL,
- 	
+ 	imageposition TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL,
+
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,
 	t3ver_id int(11) DEFAULT '0' NOT NULL,
 	t3ver_wsid int(11) DEFAULT '0' NOT NULL,

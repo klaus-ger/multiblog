@@ -51,13 +51,19 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $postcontent;
 
     /**
-     * postintro
-     *
-     * @var \string
+     * Image
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     protected $postpicture;
 
-    
+    /**
+     * posttitel
+     *
+     * @var \int
+     * 
+     */
+    protected $imageposition;
+
     public function getPostid() {
         return $this->postid;
     }
@@ -74,17 +80,32 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->postcontent = $postcontent;
     }
 
+    public function getImageposition() {
+        return $this->imageposition;
+    }
+
+    public function setImageposition($imageposition) {
+        $this->imageposition = $imageposition;
+    }
+
+    /**
+     * Returns the image
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $postpicture
+     */
     public function getPostpicture() {
         return $this->postpicture;
     }
 
+    /**
+     * Sets the image
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $postpicture
+     * @return void
+     */
     public function setPostpicture($postpicture) {
         $this->postpicture = $postpicture;
     }
-
-
-
-
 
 }
 

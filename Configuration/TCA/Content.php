@@ -10,7 +10,7 @@ $TCA['tx_multiblog_domain_model_content'] = array(
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, postid, postcontent, postpicture',
     ),
     'types' => array(
-        '1' => array('showitem' => ' hidden;;1, postid, postcontent, postpicture'),
+        '1' => array('showitem' => ' hidden, postid, postcontent, imageposition, postpicture'),
     ),
     'palettes' => array(
         '1' => array('showitem' => ''),
@@ -83,15 +83,33 @@ $TCA['tx_multiblog_domain_model_content'] = array(
             ),
             'defaultExtras' => 'richtext[]:rte_transform[mode=ts_css]',
         ),
-         'postpicture' => array(
+
+          'postpicture' => array(
+                'exclude' => 1,
+                'label' => 'Image',
+                'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image', array(
+                        'appearance' => array(
+                                'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
+                        ),
+                        'minitems' => 0,
+                        'maxitems' => 1,
+                ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+        ),
+         'imageposition' => array(
             'exclude' => 0,
-            'label' => 'Picture',
+            'label' => 'Imageposition',
             'config' => array(
-                'type' => 'input',
-                'size' => 30
+                'type' => 'radio',
+                'items' => array(
+                    array('top', 0),
+                    array('bottom', 1),
+                    array('right', 2),
+                    array('left', 3),
+                    
+                    )
+                
             ),
         ),
-         
         
     ),
 );

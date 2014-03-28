@@ -23,13 +23,37 @@
 
     <f:for each="{content}" as="cont">
         <div class="multiblog postcontent clearafter">
+            <f:if condition="{cont.postpicture.originalResource.originalFile.uid}">
+                <f:then>
+                    <div class="multiblog col-left">
+                        <f:if condition="{cont.imageposition} == 3">
+                            <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" />
+                        </f:if>
+                    </div>
+                    <div class="multiblog col-main">
+                        <f:if condition="{cont.imageposition} == 0">
+                            <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-top"/>
+                        </f:if>
+                        <f:if condition="{cont.imageposition} == 2">
+                            <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-right"/>
+                        </f:if>
+                        <f:format.html>{cont.postcontent}</f:format.html>
+                        <f:if condition="{cont.imageposition} == 1">
+                            <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-bottom"/>
+                        </f:if>
+                    </div>
+                </f:then>
+                <f:else>
+                    <div class="multiblog col-left">
 
-            <div class="multiblog col-left">
+                    </div>
+                    <div class="multiblog col-main">
+                        <f:format.html>{cont.postcontent}</f:format.html>
+                    </div>
+                </f:else>
 
-            </div>
-            <div class="multiblog col-main">
-                <f:format.html>{cont.postcontent}</f:format.html>
-            </div>
+
+            </f:if>
         </div>
     </f:for>
 
