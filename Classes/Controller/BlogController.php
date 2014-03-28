@@ -188,13 +188,13 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             //Single Post Focus
             $post = $this->postRepository->findByUid($postId);
             $seo['title'] = $post->getPosttitel();
-            $seo['description'] = $post->Postseodescription();
+            $seo['description'] = $post->getPostseodescription();
         }
         
-        if($postId == 0 || $seo['title'] =''){
+        if($postId == 0 || $seo['title'] ==''){
             $seo['title'] = $blog->getBlogseotitle();
         }
-        if($postId == 0 || $seo['description'] =''){
+        if($postId == 0 || $seo['description'] ==''){
             $seo['description'] = $blog->getBlogseodescription();
         }
         
