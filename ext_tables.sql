@@ -1,27 +1,26 @@
-
 CREATE TABLE tx_multiblog_domain_model_blog (
 	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
-    crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
-    deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
-    hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+        crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+        hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
 	
 	blogtitel varchar(255) DEFAULT '' NOT NULL,
-	blogwriter int(11) DEFAULT '0' NOT NULL,
+	blogowner int(11) DEFAULT '0' NOT NULL,
 	blogwritermail varchar(255) DEFAULT '' NOT NULL,
         blogdescription text,
 	blogcss INT(11) UNSIGNED DEFAULT '0' NOT NULL,
-	blogbild varchar(255) DEFAULT '' NOT NULL,
+	blogpicture varchar(255) DEFAULT '' NOT NULL,
 	lastentry INT(11) UNSIGNED DEFAULT '0' NOT NULL,
         sticky_post int(11) DEFAULT '0' NOT NULL,
-        widget_about_blog int(11) DEFAULT '1' NOT NULL,
-        widget_recent_post int(11) DEFAULT '1' NOT NULL,
-        widget_category int(11) DEFAULT '1' NOT NULL,
-        widget_comments int(11) DEFAULT '1' NOT NULL,
-        widget_all_posts int(11) DEFAULT '1' NOT NULL,
-        blogstyle int(11) DEFAULT '1' NOT NULL,
+        widget_about_blog TINYINT(4) UNSIGNED DEFAULT '1' NOT NULL, 
+        widget_recent_post TINYINT(4) UNSIGNED DEFAULT '1' NOT NULL, 
+        widget_category TINYINT(4) UNSIGNED DEFAULT '1' NOT NULL, 
+        widget_comments TINYINT(4) UNSIGNED DEFAULT '1' NOT NULL, ,
+        widget_all_posts TINYINT(4) UNSIGNED DEFAULT '1' NOT NULL, 
+        blogstyle int(11) DEFAULT '0' NOT NULL,
         blogstyle_teaserimages int(11) DEFAULT '0' NOT NULL,
 
 
@@ -36,14 +35,14 @@ CREATE TABLE tx_multiblog_domain_model_blog (
 	t3_origuid int(11) DEFAULT '0' NOT NULL,
 
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
+	l10n_parent int(11) DEFAULT '0' NOT NULL,
+	l10n_diffsource mediumblob NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)
 );
 
-CREATE TABLE tx_multiblog_domain_model_entry (
+CREATE TABLE tx_multiblog_domain_model_post (
 	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
@@ -53,19 +52,18 @@ CREATE TABLE tx_multiblog_domain_model_entry (
         hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
 	
 	blogid INT(11) UNSIGNED DEFAULT '0' NOT NULL,
-	entrytitel varchar(255) DEFAULT '' NOT NULL,
- 	entryanleser text,
- 	entrypicture varchar(255) DEFAULT '' NOT NULL,
- 	entrypictureposition int(11) DEFAULT '0' NOT NULL,
- 	entrytext text,
- 	entrykategorie1 int(11) DEFAULT '1' NOT NULL,
- 	entrykategorie2 int(11) DEFAULT '1' NOT NULL,
- 	entrykategorie3 int(11) DEFAULT '1' NOT NULL,
- 	entrykategorie4 int(11) DEFAULT '1' NOT NULL,
- 	entrydate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
-	entrystatus INT(11) UNSIGNED DEFAULT '0' NOT NULL,
-        entrysticky INT(11) UNSIGNED DEFAULT '0' NOT NULL,
-        entrycommentoption INT(3) UNSIGNED DEFAULT '1' NOT NULL,  
+	posttitel varchar(255) DEFAULT '' NOT NULL,
+ 	postintro text,
+ 	postpicture varchar(255) DEFAULT '' NOT NULL,
+ 	
+ 	postdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+	poststatus INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+        poststicky INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+        postcommentoption INT(3) UNSIGNED DEFAULT '1' NOT NULL,  
+        category text,
+        postcontent text,
+        image varchar(255) DEFAULT '' NOT NULL,
+        files varchar(255) DEFAULT '' NOT NULL,
 
 
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,
@@ -79,8 +77,40 @@ CREATE TABLE tx_multiblog_domain_model_entry (
 	t3_origuid int(11) DEFAULT '0' NOT NULL,
 
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
+	l10n_parent int(11) DEFAULT '0' NOT NULL,
+	l10n_diffsource mediumblob NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);
+
+
+CREATE TABLE tx_multiblog_domain_model_content (
+	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+
+	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+        hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+	
+	postid INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+	postcontent text,
+ 	postpicture varchar(255) DEFAULT '' NOT NULL,
+ 	
+	t3ver_oid int(11) DEFAULT '0' NOT NULL,
+	t3ver_id int(11) DEFAULT '0' NOT NULL,
+	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
+	t3ver_label varchar(30) DEFAULT '' NOT NULL,
+	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
+	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
+	t3ver_count int(11) DEFAULT '0' NOT NULL,
+	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
+	t3_origuid int(11) DEFAULT '0' NOT NULL,
+
+	sys_language_uid int(11) DEFAULT '0' NOT NULL,
+	l10n_parent int(11) DEFAULT '0' NOT NULL,
+	l10n_diffsource mediumblob NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)
@@ -91,21 +121,18 @@ CREATE TABLE tx_multiblog_domain_model_comment (
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
-    crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
-    deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
-    hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+        crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+        hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
 	
-	entryid int(11) DEFAULT '0' NOT NULL,
-	blogid int(11) DEFAULT '0' NOT NULL,
-	commentdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
-	commentname varchar(255) DEFAULT '' NOT NULL,
-	commentmail varchar(255) DEFAULT '' NOT NULL,
-	commenttitel varchar(255) DEFAULT '' NOT NULL,
+	postid INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+        blogid INT(11) UNSIGNED DEFAULT '0' NOT NULL,
 	commenttext text,
-	commentproved int(11) DEFAULT '0' NOT NULL,
-	commentreply text,
-	captcha varchar(255) DEFAULT '' NOT NULL, 
-	
+ 	commentname varchar(255) DEFAULT '' NOT NULL,
+        commentdate INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+        commentmail varchar(255) DEFAULT '' NOT NULL,
+ 	commentapprove tinyint(4) DEFAULT '0' NOT NULL,
+
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,
 	t3ver_id int(11) DEFAULT '0' NOT NULL,
 	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
@@ -117,27 +144,27 @@ CREATE TABLE tx_multiblog_domain_model_comment (
 	t3_origuid int(11) DEFAULT '0' NOT NULL,
 
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
+	l10n_parent int(11) DEFAULT '0' NOT NULL,
+	l10n_diffsource mediumblob NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)
 );
 
-CREATE TABLE tx_multiblog_domain_model_kategorie (
+CREATE TABLE tx_multiblog_domain_model_category (
 	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
-    crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
-    deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
-    hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+        crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+        hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
 	
-	blogid INT(11) UNSIGNED DEFAULT '0' NOT NULL,
-	kategorie varchar(255) DEFAULT '' NOT NULL,
-	topkategorie INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+        blogid INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+	kategory varchar(255) DEFAULT '' NOT NULL,
+	topkategory INT(11) UNSIGNED DEFAULT '0' NOT NULL,  
 
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
+        t3ver_oid int(11) DEFAULT '0' NOT NULL,
 	t3ver_id int(11) DEFAULT '0' NOT NULL,
 	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
 	t3ver_label varchar(30) DEFAULT '' NOT NULL,
@@ -148,8 +175,49 @@ CREATE TABLE tx_multiblog_domain_model_kategorie (
 	t3_origuid int(11) DEFAULT '0' NOT NULL,
 
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
+	l10n_parent int(11) DEFAULT '0' NOT NULL,
+	l10n_diffsource mediumblob NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);
+
+CREATE TABLE tx_multiblog_post_category_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
+);
+
+
+CREATE TABLE tx_multiblog_domain_model_postcategory (
+	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+
+	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+        hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
+	
+        post INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+        category INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+
+        t3ver_oid int(11) DEFAULT '0' NOT NULL,
+	t3ver_id int(11) DEFAULT '0' NOT NULL,
+	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
+	t3ver_label varchar(30) DEFAULT '' NOT NULL,
+	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
+	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
+	t3ver_count int(11) DEFAULT '0' NOT NULL,
+	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
+	t3_origuid int(11) DEFAULT '0' NOT NULL,
+
+	sys_language_uid int(11) DEFAULT '0' NOT NULL,
+	l10n_parent int(11) DEFAULT '0' NOT NULL,
+	l10n_diffsource mediumblob NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)

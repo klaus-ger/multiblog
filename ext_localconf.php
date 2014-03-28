@@ -1,56 +1,78 @@
 <?php
-if (!defined ('TYPO3_MODE'))  die ('Access denied.');
+if (!defined('TYPO3_MODE')) {
+	die ('Access denied.');
+}
+if (TYPO3_MODE === 'FE' && !isset($_REQUEST['eID'])) {
+	       \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher')->connect(
+	'TYPO3\\CMS\\Core\\Resource\\Index\\MetaDataRepository',
+	'recordPostRetrieval',
+	'TYPO3\\CMS\\Frontend\\Aspect\\FileMetadataOverlayAspect',
+	  'languageAndWorkspaceOverlay'
+	 );
+	 }
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-    $_EXTKEY,
-    'blogindex',
 
-    array ('Blog' => 'index'
-              ),
-	
-    array ('Blog' => 'index'
-               )
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'T3developer.' . $_EXTKEY,
+	'singleblog',
+	array(
+		'Blog' => ' index
+                          , blogview
+                          , singleView
+                          , ajaxNewComment',
+		
+	),
+	// non-cacheable actions
+	array(
+		'Blog' => ' index
+                          , singleView
+                          , ajaxNewComment',
+		
+		
+	)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-    $_EXTKEY,
-    'blogsingle',
-
-    array ('Entry' => 'index, showBlogView, showSingleEntry, previous,next,kategorieView, allEntrys, showSingelView',
-           'Comment' => 'commentEditIndex,commentEdit,update,create' 
-            ),
-	
-    array ('Entry' => 'index, showBlogView, showSingleEntry, showSingeView',
-	   'Comment' => 'commentEditIndex,commentEdit,update,create' 
-            )
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'T3developer.' . $_EXTKEY,
+	'blogedit',
+	array(
+		'Blogedit' => ' login
+                              , index
+                              , postNew
+                              , postEdit
+                              , postCreate
+                              , postUpdate
+                              , kategoryShow
+                              , kategoryAdd
+                              , widgetsShow
+                              , widgetsUpdate
+                              , blogstyleShow
+                              , blogstyleUpdate
+                              , usersettingsShow
+                              , usersettingsUpdate',
+		
+	),
+	// non-cacheable actions
+	array(
+		'Blogedit' => ' login
+                              , index
+                              , postNew
+                              , postEdit
+                              , postCreate
+                              , postUpdate
+                              , kategoryShow
+                              , kategoryAdd
+                              , widgetsShow
+                              , widgetsUpdate
+                              , blogstyleShow
+                              , blogstyleUpdate
+                              , usersettingsShow
+                              , usersettingsUpdate',
+		
+		
+	)
 );
-
-Tx_Extbase_Utility_Extension::configurePlugin(
-    $_EXTKEY,
-    'blogedit',
-
-    array ('Blogedit' => 'index, artikelEdit,artikelUpdate, artikelNew, artikelCreate, 
-                          kategoryShow,settingsUpdateKategorie,settingsCreateKategorie,
-                          commentsShowAll, commentsDelete, commentsShowNew,
-                          commentEdit, commentUpdate,
-                          widgetsShow, widgetsUpdate, blogstyleShow, blogstyleUpdate,
-                          usersettingsShow, usersettingsUpdate,
-                          manualIndex, login',
-            
-           'Comment'  => 'commentEditIndex,commentEdit,update,create',
-           'Blognews' => 'einstellungen, news'
-            ),
-	
-    array ('Blogedit' => 'index, artikelEdit,artikelUpdate, artikelNew, artikelCreate, 
-                          kategoryShow,settingsUpdateKategorie, settingsCreateKategorie, 
-                          commentsShowAll, commentsDelete, commentsShowNew,
-                          commentEdit, commentUpdate,
-                          widgetsShow, widgetsUpdate, blogstyleShow, blogstyleUpdate,
-                          usersettingsShow, usersettingsUpdate, login',
-	   'Comment'  => 'commentEditIndex,commentEdit,update,create',
-           'Blognews' => 'einstellungen, news'
-            )
-);
+$TYPO3_CONF_VARS['FE']['eID_include']['ajaxDispatcher'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('multiblog').'Classes/EIDispatcher.php';
 
 
 ?>

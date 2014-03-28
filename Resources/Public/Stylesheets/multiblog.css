@@ -1,174 +1,332 @@
+@import url(http://fonts.googleapis.com/css?family=Coda);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700);
+
+
 /*************************************************************/
 /* general Styling */
 /*************************************************************/
+.clearafter:after { content: ''; display: block; clear: both; }
+ a {text-decoration: none;}
 
-#multiblog {
-    font-size: 11px;
-    margin: 20px 0 20px 50px;
+ .wrapper {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 50px 20px;
+    position: relative;
 }
-#multiblog a{
-    color: #3D3D3D;
+.section-comments {
+    background-color: #F3F2F4;
+}
+ .multiblog-content {
+    float: left;
+    width: 70%;
+}
+.multiblog-sidebar {
+    float: right;
+    width: 20%;
 }
 
-#multiblog h2 {
-    font-family: Verdana,​Arial,​sans-serif;
-    font-size: 13px;
+/*************************************************************/
+/* Blog Start Page
+/*************************************************************/
+.multiblog-postpreview {
+    margin-bottom: 50px;
+    clear: both;
+}
+.multiblog-postpreview-image {
+    width: 200px;
+    float: left;
+}
+.multiblog-postpreview-content {
+    float: right;
+    width: 600px;
+}
+.multiblog-postheader {
+    font-family: Coda, serif;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -1px;
+    line-height: 30px;
+    word-spacing: 2px;
+    color: #5B6169;
+    margin-bottom: 10px;
+}
+h2.multiblog {
+    font-family: Coda, serif;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -1px;
+    line-height: 30px;
+    word-spacing: 2px;
+    color: #5B6169;
+    margin-bottom: 10px;
+}
+b {
     font-weight: 600;
 }
+i {
+    font-style: italic;
+}
+/*************************************************************/
+/* Blog Single Page
+/*************************************************************/
 
-#multiblog .button-left {
+/* the cols */
+.multiblog.col-left{
+    width: 200px;
+    float: left;
+}
+.multiblog.col-main {
     float: right;
-    margin-right: 50px;
+    width: 600px;
 }
 
-.multiblogEditEntry_hidden {
-    display: none;
-}
-.clear-all {
+/*section-intro*/
+.multiblog.postintro {
+    margin-bottom: 20px;
     clear: both;
 }
 
- a{
-    color: #555555;
-    text-decoration: none;
-    }
-/*************************************************************/
-/* BlogIndex: The overview Page of all Blogs                 */
-/*************************************************************/
-
-#multiblogList .blogTeaser{
-    width: 200px;
-    height: 150px;
-    float: left;
-    border: 1px solid #aaaaaa;
-    background-color: #fdfdfd;
-    padding: 5px;
-    margin-right: 10px;
-    border-radius: 5px;
-    box-shadow: 5px 5px 5px #cdcdcd;
-    
-}
-
-#multiblogList .image {
-    float: left;
-    padding: 0 10px 10px 0;
-    border-radius: 5px;
-}
-#multiblogList .titel {
-    font-weight: bold;
-    color: #800000;
-}
-#multiblogList .teaserText {
-    font-size: 11px;
-    line-height: 16px;
-    height: 100px;
-    overflow: hidden;
-    
-}
-#multiblogList .ui-widget {
-    font-size: 10px !important;
-    float: right;
-}
-
-/*************************************************************/
-/* The single Blog View & Kategorie View                     */
-/*************************************************************/
-#multiblogindex_maincolumn {
-    float: left;
-    padding: 20px 0px 0 0px;
-    width: 650px;
-}
-
-#multiblogindex_rightcolumn {
-    float: left;
-    width: 300px;
-    padding: 20px 15px 0 10px;
-    margin-left: 80px;
-}
-
-.multiblogindex_blogtitel {
-    color: #666666;
-    font-family: Verdana,Arial,Helvetica,sans-serif;
-    font-size: 24px;
-    line-height: 16px;
-    padding: 0 0 20px;
-    }
-
-.multiblogindex_flashrender {
-    font-size: 16px;
-    margin: 10px;
-    color: #800000;
-    }
-.multiblogindex_entryheader {
-     border-bottom: 1px solid #999;
-    }
-.multiblogindex_entryheader_linkleft {
-    float: left;
-    font-size: 10px;
-    text-align: left;   
-    }
-.multiblogindex_entryheader_linkright {
-    float: right;
-    font-size: 10px;
-    text-align: right;    
-    }
-.multiblogindex_entryheader_linkright a:hover,
-.multiblogindex_entryheader_linkleft a:hover{
-    text-decoration: none;
-    color: #800000 !important;
-    }    
-.multiblogindex_titel {
-         padding: 20px 0;
-    }
-.multiblogindex_titel h2 {
-        font-size: 21px !important;
-    }
-.multiblogentry {
-        
-    }
-.multiblogindex_entryfooter {
-    padding: 10px;
-    background-color: #f2f2f2;
-    border-top: 1px solid #d9d9d9;
-    border-bottom: 1px solid #d9d9d9;
-    height: 40px;
-    } 
-.multiblogindex_entryKatViewFooter {
-    padding: 10px;
-    background-color: #f2f2f2;
-    border-top: 1px solid #d9d9d9;
-    border-bottom: 1px solid #d9d9d9;
-    height: 20px;
-    margin-bottom: 20px;
-    }   
-.multiblogindex_entryfooter p,
-.multiblogindex_entryKatViewFooter p{
-    font-size: 11px;
-    }  
-
-/*************************************************************/
-/* Comment List and Form Styling                             */
-/*************************************************************/     
-.multiblogindex_kommentartitel {
-    font-size: 18px;
+.multiblog.postteaser{
     font-weight: 600;
-    padding: 50px 0 20px 0;
+    font-style: italic;
+    color: #8A929B;
+    color: #9BA3AA;
 }
-/* List */
-.multiblogindex_singlecomment {
-    border-bottom: 1px solid #f2f2f2;
+
+/*section-content*/
+.multiblog.postcontent {
+    margin-bottom: 10px;
+    clear: both;
+}
+/*section-labels*/
+.multiblog.next-link, .multiblog.prev-link {
+    float: left;
+    font-family: Coda;
+    font-size: 11px;
+    background-color: #E8E8E8;
+    padding: 1px 15px;
+    margin-top: 20px;
+}
+.multiblog.prev-link {
+    float: right;
+    text-align: right;
+}
+/*section-comments*/
+.multiblog.comments {
+    clear: both;
+}
+.multiblog.comment-entry{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #fff;
     margin-bottom: 20px;
 }
-.multiblogindex_commentreply p {
-    color: #666;
-    font-style: italic;
-    padding-left: 30px;
+.multiblog.commentname {
+        font-family: Coda,serif;
+    font-size: 16px;
+    font-weight: 600;
 }
-/* Form */
-.multiblogindex_commentformrow {
+
+/*section-comments-form*/
+.multiblog.form-input, .multiblog.textarea {
+    padding: 5px;
     margin: 10px 0;
 }
-.multiblogindex_commentform form input[type="text"] {
+.multiblog.form-input {
+    width: 300px;
+}
+.multiblog-btn {
+    width: 200px;
+    text-align: center;
+    line-height: 24px;
+    height: 25px;
+    background-color: #5B6169;
+    font-family: Coda, serif;
+    border: 1px solid #ccc;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*************************************************************/
+/* Widgets
+/*************************************************************/
+
+.multiblog_widget {
+   border-bottom: 1px solid #EDEDED;
+    margin-bottom: 10px;
+    padding-bottom: 10px;  
+}
+.multiblog_widgetheader {
+        font-family: Coda, serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: -1px;
+    word-spacing: 2px;
+    color: #5B6169;
+}
+/*************************************************************/
+/* Frontend editing
+/*************************************************************/
+.multiblog-edit {
+    font-family: Verdana,​Arial,​sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    background-color: #fff;
+    background: #fff url(../icons/multiblog-menu-bg.jpg) 100% 100% repeat-y; 
+    background-position: left;
+}
+
+.multiblog-edit-header {
+    height: 30px;
+    background-color: #999;
+    border-bottom: 1px solid #333;
+    width: 100%;
+    color: #ededed;
+    line-height: 30px;
+}
+
+/* Menu Styling ******************/
+.multiblog-edit-menu {
+    width: 160px;
+    font-family: Coda, serif;
+    height: 100%;
+    
+    float: left;
+}
+
+.multiblog-edit-menu ul {
+    line-height: 24px;
+}
+
+.multiblog-edit-menu ul li {
+    margin: 4px 0 4px 15px;
+    padding-left: 10px;
+    height: 24px;
+}
+
+.multiblog-edit-menu ul li.first {
+    font-size: 14px;
+    font-weight: bold;
+    color: #999;
+    margin-left: 5px;
+}
+
+.multiblog-edit-menu ul li.active{
+     background: #ededed url(../icons/multiblog-menu-activelg-bg.jpg) 100% 100% no-repeat; 
+}
+
+.multiblog-edit-menu ul li a:hover {
+   text-decoration: underline;
+}
+
+.multiblog-edit-menu ul li.active a{
+   color: #fff;
+}
+
+.multiblog-edit-menu ul li.on{
+   color: #800000;
+}
+
+.multiblog-edit-menu-spacer {
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 1px solid #f9f9f9;
+    width: 145px;
+}
+
+/* Stage Styling */
+.multiblog-edit-stage {
+margin-left: 20%;
+
+}
+.multiblog-edit-stage p {
+    text-align: left;
+}
+.multiblog-edit-stage h1 {
+    font-size: 21px;
+    margin: 20px 0 10px 0;
+    color: #cccccc;
+    font-weight: bold;
+}
+
+
+/* List Styling */
+.multiblog-edit-list {
+    
+    width: 95%;
+}
+.multiblog-edit-list-header  {
+    background-color: #aaaaaa;
+}
+.multiblog-edit-list tr {
+    border: 1px solid #dfdfdf;
+}
+.multiblog-edit-list tr.odd {
+    background-color: #ededed;
+}
+
+.multiblog-edit-list td {
+    padding: 10px;
+}
+
+.multiblog-edit-list-smalltext {
+    font-size: 90%;
+}
+
+ .multiblog-edit-textlink a:hover  {
+    text-decoration: underline !important;
+    color: #800000;
+}
+
+
+/* paginator */
+
+ul.f3-widget-paginator li {
+    background-color: #ededed;
+    padding: 3px 8px;
+    border: 1px solid #999;
+    margin:  5px 0;
+}
+
+ul.f3-widget-paginator li.current {
+    background-color: #dfdfdf;
+    border: 1px solid #999;
+}
+
+
+
+/* Form Styling */
+.multiblog-edit-form-label {
+    display: block;
+    margin: 20px 0 5px 0;
+}
+
+.multiblog-edit-form-textfield {
+    width: 650px;
+    padding: 3px;
+}
+.multiblog-edit-form-textarea {
+    width: 650px;
+    padding: 3px;
+    font-family: Verdana,​Arial,​sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+        
+}
+
+.button-right {
+    float: right;
+    margin-right: 10px;
+}
+
+/* loginform */
+#multiblog form.login  {
+    padding: 10px 0 10px 50px;
+}
+#multiblog form.login h2 {
+    margin-bottom: 20px;
+}
+#multiblog form.login input[type="text"],
+#multiblog form.login input[type="password"]{
     background-color: #F6f6f6;
     width: 228px;
     height: 26px;
@@ -180,88 +338,34 @@
     line-height: 1;
     text-indent: 1px;  
     padding-left: 18px;
-}
-
-.multiblogindex_commentform form textarea {
-    background-color: #F6f6f6;
-    width: 495px;
-    height: 100px;
-    border-color: #bebebe #cdcdcd #dcdcdc;
-    border-radius: 5px 5px 5px 5px;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: 0 1px 3px #dbdbdb inset, 0 -1px 0 #e9e9e9 inset;
-    line-height: 1;
-    text-indent: 1px;  
-    padding-left: 18px;
-    padding-top: 15px;
-    font-family: Arial,​Helvetica,​sans-serif;
-    font-size: 12px;
-
-}
-
-
-.multiblogindex_commentformfieldtitel {
-    width: 495px !important;
-}
-:-moz-placeholder {
-    color: #9a9a9a;
-    text-transform: uppercase;
-    font-style: italic;
-    font-weight: bold;
-}
-/*************************************************************/
-/* Blog Widget Styling                                       */
-/*************************************************************/   
+    }
     
-.multiblog_widget {
-    background: linear-gradient( 180deg, #f2f2f2, #fff);
-    xwidth: 200px;
-    padding: 10px 10px 10px 15px;
-    border: 1px solid #f2f2f2;
-    margin-top: 15px;
-    font-size: 12px;
+#multiblog form.login .button {
+    background: none repeat scroll 0 0 #E6E6E6;
+    border: 1px solid #D3D3D3;
+    border-radius: 4px 4px 4px 4px;
+    display: inline-block;
+    font-size: 90% !important;
+    padding: 0.1em 1em !important;
+    text-decoration: none;
+    margin-top: 20px;
+    cursor: pointer;
 }
-.firstWidget {
-    margin-top: 55px;
-}
-.multiblog_widgetheader {
-    color: #800000;
-    font-weight: bold;
-    border-bottom: 1px solid #999;
-    display: block;
-    margin-bottom: 5px;
-    font-style: italic;
+/* Genral Stylings */
+.hidden {
+    display: none;
 }
 
-.multiblog_widgetcontent {
-    padding-left: 10px;
+/*Kategory Edit */
+.multiblog-edit-category-colleft{
+    width: 40%;
+    float: left;
 }
 
-/* Widget LEtzte Artikel */
-.multiblog_widgetLastArticle_subhead {
-    font-size: 11px;
-    padding-top: 5px;
-}
-.multiblog_widgetLastArticle_head {
-    font-weight: bold;
-}
-.multiblog_widgetLastArticle_text {
-    border-bottom: 1px solid #d9d9d9;
-    padding-bottom: 5px;
-}
-
-/* Widget letzte Kommentare */
-.multiblog_widgetLastComment_subhead {
-    font-size: 11px;
-    padding-top: 5px;
-}
-.multiblog_widgetLastComment_head {
-    font-weight: bold;
-}
-.multiblog_widgetLastComment_text {
-    border-bottom: 1px solid #d9d9d9;
-    padding-bottom: 5px;
+.multiblog-edit-category-colright{
+    width: 30%;
+    float: left;
+    margin-left: 20%;
 }
 /*************************************************************/
 /* Edit Stage an Tabs */
@@ -284,54 +388,7 @@
     padding: 10px 10px 10px 20px;
 }
 
-#multiblog ul.tab {
-    margin: 0; 
-    padding: .2em .2em 0;
-    background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; 
-    color: #555555; 
-    height: 30px;
-    border: 1px solid #aaaaaa; 
-    -moz-border-radius: 4px; 
-    -webkit-border-radius: 4px; 
-    -khtml-border-radius: 4px; 
-    border-radius: 4px;
-      
-}
 
-#multiblog ul.tab li {
-    line-height: 15.5px;
-    float: left;
-    padding: 6px 12px;
-    display: block;
-    margin: 1px 3px 0 0;
-    border: 1px solid #D3D3D3;  
-    -moz-border-radius-topleft: 4px; -webkit-border-top-left-radius: 4px; -khtml-border-top-left-radius: 4px; border-top-left-radius: 4px;
-    -moz-border-radius-topright: 4px; -webkit-border-top-right-radius: 4px; -khtml-border-top-right-radius: 4px; border-top-right-radius: 4px; 
-    background: #cccccc url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x; 
-    cursor:pointer;
-}
-
-#multiblog ul.tab li.active {
-    line-height: 17px;
-    float: left;
-    padding: 6px 12px;
-    display: block;
-    margin: 1px 3px 0 0;
-    border: 1px solid #aaaaaa; 
-    -moz-border-radius-topleft: 4px; -webkit-border-top-left-radius: 4px; -khtml-border-top-left-radius: 4px; border-top-left-radius: 4px;
-    -moz-border-radius-topright: 4px; -webkit-border-top-right-radius: 4px; -khtml-border-top-right-radius: 4px; border-top-right-radius: 4px; 
-    background: #fff;
-    border-bottom: none;
-}
-#multiblog ul.tab li a {
-    color: #555555; 
-    text-decoration: none;
-}
-
-#multiblog ul.tab li a:hover {
-    color: #800000
-        ; 
-}
 
 .backToBlog {
     float: right;
@@ -402,32 +459,7 @@
 #multiblog ul {
 	list-style: none;
 }
-.multiblog_paginator {
-	height: 30px;
-	border-bottom: 1px solid #E8E8E8;
-	font-size: 90%;
-}
 
-.multiblog_paginator_text {
-	float: left;
-	width: 60px;
-	display: inline-block;
-	margin-top: 5px;
-	
-}
-
-ul.f3-widget-paginator {
-	flaot: left;
-	width: 500px;
-	display: inline-block;
-	margin-top: 5px;
-	
-}
-ul.f3-widget-paginator li {
-	float: left;
-	margin: 0 5px;
-	
-}
 
 /*************************************************************/
 /* Settings Kategorie editieren */

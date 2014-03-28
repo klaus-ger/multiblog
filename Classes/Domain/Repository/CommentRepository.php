@@ -1,124 +1,77 @@
 <?php
+namespace T3developer\Multiblog\Domain\Repository;
 
-class Tx_Multiblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persistence_Repository {
+/* * *************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2013 Klaus Heuer | t3-developer.com
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ * ************************************************************* */
 
-    protected $defaultOrderings = array('commentdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING);
 
-    /**
-     * Find all Comments per Blogs
-     *
-     *
-     * @param  Tx_Multiblog_Domain_Model_Comment $blog The parent project
-     * @return Array<Tx_Multiblog_Domain_Model_Comment>  The result list.
-     *
-     */
-    Public Function findForEditIndexView($blog) {
+class CommentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-        $query = $this->createQuery();
-        Return $query
-                        ->matching(
-                                $query->equals('blogid', $blog)
-                        )
-                        //->setOrderings(Array('isOnline' => Tx_Extbase_Persistence_Query::ORDER_DESCENDING))
-                        //-> setLimit (10)
-                        ->execute();
-    }
+     protected $defaultOrderings = array('commentdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
-    /**
-     * findet einzlnen Kommentar nach uid
-     *
+     /**
+     * find approved Comments By Post
      * 
-     * @param  Tx_Multiblog_Domain_Model_Comment $commentfetch The parent project
-     * @return Array<Tx_Multiblog_Domain_Model_Comment>  The result list.
+     * @param int $post Post Uid
      *
+     * @return object
      */
-    Public Function findForSingleCommentView($commentfetch) {
-
+    public function findApprovedByPostid($post){
+        $orderings = array('commentdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
         $query = $this->createQuery();
-
-        Return $query
-                        ->matching($query->equals('uid', $commentfetch))
-                        ->setOrderings(Array('uid' => Tx_Extbase_Persistence_Query::ORDER_DESCENDING))
-                        ->setLimit(1)
-                        ->execute();
+        $query->setOrderings($orderings);
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('postid', $post),
+                    $query->equals('commentapprove', 1)
+                ))
+        );
+        return $query->execute();
     }
-
+    
     /**
-     * findet Kommentar nach Entry uid
-     *
+     * find last Comments by Blog
      * 
-     * @param  Tx_Multiblog_Domain_Model_Comment $uid The parent project
-     * @return Array<Tx_Multiblog_Domain_Model_Comment>  The result list.
-     *
+     * @param int $blogId Blog Uid
+     * @param int $limit limit
+     * @return object
      */
-    Public Function findForCommentEntryView($uid) {
-
-
-
-
+    public function findLastByBlogid($blogId, $limit) {
+        $orderings = array('commentdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
         $query = $this->createQuery();
+        $query->setOrderings($orderings);
+        $query->setLimit($limit);
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('blogid', $blogId),
+                    $query->equals('commentapprove', 1)
+                ))
+        );
 
-        Return $query
-                        ->matching(
-                                $query->logicalAnd(
-                                        $query->equals('entryid', $uid), 
-                                        $query->equals('commentproved', '1')
-                                )
-                        )
-                        ->setOrderings(Array('uid' => Tx_Extbase_Persistence_Query::ORDER_ASCENDING))
-                        ->execute();
+        return $query->execute();
     }
 
-    /**
-     * findet die letzten 5 Kommentare für Blog Teaser
-     *
-     * 
-     * @param  Tx_Multiblog_Domain_Model_Comment $blogid The parent project
-     * @return Array<Tx_Multiblog_Domain_Model_Comment>  The result list.
-     *
-     */
-    Public Function findForTeaserCommentView($blogid) {
 
-
-
-
-        $query = $this->createQuery();
-
-        Return $query
-                        ->matching(
-                                $query->logicalAnd(
-                                        $query->equals('blogid', $blogid), 
-                                        $query->equals('commentproved', '1')
-                                )
-                        )
-                        ->setOrderings(Array('commentdate' => Tx_Extbase_Persistence_Query::ORDER_DESCENDING))
-                        ->setLimit(5)
-                        ->execute();
-    }
-
-    /**
-     * Find Comments By Blog ID and Status
-     * Needed in the multiblog edit views
-     * 
-     * @param  Tx_Multiblog_Domain_Model_Comment $blogid , $status
-     * @return Array<Tx_Multiblog_Domain_Model_Comment>  The result list.
-     *
-     */
-    Public Function findByBlogidAndStatus($blogid, $status) {
-
-        $query = $this->createQuery();
-
-        Return $query
-            ->matching(
-                $query->logicalAnd(
-                    $query->equals('blogid', $blogid), 
-                    $query->equals('commentproved', $status)
-                    )
-                        )
-             ->setOrderings(Array('commentdate' => Tx_Extbase_Persistence_Query::ORDER_DESCENDING))
-             ->execute();
-    }
 
 }
-
 ?>

@@ -1,0 +1,30 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <ROOT>
+                <el>
+                    <settings.productUid>
+                        <TCEforms>
+                            <label>Produkt:</label>
+                            <config>
+                                <type>select</type>
+                      <items>
+                          <numIndex index="0" type="array">
+                                <numIndex index="0">Bitte Waehlen</numIndex>
+                                <numIndex index="1"></numIndex>
+                          </numIndex>
+                     </items>       
+                     <foreign_table>tx_products_domain_model_products</foreign_table>
+                     <foreign_table_where> ORDER BY tx_products_domain_model_products.uid DESC</foreign_table_where>
+                     <size>1</size>
+                     <min>1</min>
+                     <max>1</max>
+                                
+                       
+                            </config>
+                        </TCEforms>
+                    </settings.productUid>
+                </el>
+    </ROOT>
+</T3DataStructure>

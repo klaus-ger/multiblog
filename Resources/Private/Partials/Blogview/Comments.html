@@ -1,0 +1,63 @@
+<div class="multiblog comments clearafter">
+
+    <div class="multiblog col-left">
+        <h2 class="multiblog">
+            <f:translate key="LLL:{settings.langFile}:comments.Header" />
+        </h2>
+    </div>
+
+    <div class="multiblog col-main">
+        <f:if condition="{comments}">
+            <f:then>
+                <f:for each="{comments}" as="comment">
+
+                    <div class="multiblog comment-entry">
+                        <div class="multiblogindex_commentheader">
+                            <span class="multiblog commentname">{comment.commentname}</span> <f:translate key="LLL:{settings.langFile}:comments.DateText" /> <f:format.date format="d.m.Y">@{comment.commentdate}</f:format.date>	
+                        </div>
+                        <f:format.html>{comment.commenttext}</f:format.html>
+
+                    </div>
+                </f:for>
+            </f:then>
+            <f:else>
+                No comments.
+            </f:else>
+        </f:if>
+
+    </div>
+
+</div>
+
+<div class="multiblog comments comment-form clearafter">
+    <div class="multiblog col-left">
+        <h2 class="multiblog">
+            <f:translate key="LLL:{settings.langFile}:comments.WriteComment" />
+        </h2>
+    </div>
+    <div class="multiblog col-main">
+        <f:form method="post" controller="Comment" action="create" name="newComment" object="{newComment}" enctype="multipart/form-data" >
+
+            <f:form.hidden id="jq-multiblog-postid" property="entryid" value="{post.uid}"/>
+            <f:form.hidden id="jq-multiblog-blogid" property="blogid" value="{post.blogid}"/>
+
+
+            <f:form.textfield id="jq-multiblog-commentname" property="commentname" class="multiblog form-input" value="{newComment.commentname}" placeholder="{f:translate(key:'comments.form.placeholder.name')}"/>
+            <br />
+            <f:form.textfield id="jq-multiblog-commentmail" property="commentmail" class="multiblog form-input" placeholder="{f:translate(key:'comments.form.placeholder.email')}"/><br />
+
+            <f:translate key="LLL:{settings.langFile}:comments.form.label.comment" /><br />
+            <f:form.textarea id="jq-multiblog-commenttext" property="commenttext" class="multiblog textarea"  rows="10" cols="74" />
+            <br />
+            <f:translate key="LLL:{settings.langFile}:comments.form.releasenote" />
+
+            <div class="jq-send multiblog-btn"> <f:translate key="LLL:{settings.langFile}:comments.form.buttonSend" /></div>
+
+        </f:form>
+    </div>
+
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+

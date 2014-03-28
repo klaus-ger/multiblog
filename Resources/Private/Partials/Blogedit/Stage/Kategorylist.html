@@ -1,0 +1,60 @@
+
+
+<div class="multiblog-edit-stage clearafter">
+    <h1><f:translate key="LLL:{settings.langFile}:blogedit.category.header" /></h1>
+   
+    
+    <div class="multiblog-edit-category-colleft">
+        <br />
+        <b><f:translate key="LLL:{settings.langFile}:blogedit.category.list" /></b>
+        <f:for each="{categories}" as="topkat">
+            <div class="kategorieEditRow">
+                <div class="kategorieEditTopKat">
+                    {topkat.main.kategory}
+                </div>
+            </div>
+
+            <f:for each="{topkat.sub}" as="subkat">
+
+                <f:if condition="{subkat.topkategorie} == {topkat.uid}">
+                    <div class="kategorieEditRow">
+                        <div class="teaserKatSubkat">
+                            &nbsp;&nbsp;» {subkat.kategory}
+                        </div>
+                    </div>
+
+
+                </f:if>
+            </f:for>
+        </f:for>
+    </div>
+<div class="multiblog-edit-category-colright">
+    <br />
+    <b><f:translate key="LLL:{settings.langFile}:blogedit.category.add" /></b>
+    
+    <f:form method="post" controller="Blogedit" action="kategoryAdd" name="newKat" object="{newKat}" enctype="multipart/form-data"  >
+
+        <f:form.hidden property="blogid"  value="{newKat.blogid}"/>
+
+        <div class="kategorieEditFormRow">
+            <div class="kategorieEditLabel">
+                <f:translate key="LLL:{settings.langFile}:blogedit.category.label.newcategory" />
+            </div>
+            <f:form.textfield property="kategory" class="kategorieEditInput" value="{newKat.kategory}"/><br />
+        </div>
+        <div class="kategorieEditFormRow">
+            <div class="kategorieEditLabel">
+                <f:translate key="LLL:{settings.langFile}:blogedit.category.label.secondlevel" /> <br>
+            </div>
+            <div class="kategorieEditLabel">
+                <f:form.select property="topkategory" options="{mainCategories}" optionValueField="uid" optionLabelField="kategory" prependOptionLabel="-- Category --" />
+                
+                </div>
+        </div>    
+        <div class="kategorieEditFormRow">
+            <f:form.submit class="submit button-left" value="{f:translate(key:'blogedit.button.createcategory')}"/>
+        </div>
+    </f:form>   
+    
+</div>
+</div>

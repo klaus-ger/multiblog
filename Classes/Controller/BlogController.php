@@ -1,8 +1,12 @@
 <?php
+
+namespace T3developer\Multiblog\Controller;
+
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Klaus Heuer <klaus.heuer@t3-developer.com>
+ *  (c) 2014 Klaus Heuer <klaus.heuer@t3-developer.com>, t3-developer.com
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,31 +26,148 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-
-class Tx_Multiblog_Controller_BlogController extends Tx_Extbase_MVC_Controller_ActionController {
+/**
+ *
+ *
+ * @package multiblog
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
+ */
+class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
     /**
-     * @var Tx_Multiblog_Domain_Model_BlogRepository
+     * @var T3developer\Multiblog\Domain\Repository\BlogRepository 
+     * @inject 
      */
     protected $blogRepository;
 
     /**
-     * Initializes the current action 
-     * @return void 
+     * @var T3developer\Multiblog\Domain\Repository\PostRepository 
+     * @inject 
      */
-    protected function initializeAction() {
-        $this->blogRepository = & t3lib_div::makeInstance("Tx_Multiblog_Domain_Repository_BlogRepository");
+    protected $postRepository;
+
+    /**
+     * @var T3developer\Multiblog\Domain\Repository\ContentRepository 
+     * @inject 
+     */
+    protected $contentRepository;
+
+    /**
+     * @var T3developer\Multiblog\Domain\Repository\CommentRepository 
+     * @inject 
+     */
+    protected $commentRepository;
+    
+   /**
+     * @var T3developer\Multiblog\Domain\Repository\CategoryRepository 
+     * @inject 
+     */
+    protected $categoryRepository;
+
+    /**
+     * Index view
+     *
+     * 
+     */
+    public function indexAction() {
+        if ($this->request->hasArgument('blogId')) {
+            $blogId = $this->request->getArgument('blogId');
+        } else {
+            $blogId = 1;
+        }
+        $blog = $this->blogRepository->findByUid($blogId);
+
+        //check if Blog has single view or blog view
+        if ($blog->getBlogstyle() == 1) {
+            $posts = $this->postRepository->findPostsByLimitAndBlogId($blog->getUid(), 8);
+            //$posts = $this->postRepository->findAll();
+        } else {
+            //load last Post
+        }
+        
+        $this->setSidebarValues($blog->getUid());
+        
+        $this->view->assign('blog', $blog);
+        $this->view->assign('posts', $posts);
     }
 
     /**
-     * List action for this controller. Displays all blogs. 
+     * Blogview - List of Post Teaser
+     * @param int $post postUid
      */
-    public function indexAction() {
-        $blogs = $this->blogRepository->findForIndexView();
-        $this->view->assign('blogs', $blogs);
-        $this->view->assign('blogs', $this->blogRepository->findAll());
-    }
+    public function singleViewAction($post) {
 
+        $post = $this->postRepository->findByUid($post);
+        $blog = $this->blogRepository->findByUid($post->getBlogid());
+        $content = $this->contentRepository->findByPostid($post->getuid());
+        
+        $comments = $this->commentRepository->findApprovedByPostid($post->getUid());
+        
+        
+        //find prev / next posts
+        $prev = $this->postRepository->findPreviousEntry($post->getPostdate()->getTimestamp(), $blog->getUid());
+        $next = $this->postRepository->findNextEntry($post->getPostdate()->getTimestamp(), $blog->getUid());
+        
+        $this->setSidebarValues($blog->getUid());
+        
+        $this->view->assign('post', $post);
+        $this->view->assign('content', $content);
+        $this->view->assign('comments', $comments);
+        $this->view->assign('newComment', $newComment);
+        $this->view->assign('prev', $prev[0]);
+        $this->view->assign('next', $next[0]);
+        $this->view->assign('blog', $blog);
+    }
+    /**
+     * Add a new Comment
+     * @dontvalidate identifier
+     */
+    public function ajaxNewCommentAction(){
+        if($this->request->hasArgument('blogid')){
+            $blogid = $this->request->getArgument('blogid');
+        }
+        if($this->request->hasArgument('postid')){
+            $postid = $this->request->getArgument('postid');
+        }
+        if($this->request->hasArgument('name')){
+            $name = $this->request->getArgument('name');
+        }
+        if($this->request->hasArgument('email')){
+            $email = $this->request->getArgument('email');
+        }
+        if($this->request->hasArgument('text')){
+            $text = $this->request->getArgument('text');
+        }
+        
+        $newComment = new \T3developer\Multiblog\Domain\Model\Comment;
+        $newComment->setBlogid($blogid);
+        $newComment->setPostid($postid);
+        $newComment->setCommentname($name);
+        $newComment->setCommentmail($email);
+        $newComment->setCommenttext($text);
+        $newComment->setCommentdate(time());
+        
+        $this->commentRepository->add($newComment);
+        $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        $persistenceManager->persistAll();
+        
+        
+        exit;
+    }
+    
+    /**
+     * Sidebar values
+     * 
+     * @param int $blogId Blog Uid
+     * @return array Sidebarvalues
+     */
+    public function setSidebarValues($blogId){
+        
+        $sidebar['categories'] = $this->categoryRepository->findByBlogid($blogId);
+        $sidebar['comments'] = $this->commentRepository->findLastByBlogid($blogId, 3);
+        $this->view->assign('sidebar', $sidebar);
+    }
 }
 
 ?>

@@ -1,33 +1,18 @@
+<f:layout name="Blogview" />
 
-<!-- Listview of the Blogs --->
+<f:section name="main">
 
-<div id="multiblogList">
+    
+      
+        <f:if condition="{blog.blogstyle} == 1">
+            <f:render partial="Blogview/Blogstyle" arguments="{_all}"/>
+        </f:if>
+        <f:if condition="{blog.blogstyle} == 0">
+            Show last entry full
+        </f:if>
+  
+    
+    
 
-    <f:for each="{blogs}" as="blog">
 
-        <div class="blogTeaser">
-
-            <div class="image">
-                <f:image src="uploads/multiblog/blogbilder/{blog.blogbild}" alt="profilbild" width="60px"/> 
-            </div>
-
-            <!--Blogtitel--->
-            <div class="titel">
-                {blog.blogtitel}
-            </div>
-
-            <!-- Blog Teasertext --->	
-            <div class="teaserText">
-                {blog.blogdescription}
-            </div>
-            
-            <f:link.action pageUid="{settings.viewSingleBlogUid}" action="index" controller="Entry" arguments="{bloguid: blog.uid}">
-                <div class="multibloglist_link button">
-                    » zum Blog
-                </div>
-            </f:link.action>
-        </div>
-
-    </f:for>
-    <div class="clear-all">&nbsp;</div>
-</div>
+</f:section>

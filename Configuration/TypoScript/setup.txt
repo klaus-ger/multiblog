@@ -1,53 +1,30 @@
-
 plugin.tx_multiblog {
 	view {
-	#	templateRootPath = {$plugin.tx_multiblog.view.templateRootPath}
-	#	partialRootPath  = {$plugin.tx_multiblog.view.partialRootPath}
-	#	layoutRootPath   = {$plugin.tx_multiblog.view.layoutRootPath}
+		templateRootPath = EXT:multiblog/Resources/Private/Templates/
+		partialRootPath  = EXT:multiblog/Resources/Private/Partials/
+		layoutRootPath   = EXT:multiblog/Resources/Private/Layouts/
 	}
 	persistence {
-            storagePid       = {$plugin.tx_multiblog.settings.storagePid}
-            classes { Tx_Multiblog_Domain_Model_User { mapping { tableName = fe_users}}
-            }
-        }
-	
-	features {
-            rewrittenPropertyMapper = 1
-            skipDefaultArguments = 1
-        }
-        mvc {
-            callDefaultActionIfActionCantBeResolved = 1
-        }
-        settings {
-            langFile         = {$plugin.tx_multiblog.settings.langFile}
-            storagePid       = {$plugin.tx_multiblog.settings.storagePid}
-            viewAllBlogsUid  = {$plugin.tx_multiblog.settings.viewAllBlogsUid}
-            viewSingleBlogUid= {$plugin.tx_multiblog.settings.viewSingleBlogUid}
-            viewEditBlogUid  = {$plugin.tx_multiblog.settings.viewEditBlogUid}
-            singleBlog       = {$plugin.tx_multiblog.settings.singleBlog}
-            CSSCustomer      = {$plugin.tx_multiblog.settings.csscustomer}
-        }
+		storagePid = {$plugin.tx_multiblog.persistence.storagePid}
+	}
+	settings {
+                pidEditPlugin    = {$plugin.tx_multiblog.settings.pidBlogedit}
+                storagePid       = {$plugin.tx_multiblog.persistence.storagePid}
+                langFile         = {$plugin.tx_multiblog.settings.langFile}
+    }
 }
-
 
 page.includeCSS {
-   
-    tx_multiblog_file_1 = EXT:multiblog/Resources/Public/Stylesheets/smoothness/jquery-ui-1.9.2.custom.css
-    tx_multiblog_file_2 = EXT:multiblog/Resources/Public/Stylesheets/multiblog-responsive.css
-    tx_multiblog_file_3 = EXT:multiblog/Resources/Public/JavaScript/CLEditor/jquery.cleditor.css
-    tx_multiblog_file_4 = EXT:multiblog/Resources/Public/Stylesheets/multiblog-edit.css
-    tx_multiblog_file_5 = {$plugin.tx_multiblog.settings.csscustomer}
+        multiblog      = EXT:multiblog/Resources/Public/Stylesheets/Multiblog.css
+        multiblog.media = screen
+
         
-}
+    }
 
 page.includeJSFooter {
-    tx_multiblog_file_4 = EXT:multiblog/Resources/Public/JavaScript/jquery-1.8.3.js
-    tx_multiblog_file_6 = EXT:multiblog/Resources/Public/JavaScript/CLEditor/jquery.cleditor.min.js
-    tx_multiblog_file_7 = EXT:multiblog/Resources/Public/JavaScript/CLEditor/jquery.cleditor.icon.minjs
-    tx_multiblog_file_5 = EXT:multiblog/Resources/Public/JavaScript/jquery-ui-1.9.2.custom.js
-
-    tx_multiblog_file_8 = EXT:multiblog/Resources/Public/JavaScript/multiblog1.js
-}
+        multiblog       = EXT:multiblog/Resources/Public/Javascript/multiblog.js
+       
 
 
-
+        
+    }

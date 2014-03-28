@@ -1,14 +1,10 @@
-<!-- Blog Edit Main Template -->
-
-<div id="multiblog-edit">
+<div id="multiblog" class="multiblog-edit">
     
-    <f:render partial="Editblog/Header" arguments="{_all}"/>
+    <f:render partial="Blogedit/Header" arguments="{_all}"/>
     
-    <f:render partial="Editblog/Menu" arguments="{menu: menu, main-menu: main-menu}"/>
     
-    <f:render partial="Editblog/Stage/Kategorylist" arguments="{_all}"/>
+    <f:render partial="Blogedit/Menu" arguments="{menu: menu, main-menu: main-menu}"/>
     
-</div>    
+    <f:render partial="Blogedit/Stage/Kategorylist" arguments="{_all}"/>
    
-
-
+</div>    

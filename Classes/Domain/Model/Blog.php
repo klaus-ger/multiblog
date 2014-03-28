@@ -1,440 +1,268 @@
 <?php
 
+namespace T3developer\Multiblog\Domain\Model;
+
+/* * *************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2014 Klaus Heuer <klaus.heuer@t3-developer.com>, t3-developer.com
+ *  
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ * ************************************************************* */
+
 /**
- * @scope prototype
- * @entity
+ *
+ *
+ * @package multiblog
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  */
-class Tx_Multiblog_Domain_Model_Blog extends Tx_Extbase_DomainObject_AbstractEntity {
+class Blog extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     /**
-     * The uid
-     * @var int
-     * @validate NotEmpty 
-     */
-    protected $uid;
-
-    /**
-     * The blogtitel
-     * @var string
-     * @validate NotEmpty 
+     * Blogtitel
+     *
+     * @var \string
+     * @validate NotEmpty
      */
     protected $blogtitel;
 
     /**
-     * The blogwriter
-     * @var string
-     * @validate NotEmpty 
+     * Blogowner
+     *
+     * @var \string
+     * @validate NotEmpty
      */
-    protected $blogwriter;
+    protected $blogowner;
 
     /**
-     * The blogwritermail
-     * @var string
-     * @validate NotEmpty
+     * Blogowner e-mail
+     *
+     * @var \string
+     * 
      */
     protected $blogwritermail;
 
     /**
-     * The blogdescription
-     * @var string
-     * @validate NotEmpty 
+     * Blogdescription
+     *
+     * @var \string
      */
     protected $blogdescription;
 
     /**
-     * The blogcss
-     * @var int
-     * @validate NotEmpty 
+     * Blog CSS
+     *
+     * @var \string
      */
     protected $blogcss;
 
     /**
-     * The blogbild
-     * @var string
-     * 
+     * Blogpicture
+     *
+     * @var \string
      */
-    protected $blogbild;
+    protected $blogpicture;
 
     /**
-     * The lastentry
-     * @var DateTime
-     * @validate NotEmpty
+     * Last Entry
+     *
+     * @var \int
      */
     protected $lastentry;
 
     /**
-     * The StickyPost
-     * @var Tx_Multiblog_Domain_Model_Entry
-     * 
+     * Sticky Post
+     *
+     * @var \string
      */
     protected $stickyPost;
 
     /**
      * Widget About Blog
-     * @var int
-     * 
+     *
+     * @var \int
      */
     protected $widgetAboutBlog;
 
     /**
-     * Widget recent Post
-     * @var int
-     * 
+     * Widget Recent Post
+     *
+     * @var \int
      */
     protected $widgetRecentPost;
 
     /**
      * Widget Category
-     * @var int
-     * 
+     *
+     * @var \int
      */
     protected $widgetCategory;
 
     /**
-     * Widget last Comments
-     * @var int
-     * 
+     * Widget Comments
+     *
+     * @var \int
      */
     protected $widgetComments;
 
     /**
      * Widget All Posts
-     * @var int
-     * 
+     *
+     * @var \int
      */
     protected $widgetAllPosts;
 
     /**
-     * Blogstyle
-     * @var int
-     * 
+     * Blogsyle
+     *
+     * @var \int
      */
     protected $blogstyle;
-    
+
     /**
-     * Set the use of teaser images in Blog show and Category View
-     * @var int
-     * 
+     * Blogstyle Teaser Image
+     *
+     * @var \int
      */
     protected $blogstyleTeaserimages;
-    
-    
-    Public Function setUid($uid) {
-        $this->uid = $uid;
+
+    public function getBlogtitel() {
+        return $this->blogtitel;
     }
 
-    /** Setters for Blog * */
-
-    /**
-     *
-     * Sets the blogtitel
-     * @param string $blogtitel The blogtitel
-     * @return void
-     *
-     */
-    Public Function setBlogtitel($blogtitel) {
+    public function setBlogtitel($blogtitel) {
         $this->blogtitel = $blogtitel;
     }
 
-    /**
-     *
-     * Sets the blogwritermail
-     * @param string $blogwritermail The blogwriter
-     * @return void
-     *
-     */
-    Public Function setBlogwritermail($blogwritermail) {
+    public function getBlogowner() {
+        return $this->blogowner;
+    }
+
+    public function setBlogowner($blogowner) {
+        $this->blogowner = $blogowner;
+    }
+
+    public function getBlogwritermail() {
+        return $this->blogwritermail;
+    }
+
+    public function setBlogwritermail($blogwritermail) {
         $this->blogwritermail = $blogwritermail;
     }
 
-    /**
-     *
-     * Sets the blogwriter
-     * @param string $blogwriter The blogwriter
-     * @return void
-     *
-     */
-    Public Function setBlogwriter($blogwriter) {
-        $this->blogwriter = $blogwriter;
+    public function getBlogdescription() {
+        return $this->blogdescription;
     }
 
-    /**
-     *
-     * Sets the blogdescription
-     * @param string $blogdescription The blogdescription
-     * @return void
-     *
-     */
-    Public Function setBlogdescription($blogdescription) {
+    public function setBlogdescription($blogdescription) {
         $this->blogdescription = $blogdescription;
     }
 
-    /**
-     *
-     * Sets the blogcss
-     * @param int $blogcss The blogcss
-     * @return void
-     *
-     */
-    Public Function setBlogcss($blogcss) {
+    public function getBlogcss() {
+        return $this->blogcss;
+    }
+
+    public function setBlogcss($blogcss) {
         $this->blogcss = $blogcss;
     }
 
-    /**
-     *
-     * Sets the blogbild
-     * @param string $blogbild 
-     * @return void
-     *
-     */
-    Public Function setBlogbild($blogbild) {
-        $this->blogbild = $blogbild;
+    public function getBlogpicture() {
+        return $this->blogpicture;
     }
 
-    /**
-     *
-     * Sets the lastentry
-     * @param DateTime $lastentry
-     * @return void
-     *
-     */
-    Public Function setLastentry(DateTime $lastentry) {
+    public function setBlogpicture($blogpicture) {
+        $this->blogpicture = $blogpicture;
+    }
+
+    public function getLastentry() {
+        return $this->lastentry;
+    }
+
+    public function setLastentry($lastentry) {
         $this->lastentry = $lastentry;
     }
 
-    /**
-     * Sets the stickyPost
-     * 
-     * @param int $stickypost
-     * @return void
-     *
-     */
-    Public Function setStickyPost($stickyPost) {
+    public function getStickyPost() {
+        return $this->stickyPost;
+    }
+
+    public function setStickyPost($stickyPost) {
         $this->stickyPost = $stickyPost;
     }
 
-    /**
-     * Sets the widget About Blog
-     * 
-     * @param int $widgetAboutBlog
-     * @return void
-     *
-     */
-    Public Function setWidgetAboutBlog($widgetAboutBlog) {
+    public function getWidgetAboutBlog() {
+        return $this->widgetAboutBlog;
+    }
+
+    public function setWidgetAboutBlog($widgetAboutBlog) {
         $this->widgetAboutBlog = $widgetAboutBlog;
     }
-    
-    /**
-     * Sets the widget Recent post
-     * 
-     * @param int $widgetRecentPost
-     * @return void
-     *
-     */
-    Public Function setWidgetRecentPost($widgetRecentPost) {
+
+    public function getWidgetRecentPost() {
+        return $this->widgetRecentPost;
+    }
+
+    public function setWidgetRecentPost($widgetRecentPost) {
         $this->widgetRecentPost = $widgetRecentPost;
     }
-    
-    /**
-     * Sets the widget Category
-     * 
-     * @param int $widgetCategory
-     * @return void
-     *
-     */
-    Public Function setWidgetCategory($widgetCategory) {
+
+    public function getWidgetCategory() {
+        return $this->widgetCategory;
+    }
+
+    public function setWidgetCategory($widgetCategory) {
         $this->widgetCategory = $widgetCategory;
     }
-    
-    
-    /**
-     * Sets the swidget last Comments
-     * 
-     * @param int $widgetComments
-     * @return void
-     *
-     */
-    Public Function setWidgetComments($widgetComments) {
+
+    public function getWidgetComments() {
+        return $this->widgetComments;
+    }
+
+    public function setWidgetComments($widgetComments) {
         $this->widgetComments = $widgetComments;
     }
-    
-    /**
-     * Sets the widget All Posts
-     * 
-     * @param int $widgetAllPosts
-     * @return void
-     *
-     */
-    Public Function setWidgetAllPosts($widgetAllPosts) {
+
+    public function getWidgetAllPosts() {
+        return $this->widgetAllPosts;
+    }
+
+    public function setWidgetAllPosts($widgetAllPosts) {
         $this->widgetAllPosts = $widgetAllPosts;
     }
-    
-    
-    /**
-     * Sets the blogstyle
-     * 
-     * @param int $blogstyle
-     * @return void
-     *
-     */
-    Public Function setBlogstyle($blogstyle) {
+
+    public function getBlogstyle() {
+        return $this->blogstyle;
+    }
+
+    public function setBlogstyle($blogstyle) {
         $this->blogstyle = $blogstyle;
     }
-        
-    /**
-     * Sets the blogstyle teaserimages
-     * 
-     * @param int $blogstyleTeaserimages
-     * @return void
-     *
-     */
-    Public Function setBlogstyleTeaserimages($blogstyleTeaserimages) {
+
+    public function getBlogstyleTeaserimages() {
+        return $this->blogstyleTeaserimages;
+    }
+
+    public function setBlogstyleTeaserimages($blogstyleTeaserimages) {
         $this->blogstyleTeaserimages = $blogstyleTeaserimages;
     }
-    
-    /** GETTERS *************************** */
 
-    /**
-     *
-     * Gets the blogtitel
-     * @return string
-     *
-     */
-    Public Function getBlogtitel() {
-        Return $this->blogtitel;
-    }
-
-    /**
-     *
-     * Gets the blogwriter
-     * @return string blogwriter
-     *
-     */
-    Public Function getBlogwriter() {
-        Return $this->blogwriter;
-    }
-
-    /**
-     *
-     * Gets the blogwritermail
-     * @return string blogwritermail
-     *
-     */
-    Public Function getBlogwritermail() {
-        Return $this->blogwritermail;
-    }
-
-    /**
-     *
-     * Gets the blogdescription
-     * @return string blogdescription
-     *
-     */
-    Public Function getBlogdescription() {
-        Return $this->blogdescription;
-    }
-
-    /**
-     *
-     * Gets the blogcss
-     * @return int blogcss
-     *
-     */
-    Public Function getBlogcss() {
-        Return $this->blogcss;
-    }
-
-    /**
-     *
-     * Gets the blogbild
-     * @return string blogbild
-     *
-     */
-    Public Function getBlogbild() {
-        Return $this->blogbild;
-    }
-
-    /**
-     *
-     * Gets the lastentry
-     * @return DateTime lastentry
-     *
-     */
-    Public Function getLastentry() {
-        Return $this->lastentry;
-    }
-
-    /**
-     * Gets the stickyPost
-     *
-     * @return int
-     */
-    Public Function getStickyPost() {
-        Return $this->stickyPost;
-    }
-
-    /**
-     * Gets widget About Blog
-     *
-     * @return int
-     */
-    Public Function getWidgetAboutBlog() {
-        Return $this->widgetAboutBlog;
-    }
-    
-    /**
-     * Gets widget Recent Post
-     *
-     * @return int
-     */
-    Public Function getWidgetRecentPost() {
-        Return $this->widgetRecentPost;
-    }
-    
-    /**
-     * Gets widget Category
-     *
-     * @return int
-     */
-    Public Function getWidgetCategory() {
-        Return $this->widgetCategory;
-    }
-    
-    /**
-     * Gets widget Comments
-     *
-     * @return int
-     */
-    Public Function getWidgetComments() {
-        Return $this->widgetComments;
-    }
-    
-    /**
-     * Gets widget All Posts
-     *
-     * @return int
-     */
-    Public Function getWidgetAllPosts() {
-        Return $this->widgetAllPosts;
-    }
-    
-    /**
-     * Gets blogstyle
-     *
-     * @return int
-     */
-    Public Function getBlogstyle() {
-        Return $this->blogstyle;
-    }
-    
-    /**
-     * Gets blogstyleTeaserimages
-     *
-     * @return int
-     */
-    Public Function getBlogstyleTeaserimages() {
-        Return $this->blogstyleTeaserimages;
-    }
 }
 
 ?>

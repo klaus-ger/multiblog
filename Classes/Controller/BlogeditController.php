@@ -1,9 +1,12 @@
 <?php
 
+namespace T3developer\Multiblog\Controller;
+
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Klaus Heuer <klaus.heuer@t3-developer.com>
+ *  (c) 2014 Klaus Heuer <klaus.heuer@t3-developer.com>, t3-developer.com
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,510 +26,257 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 
-class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controller_ActionController {
+/**
+ *
+ *
+ * @package multiblog
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
+ */
+class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
     /**
-     * @var Tx_Multiblog_Domain_Model_EntryRepository
-     */
-    protected $entryRepository;
-
-    /**
-     * @var Tx_Multiblog_Domain_Model_BlogRepository
+     * @var T3developer\Multiblog\Domain\Repository\BlogRepository 
+     * @inject 
      */
     protected $blogRepository;
 
     /**
-     * @var Tx_Multiblog_Domain_Model_KategorieRepository
+     * @var T3developer\Multiblog\Domain\Repository\PostRepository 
+     * @inject 
      */
-    protected $kategorieRepository;
+    protected $postRepository;
 
     /**
-     * @var Tx_Multiblog_Domain_Model_CommentRepository
+     * @var T3developer\Multiblog\Domain\Repository\CategoryRepository 
+     * @inject 
      */
-    protected $commentRepository;
+    protected $categoryRepository;
 
-    /**
-     * @var Tx_Extbase_Persistence_Manager
-     */
-    protected $persistanceManager;
-
-    /**
-     * @param Tx_Extbase_Persistence_Manager $persistanceManager
-     * @return void
-     */
-    public function injectPersistanceManager(Tx_Extbase_Persistence_Manager $persistanceManager) {
-        $this->persistenceManager = $persistanceManager;
-    }
-
-    /**
-     * Initializes the current action 
-     * @return void 
-     */
+    
     public function initializeAction() {
-        $this->entryRepository = & t3lib_div::makeInstance("Tx_Multiblog_Domain_Repository_EntryRepository");
-        $this->blogRepository = t3lib_div::makeInstance("Tx_Multiblog_Domain_Repository_BlogRepository");
-        $this->kategorieRepository = t3lib_div::makeInstance("Tx_Multiblog_Domain_Repository_KategorieRepository");
-        $this->commentRepository = t3lib_div::makeInstance("Tx_Multiblog_Domain_Repository_CommentRepository");
-        $this->persistenceManager =
-                t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
-        if ($this->arguments->hasArgument('Tx_Multiblog_Domain_Model_Entry')) {
-            $this->arguments->getArgument('Tx_Multiblog_Domain_Model_Entry')->getPropertyMappingConfiguration()->setTargetTypeForSubProperty('entrypicture', 'array');
+        if (isset($this->arguments['entry'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['entry']
+                    ->getPropertyMappingConfiguration()->allowProperties('postdate')
+                    ->forProperty('postdate')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
         }
+        
     }
 
     /**
-     * Blog EDIT
-     * Displays Main Page Blog Edit, Table of Entrys.
-     *  
+     * Index view
+     *
+     * 
      */
     public function indexAction() {
-
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
-        $entrys = $this->entryRepository->findByblogid($blogUid);
+        $posts = $this->postRepository->findByBlogid($blogUid);
 
-        $this->view->assign('view', 'articlelist');
-        $this->view->assign('main-menu', 'articles');
+
+        $this->view->assign('entrys', $posts);
+
         $this->view->assign('menu', 'articles-all');
-        $this->view->assign('entrys', $entrys);
-        $this->view->assign('blog', $this->blogRepository->findByUid($blogUid));
+        $this->view->assign('main-menu', 'articles');
     }
 
+    /*     * ***********************************************************************
+     * Posts
+     * ************************************************************************ */
+
     /**
-     * Blog EDIT
-     * Edit form for single Entry
-     * 
-     * @param Tx_Multiblog_Domain_Model_Entry $entry !  
-     * @dontvalidate $entrys
-     * @dontvalidate x_Multiblog_Domain_Model_Entry $entry
-     * @ param int $uid
+     * Shows the form for a new Post
      */
-    public function artikelEditAction() {
+    public function postNewAction() {
+        $blogUid = $this->findsBlogUidByLoggedInUser();
 
-        $singleEntryUid = $this->request->getArgument('singleEntry');
+        $blog = $this->blogRepository->findByUid($blogUid);
 
-        //finds the blogowner and blogUid
-        $blogOwner = $GLOBALS['TSFE']->fe_user->user[uid];
-        $blog = $this->blogRepository->findByblogwriter($blogOwner);
-        $blogUid = $blog[0]->getUid();
+        //create new post and set values
+        $entry = new \T3developer\Multiblog\Domain\Model\Post;
+        $entry->setBlogid($blogUid);
+        $entry->setPoststatus(0);
+        $entry->setPostdate(time());
+        
+        //search categories
+        $categories = $this->categoryRepository->findByBlogid($blogUid);
 
-
-        $entry = $this->entryRepository->findByUid($singleEntryUid);
-        $entry->setEntrypicturedelete(FALSE);
-        $entry->setCurrentpicture($entry->getEntrypicture());
-
-
-        $this->view->assign('main-menu', 'articles');
-        $this->view->assign('menu', 'article-edit');
-
-
+        $this->view->assign('blog', $blog);
         $this->view->assign('entry', $entry);
-        $this->view->assign('kategorie', $this->kategorieRepository->findForAllKatView($blogUid));
-    }
+        $this->view->assign('categories', $categories);
 
-    /**
-     * Updates an existing Entry and forwards to the index action. 
-     * 
-     * 
-     * @dontvalidate Tx_Multiblog_Domain_Model_Entry $entry 
-     * @dontvalidate $entry
-     * 
-     */
-    public function artikelUpdateAction() {
-        if ($this->request->hasArgument('entry')) {
-            $entry = $this->request->getArgument('entry');
-        }
-
-        //Convert Date to DateTime
-        $date = explode(".", $entry['entrydate']);
-        $timestamp = '@' . mktime(0, 0, 0, $date[1], $date[0], $date[2]);
-        $entry['entrydate'] = new DateTime($timestamp);
-
-
-        // Setzt letztes Ändeungsdatum in Blogtabelle um Blogübersicht nach letztem Eintrag zu sortieren
-        // last_entry in tx_gentleblog_domain_model_blog
-        //Prüft ob Beitrag sichtbar ist, Status: online
-        $status = $entry['entrystatus'];
-        if ($status == '1') {
-
-            //Liest Beitragsdatum aus
-            $entrydate = $entry['entrydate'];
-
-            // Holt datum des letzten Beitrags aus der Blogtabelle
-            $blogid = $entry['blogid'];
-            $blogdaten = $this->blogRepository->findbyUid($blogid);
-            $lastentrydate = $blogdaten->getLastentry()->getTimestamp();
-
-            //Prüft welches Datum neuer ist, setzt ggf. neues Datum
-
-            if ($entrydate > $lastentrydate) {
-
-                $blogdaten->setLastentry()->setTimestamp($entrydate);
-                //Bug in Typo 4.7, persist all vor update setzten
-                $this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
-                $this->blogRepository->update($blogdaten);
-            }
-        }
-
-        // Bilddateihandling
-        $entrypicture = $entry['currentpicture'];
-        //$entry->setEntrypicture($currentPicture);
-        if ($_FILES['tx_multiblog_blogedit']['name']['entry']['entrypicture']) {
-            $basicFileFunctions = t3lib_div::makeInstance('t3lib_basicFileFunctions');
-
-            $fileName = $basicFileFunctions->getUniqueName(
-                    $_FILES['tx_multiblog_blogedit']['name']['entry']['entrypicture'], t3lib_div::getFileAbsFileName('uploads/multiblog/'));
-
-            t3lib_div::upload_copy_move(
-                    $_FILES['tx_multiblog_blogedit']['tmp_name']['entry']['entrypicture'], $fileName);
-
-            $entrypicture = basename($fileName);
-        }
-
-        if ($entry['entrypicturedelete'] == 1) {
-            $entrypicture = NULL;
-        }
-
-        //Check is already a sticky post exist and set it to sticky = 0
-        if ($entry['entrysticky'] == '1') {
-            $stickyEntry = $this->entryRepository->findStickyPost($blogid);
-            if ($stickyEntry[0]) {
-                $stickyEntry[0]->setEntrysticky('0');
-                $this->entryRepository->update($stickyEntry[0]);
-            }
-        }
-        // Loads the original entry an set the array to objects, 
-        // we do this in reason of the new property mapping in 6.1 versus 4.5 / 4.7
-        // it's silly - I know this :)
-
-        $updateEntry = $this->entryRepository->findByUid($entry['uid']);
-        $updateEntry->setEntrytitel($entry['entrytitel']);
-        $updateEntry->setEntrystatus($entry['entrystatus']);
-        $updateEntry->setEntryanleser($entry['entryanleser']);
-        $updateEntry->setEntrytext($entry['entrytext']);
-        $updateEntry->setEntrykategorie1($entry['entrykategorie1']);
-        $updateEntry->setEntrykategorie2($entry['entrykategorie2']);
-        $updateEntry->setEntrykategorie3($entry['entrykategorie3']);
-        $updateEntry->setEntrykategorie4($entry['entrykategorie4']);
-        $updateEntry->setEntrypicture($entrypicture);
-        $updateEntry->setEntrypictureposition($entry['entrypictureposition']);
-        $updateEntry->setEntrydate($entry['entrydate']);
-        $updateEntry->setEntrysticky($entry['entrysticky']);
-        $updateEntry->setEntrycommentoption($entry['entrycommentoption']);
-
-
-
-        //Tx_Extbase_Utility_Debugger::var_dump($updateEntry);
-        $this->entryRepository->update($updateEntry);
-
-        $this->redirect('index');
-    }
-
-    /**
-     * Displays a form for creating a new Entry 
-     * 
-     * @param Tx_Multiblog_Domain_Model_Entry $newEntry ! A fresh entry object taken as a basis for the rendering 
-     * @dontvalidate $newEntry 
-     */
-    public function artikelNewAction(Tx_Multiblog_Domain_Model_Entry $newEntry = NULL) {
-
-
-        $blogUid = $this->findsBlogUidByLoggedInUser();
-
-        $newEntry = new Tx_Multiblog_Domain_Model_Entry;
-        $newEntry->setBlogid($blogUid);
-        $newEntry->setEntrystatus('0');
-        $newEntry->setEntrykategorie1('1');
-        $newEntry->setEntrykategorie2('1');
-        $newEntry->setEntrykategorie3('1');
-        $newEntry->setEntrykategorie4('1');
-        $newEntry->setPid($this->settings['storagePid']);
-
-
-
-        $this->view->assign('main-menu', 'articles');
         $this->view->assign('menu', 'articlecreate');
-        $this->view->assign('entry', $newEntry);
-        $this->view->assign('kategorie', $this->kategorieRepository->findForAllKatView($blogUid));
+        $this->view->assign('main-menu', 'articles');
     }
 
     /**
-     * Creates a new Blogentry and forwards to the index action. 
-     * 
-     * @param Tx_Multiblog_Domain_Model_Entry $entry     ! A fresh note object which has not yet been added to ! the repository 
-     * @dontvalidate $entry 
-
+     * Shows the form for editing a post
      */
-    public function artikelCreateAction() {
-        if ($this->request->hasArgument('entry')) {
-            $entry = $this->request->getArgument('entry');
-        }
+    public function postEditAction() {
+        
+    }
 
-        //Convert Date to DateTime
-        $date = explode(".", $entry['entrydate']);
-        $timestamp = '@' . mktime(0, 0, 0, $date[1], $date[0], $date[2]);
-        $entry['entrydate'] = new DateTime($timestamp);
-
-
-        //Tx_Extbase_Utility_Debugger::var_dump($entry);
-        // Setzt letztes Ändeungsdatum in Blogtabelle um Blogübersicht nach letztem Eintrag zu sortieren
-        // last_entry in tx_gentleblog_domain_model_blog
-        //Prüft ob Beitrag sichtbar ist, Status: online
-        $status = $entry['entrystatus'];
-        if ($status == '1') {
-
-            //Liest Beitragsdatum aus
-            $entrydate = $entry['entrydate'];
-
-            // Holt datum des letzten Beitrags aus der Blogtabelle
-            $blogid = $entry->getBlogid();
-            $blogdaten = $this->blogRepository->findbyUid($blogid);
-            $lastentrydate = $blogdaten->getLastentry()->getTimestamp();
-
-            //Prüft welches Datum neuer ist, setzt ggf. neues Datum
-
-            if ($entrydate > $lastentrydate) {
-
-                $blogdaten->setLastentry($entrydate);
-                //Bug in Typo 4.7, persist all vor update setzten
-                $this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
-                $this->blogRepository->update($blogdaten);
+    /**
+     * Save a new post
+     * @param \T3developer\Multiblog\Domain\Model\Post $entry
+     * @dontvalidate  $entry
+     */
+        public function postCreateAction() {
+            if ($this->request->hasArgument('entry')){
+                $entry = $this->request->getArgument('entry');
             }
-        }
 
-        // Bilddateihandling
-        $entrypicture = $entry['currentpicture'];
-        //$entry->setEntrypicture($currentPicture);
-        if ($_FILES['tx_multiblog_blogedit']['name']['entry']['entrypicture']) {
-            $basicFileFunctions = t3lib_div::makeInstance('t3lib_basicFileFunctions');
+         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entry);
+        //$this->postRepository->add($entry);
 
-            $fileName = $basicFileFunctions->getUniqueName(
-                    $_FILES['tx_multiblog_blogedit']['name']['entry']['entrypicture'], t3lib_div::getFileAbsFileName('uploads/multiblog/'));
+        //$this->redirect('index');
+    }
+//    public function postCreateAction(\T3developer\Multiblog\Domain\Model\Post $entry) {
+//
+//
+//        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entry);
+//        $this->postRepository->add($entry);
+//
+//        $this->redirect('index');
+//    }
 
-            t3lib_div::upload_copy_move(
-                    $_FILES['tx_multiblog_blogedit']['tmp_name']['entry']['entrypicture'], $fileName);
-
-            $entrypicture = basename($fileName);
-        }
-
-        if ($entry['entrypicturedelete'] == 1) {
-            $entrypicture = NULL;
-        }
-
-        //Check is already a sticky post exist and set it to sticky = 0
-        if ($entry['entrysticky'] == '1') {
-            $stickyEntry = $this->entryRepository->findStickyPost($blogid);
-            if ($stickyEntry[0]) {
-                $stickyEntry[0]->setEntrysticky('0');
-                $this->entryRepository->update($stickyEntry[0]);
-            }
-        }
-
-        // Loads the original entry an set the array to objects, 
-        // we do this in reason of the new property mapping in 6.1 versus 4.5 / 4.7
-        // it's silly - I know this :)
-
-        $newEntry = new Tx_Multiblog_Domain_Model_Entry;
-        $newEntry->setBlogid($entry['blogid']);
-        $newEntry->setEntrytitel($entry['entrytitel']);
-        $newEntry->setEntrystatus($entry['entrystatus']);
-        $newEntry->setEntryanleser($entry['entryanleser']);
-        $newEntry->setEntrytext($entry['entrytext']);
-        $newEntry->setEntrykategorie1($entry['entrykategorie1']);
-        $newEntry->setEntrykategorie2($entry['entrykategorie2']);
-        $newEntry->setEntrykategorie3($entry['entrykategorie3']);
-        $newEntry->setEntrykategorie4($entry['entrykategorie4']);
-        $newEntry->setEntrypicture($entrypicture);
-        $newEntry->setEntrypictureposition($entry['entrypictureposition']);
-        $newEntry->setEntrydate($entry['entrydate']);
-        $updateEntry->setEntrycommentoption($entry['entrycommentoption']);
-
-        $newEntry->setPid($this->settings['storagePid');
-
-        //Tx_Extbase_Utility_Debugger::var_dump($entry);
-        //$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
-        $this->entryRepository->add($newEntry);
-
-        $this->redirect('index');
+    /**
+     * Updates a post
+     */
+    public function postUpdateAction() {
+        
     }
 
     /**
-     * Shows the List of all online Comments 
-     * 
-     * @return Tx_Munltiblog_Domain_Model_Comment The List of Comments
+     * Shows all categories
      */
-    public function commentsShowAllAction() {
-
-        $blogUid = $this->findsBlogUidByLoggedInUser();
-        $comments = $this->commentRepository->findByBlogidAndStatus($blogUid, '1');
-
-        $this->view->assign('main-menu', 'comments');
-        $this->view->assign('menu', 'allcomments');
-        $this->view->assign('comments', $comments);
-    }
-
-    /**
-     * Shows the List of all draft Comments 
-     * 
-     * @return Tx_Munltiblog_Domain_Model_Comment The List of Comments
-     */
-    public function commentsShowNewAction() {
-
-        $blogUid = $this->findsBlogUidByLoggedInUser();
-        $comments = $this->commentRepository->findByBlogidAndStatus($blogUid, '0');
-
-        $this->view->assign('main-menu', 'comments');
-        $this->view->assign('menu', 'newcomments');
-        $this->view->assign('comments', $comments);
-    }
-
-    /**
-     * Shows a single Kommentar for editing 
-     * 
-     * @param Tx_Multiblog_Domain_Model_Comment $comment
-     */
-    public function commentEditAction() {
-
-        $commentfetch = $this->request->getArgument('uid');
-
-        $comment = $this->commentRepository->findByUid($commentfetch);
-
-        $this->view->assign('main-menu', 'comments');
-        $this->view->assign('menu', 'commentedit');
-        $this->view->assign('comment', $comment);
-    }
-
-    /**
-     * Updates an existing Comment and forwards to the comment index action. 
-     * 
-     * @param Tx_Multiblog_Domain_Model_Comment $comment 
-     * @dontvalidate $comment
-     */
-    public function commentUpdateAction(Tx_Multiblog_Domain_Model_Comment $comment) {
-
-        //Bug in Typo 4.7, persist all vor update setzten
-        $this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
-        $this->commentRepository->update($comment);
-        //$this->flashMessageContainer->add('Your Project was updated.'); 
-        $this->redirect('commentsShowAll');
-    }
-
-    /**
-     * Deletes an existing Comment and forwards to the comment index action. 
-     * 
-     * @param $uid 
-     * @dontvalidate $comment
-     */
-    public function commentsDeleteAction() {
-        $commentfetch = $this->request->getArgument('uid');
-
-        $comment = $this->commentRepository->findByUid($commentfetch);
-        $this->commentRepository->remove($comment);
-        $this->redirect('commentsShowAll');
-    }
-
     public function kategoryShowAction() {
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
-        $newKat = new Tx_Multiblog_Domain_Model_Kategorie;
+        $blog = $this->blogRepository->findByUid($blogUid);
+        
+        //build category Tree
+        $mainCategories = $this->categoryRepository->findMainCatByBlog($blogUid);
+        
+        foreach ($mainCategories as $mainCat) {
+            $cat[$mainCat->getUid()]['main'] = $mainCat;
+            $cat[$mainCat->getUid()]['sub'] = $this->categoryRepository->findByTopkategory($mainCat->getUid());
+        }
+        
+        //build objects for new category form
+        $newKat = new \T3developer\Multiblog\Domain\Model\Category;
         $newKat->setBlogid($blogUid);
-
-        $this->view->assign('topkategorie', $this->kategorieRepository->findForTopKatView($blogUid));
-        $this->view->assign('subkategorie', $this->kategorieRepository->findForSubKatView());
+        
+        
+        $this->view->assign('blog', $blog);
+        $this->view->assign('categories', $cat);
         $this->view->assign('newKat', $newKat);
-        $this->view->assign('main-menu', 'articles');
+        $this->view->assign('mainCategories', $mainCategories);
+
         $this->view->assign('menu', 'category');
+        $this->view->assign('main-menu', 'articles');
     }
 
     /**
-     * Create a new Kategories of the Blogowner
-     * @param 
-     * @dontvalidate Tx_Multiblog_Domain_Model_Kategorie $newKat
+     * Adds a categories
+     *
+    * @param \T3developer\Multiblog\Domain\Model\Category $newKat Description
+     * @dontvalidate $newKat
      */
-    public function settingsCreateKategorieAction(Tx_Multiblog_Domain_Model_Kategorie $newKat) {
-
-
-        //Bug in Typo 4.7, persist all vor update setzten
-        $this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
-        $this->kategorieRepository->add($newKat);
-
+    public function kategoryAddAction(\T3developer\Multiblog\Domain\Model\Category $newKat) {
+        
+        $this->categoryRepository->add($newKat);
+        
         $this->redirect('kategoryShow');
     }
 
+    /*     * ***********************************************************************
+     * Settings
+     * ************************************************************************ */
+
     /**
-     * Shows the Widgetpage
-     * 
+     * Shows Form for widget settings
      */
     public function widgetsShowAction() {
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
-        $this->view->assign('blog', $this->blogRepository->findByUid($blogUid));
+        $blog = $this->blogRepository->findByUid($blogUid);
 
+        $this->view->assign('blog', $blog);
 
         $this->view->assign('menu', 'widgets');
         $this->view->assign('main-menu', 'settings');
     }
 
     /**
-     * update the widgets setting
+     * update widget settings
      * 
+     * @param \T3developer\Multiblog\Domain\Model\Blog $blog Description
+     * @dontvalidate $blog
      */
-    public function widgetsUpdateAction(Tx_Multiblog_Domain_Model_Blog $blog) {
-       
+    public function widgetsUpdateAction(\T3developer\Multiblog\Domain\Model\Blog $blog) {
         $this->blogRepository->update($blog);
 
         $this->redirect('widgetsShow');
     }
 
     /**
-     * Shows the Blogstylepage
-     * 
+     * Shows Form for blogstyle settings
      */
     public function blogstyleShowAction() {
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
-        $this->view->assign('blog', $this->blogRepository->findByUid($blogUid));
+        $blog = $this->blogRepository->findByUid($blogUid);
 
+        $this->view->assign('blog', $blog);
 
         $this->view->assign('menu', 'blogstyle');
         $this->view->assign('main-menu', 'settings');
     }
 
     /**
-     * update the widgets setting
+     * update Blogsettings
      * 
+     * @param \T3developer\Multiblog\Domain\Model\Blog $blog Description
+     * @dontvalidate $blog
      */
-    public function blogstyleUpdateAction(Tx_Multiblog_Domain_Model_Blog $blog) {
-        $this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+    public function blogstyleUpdateAction(\T3developer\Multiblog\Domain\Model\Blog $blog) {
         $this->blogRepository->update($blog);
 
         $this->redirect('blogstyleShow');
     }
 
     /**
-     * Shows the User Settings
-     * 
+     * Shows Form for blogstyle settings
      */
     public function usersettingsShowAction() {
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
-        $this->view->assign('blog', $this->blogRepository->findByUid($blogUid));
+        $blog = $this->blogRepository->findByUid($blogUid);
 
+        $this->view->assign('blog', $blog);
 
         $this->view->assign('menu', 'usersettings');
         $this->view->assign('main-menu', 'settings');
     }
 
     /**
-     * update the widgets setting
+     * update Blogsettings
      * 
+     * @param \T3developer\Multiblog\Domain\Model\Blog $blog Description
+     * @dontvalidate $blog
      */
-    public function usersettingsUpdateAction(Tx_Multiblog_Domain_Model_Blog $blog) {
-
+    public function usersettingsUpdateAction(\T3developer\Multiblog\Domain\Model\Blog $blog) {
         $this->blogRepository->update($blog);
 
         $this->redirect('usersettingsShow');
     }
+
+    /*     * *************************************************************************
+     * General functions
+     * ************************************************************************ */
 
     /**
      * Finds the BlogUid by Logged In FE User
@@ -556,7 +306,8 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
             if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'])) {
                 $_params = array();
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'] as $funcRef) {
-                    list($onSub, $hid) = t3lib_div::callUserFunction($funcRef, $_params, $this);
+                    //list($onSub, $hid) = t3lib_div::callUserFunction($funcRef, $_params, $this);
+                    list($onSub, $hid) = \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $_params, $this);
                     $onSubmitAr[] = $onSub;
                     $extraHiddenAr[] = $hid;
                 }
@@ -569,11 +320,11 @@ class Tx_Multiblog_Controller_BlogeditController extends Tx_Extbase_MVC_Controll
             if (count($extraHiddenAr)) {
                 $extraHidden = implode(LF, $extraHiddenAr);
             }
-            
+
             $this->view->assign('storagePid', $this->settings['storagePid']);
             $this->view->assign('onSubmit', $onSubmit);
             $this->view->assign('extraHidden', $extraHidden);
-            $this->view->assign('currentPid', t3lib_div::_GP('id'));
+            $this->view->assign('currentPid', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id'));
         } else {
             $this->redirect('index');
         }

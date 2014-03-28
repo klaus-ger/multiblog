@@ -1,29 +1,13 @@
-## Define custom categories
-# customsubcategory =1_pagesettings= General Settings
-# customsubcategory =2_css= CSS and Templates Settings
-
-
 plugin.tx_multiblog {
 
-    settings {
-        langFile = typo3conf/ext/multiblog/Resources/Private/Language/locallang.xml
-
-        # cat=multiblog/1_pagesettings/#010; type=string; label=storage Folder: The pid of the storage folder for the blog data.
-	storagePid = 14
-        # cat=multiblog/1_pagesettings/#020; type=string; label= Blog Overview page (pid): pid of the list will all blogs, only neccessarry if you use more than one Blog, the overview page
-	viewAllBlogsUid  = 
-        # cat=multiblog/1_pagesettings/#030; type=string; label=Blog Singel Page (pid): The pid of the blog page (PlugIn multiblog: singleblog) 
-	viewSingleBlogUid  = 
-        # cat=multiblog/1_pagesettings/#040; type=string; label=Blog Edit Page (pid): The pid of the blog edit page (Plugin multiblog: blogedit)
-	viewEditBlogUid  = 
-        # cat=multiblog/1_pagesettings/#050; type=string; label= Special Blog (uid): Show only one Blog in multiple Installation, normaly not neccessary to set here anything, see manual.
-	singleBlog = 
-	
-        # cat=multiblog/2_css/#010; type=string; label=Custom CSS File: Own CSS file - will overwrite the basis css.
-	CSSCustomer = fileadmin/...
-        # cat=multiblog/2_css/#020; type=string; label=Default Custom CSS File: Own CSS file - will overwrite the basis css.
-	CSSCustomer = fileadmin/...
-
-    }
-
+	persistence {
+		# cat=plugin.tx_multiblog//a; type=string; label=Default storage PID
+		storagePid = 
+	}
+        settings {
+                langFile = typo3conf/ext/multiblog/Resources/Private/Language/locallang.xml
+                
+		# cat=plugin.tx_multiblog//a; type=string; label=PID of the Edit Plugin
+		pidBlogedit = 
+	}
 }

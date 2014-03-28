@@ -1,316 +1,152 @@
 <?php
+
+namespace T3developer\Multiblog\Domain\Model;
+
+/* * *************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2014 Klaus Heuer <klaus.heuer@t3-developer.com>, t3-developer.com
+ *  
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ * ************************************************************* */
+
 /**
- * @scope prototype
- * @entity
-
-*
+ *
+ *
+ * @package multiblog
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  */
- 
- 
-class Tx_Multiblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_AbstractEntity {
- 
+class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
+        /**
+     * blogid
+     *
+     * @var \int
+     * 
+     */
+    protected $blogid;
+    
+    /**
+     * posttitel
+     *
+     * @var \int
+     * 
+     */
+    protected $postid;
+
+    /**
+     * comment text
+     * @var \string
+     * 
+     */
+    protected $commenttext;
+
+    /**
+     * comment name
+     *
+     * @var \string
+     */
+    protected $commentname;
+    
+        /**
+     * comment date
+     *
+     * @var \string
+     */
+    protected $commentdate;
+    
+        /**
+     * comment mail
+     *
+     * @var \string
+     */
+    protected $commentmail;
+    
+        /**
+     * comment approve
+     *
+     * @var \int
+     */
+    protected $commentapprove;
 
     
-           /** 
-         * The uid
-         * @var int
-         *  
-         */ 
-    protected $uid; 
-
-        /** 
-         * The entryid
-         * @var Tx_Multiblog_Domain_Model_Entry
-         * 
-         *  
-         */ 
-    protected $entryid; 
-
-
-       /** 
-         * The blogid
-         * @var int
-         * 
-         */ 
-    protected $blogid; 
-
-        /** 
-         * The commentdate
-         * @var DateTime
-         * 
-         */ 
-    protected $commentdate; 
-
-        /** 
-         * The commentname
-         * @var string
-         * @validate NotEmpty
-         */ 
-    protected $commentname; 
-
-
-        /** 
-         * The commentmail
-         * @var string
-         * @validate EmailAddress
-         */ 
-    protected $commentmail; 
-
-
-        /** 
-         * The commenttitel
-         * @var string
-         * @validate NotEmpty
-         */ 
-    protected $commenttitel; 
-
-
-        /** 
-         * The commenttext
-         * @var string
-         * @validate NotEmpty
-         */ 
-    protected $commenttext; 
-
-
-         /** 
-         * The commentreply
-         * @var string
-         * 
-         */ 
-    protected $commentreply; 
-
-
-        /** 
-         * The commentproved
-         * @var int
-         * 
-         */ 
-    protected $commentproved; 
-
-
- 	public function __construct() {
-			$this->commentdate = new DateTime();
-	}
-
-   
- /** Setters for Blog *******************************************/
- 
-         	 /**
-		  *
-		  * Sets the uid
-		  * @param int $uid
-		  * @return void
-		  *
-		  */
-
-	Public Function setUid($uid) { $this->uid = $uid; }
-
-   
-    
-       	 /**
-		  *
-		  * Sets the entryid
-		  * @param int $entryid
-		  * @return void
-		  *
-		  */
-
-	Public Function setEntryid($entryid) { $this->entryid = $entryid; }
-
-       	 /**
-		  *
-		  * Sets the blogid
-		  * @param int $blogid
-		  * @return void
-		  *
-		  */
-
-	Public Function setBlogid($blogid) { $this->blogid = $blogid; }
-
-       	 /**
-		  *
-		  * Sets the commentdate
-		  * @param DateTime $commentdate
-		  * @return void
-		  *
-		  */
-
-	Public Function setCommentdate($commentdate) { $this->commentdate = $commentdate; }
-  
-
-
-
-    	 /**
-		  *
-		  * Sets the commentname
-		  * @param string $commentname The commentname
-		  * @return void
-		  *
-		  */
-
-	Public Function setCommentname($commentname) { $this->commentname = $commentname; }
-
-
-    	 /**
-		  *
-		  * Sets the commentmail
-		  * @param string $commentmail 
-		  * @return void
-		  *
-		  */
-
-	Public Function setCommentmail($commentmail) { $this->commentmail = $commentmail; }
-
-   
-    	 /**
-		  *
-		  * Sets the commenttitel
-		  * @param string $commenttitel 
-		  * @return void
-		  *
-		  */
-
-	Public Function setCommenttitel($commenttitel) { $this->commenttitel = $commenttitel; }
-
-   
-    	 /**
-		  *
-		  * Sets the commenttext
-		  * @param string $commenttext 
-		  * @return void
-		  *
-		  */
-
-	Public Function setCommenttext($commenttext) { $this->commenttext = $commenttext; }
-
-   
-    	 /**
-		  *
-		  * Sets the commentreply
-		  * @param string $commentreply 
-		  * @return void
-		  *
-		  */
-
-	Public Function setCommentreply($commentreply) { $this->commentreply = $commentreply; }
-
-   
-    	 /**
-		  *
-		  * Sets the commentproved
-		  * @param int $commentproved 
-		  * @return void
-		  *
-		  */
-
-	Public Function setCommentproved($commentproved) { $this->commentproved = $commentproved; }
-
-   
-
-
-/** GETTERS ****************************/
-
-
-
-
-
-		 /**
-		  *
-		  * Gets the entryid
-		  * @return int entryid
-		  *
-		  */
-
-	Public Function getEntryid() { Return $this->entryid; }
-
-
-
-		 /**
-		  *
-		  * Gets the blogid
-		  * @return int blogid
-		  *
-		  */
-
-	Public Function getBlogid() { Return $this->blogid; }
-
-
-		 /**
-		  *
-		  * Gets the commentdate
-		  * @return DateTime 
-		  *
-		  */
-
-	Public Function getCommentdate() { Return $this->commentdate; }
-
-	
-		 /**
-		  *
-		  * Gets the commentname
-		  * @return string
-		  *
-		  */
-
-	Public Function getCommentname() { Return $this->commentname; }
-
- 
-
-
-		 /**
-		  *
-		  * Gets the commentmail
-		  * @return string commentmail
-		  *
-		  */
-
-	Public Function getCommentmail() { Return $this->commentmail; }
-
-
-		 /**
-		  *
-		  * Gets the commenttitel
-		  * @return string commenttitel
-		  *
-		  */
-
-	Public Function getCommenttitel() { Return $this->commenttitel; }
-
-
-		 /**
-		  *
-		  * Gets the commenttext
-		  * @return string commenttext
-		  *
-		  */
-
-	Public Function getCommenttext() { Return $this->commenttext; }
-
-
-		 /**
-		  *
-		  * Gets the commentreply
-		  * @return string commentreply
-		  *
-		  */
-
-	Public Function getCommentreply() { Return $this->commentreply; }
-
-
-		 /**
-		  *
-		  * Gets the commentproved
-		  * @return int commentproved
-		  *
-		  */
-
-	Public Function getCommentproved() { Return $this->commentproved; }
+    public function getPostid() {
+        return $this->postid;
+    }
+
+    public function setPostid($postid) {
+        $this->postid = $postid;
+    }
+
+    public function getCommenttext() {
+        return $this->commenttext;
+    }
+
+    public function setCommenttext($commenttext) {
+        $this->commenttext = $commenttext;
+    }
+
+    public function getCommentname() {
+        return $this->commentname;
+    }
+
+    public function setCommentname($commentname) {
+        $this->commentname = $commentname;
+    }
+
+    public function getCommentdate() {
+        return $this->commentdate;
+    }
+
+    public function setCommentdate($commentdate) {
+        $this->commentdate = $commentdate;
+    }
+
+    public function getCommentmail() {
+        return $this->commentmail;
+    }
+
+    public function setCommentmail($commentmail) {
+        $this->commentmail = $commentmail;
+    }
+
+    public function getCommentapprove() {
+        return $this->commentapprove;
+    }
+
+    public function setCommentapprove($commentapprove) {
+        $this->commentapprove = $commentapprove;
+    }
+
+    public function getBlogid() {
+        return $this->blogid;
+    }
+
+    public function setBlogid($blogid) {
+        $this->blogid = $blogid;
+    }
 
 
 
 
 
 }
+
 ?>

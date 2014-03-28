@@ -3,146 +3,203 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-Tx_Extbase_Utility_Extension::registerPlugin(
+
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	$_EXTKEY,
-	'blogindex',
-	'multiblog: Multiple Blogs overview'
+	'singleblog',
+	'Blog Single'
 );
-
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
-	'blogsingle',
-	'multiblog: Singleblog'
-);
-
-
-
-Tx_Extbase_Utility_Extension::registerPlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	$_EXTKEY,
 	'blogedit',
-	'multiblog: Blogedit'
+	'Blog Edit'
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Multiblog');
+
+//$extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToLowerCamelCase($_EXTKEY);
+//$pluginSignature = strtolower($extensionName) . '_products';
+//
+//$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Product.xml');
+//
+//$pluginSignature2 = strtolower($extensionName) . '_productteaser';
+//$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature2] = 'pi_flexform';
+//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature2, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Productteaser.xml');
+
+
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_multiblog_domain_model_blog', 'Blog');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_multiblog_domain_model_blog');
+$TCA['tx_multiblog_domain_model_blog'] = array(
+	'ctrl' => array(
+		'title'	=> 'Blogs',
+		'label' => 'blogtitel',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			
+		),
+		'searchFields' => 'blogtitel,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Blog.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif'
+	),
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_multiblog_domain_model_post', 'Posts');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_multiblog_domain_model_post');
+$TCA['tx_multiblog_domain_model_post'] = array(
+	'ctrl' => array(
+		'title'	=> 'Posts',
+		'label' => 'posttitel',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			
+		),
+		'searchFields' => 'posttitel,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Post.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif'
+	),
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_multiblog_domain_model_category', 'Category');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_multiblog_domain_model_category');
+$TCA['tx_multiblog_domain_model_category'] = array(
+	'ctrl' => array(
+		'title'	=> 'Cat',
+		'label' => 'kategory',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		//'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			
+		),
+		'searchFields' => 'kategory,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Category.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif'
+	),
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_multiblog_domain_model_content', 'Content');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_multiblog_domain_model_content');
+$TCA['tx_multiblog_domain_model_content'] = array(
+	'ctrl' => array(
+		'title'	=> 'Content',
+		'label' => 'postcontent',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		//'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			
+		),
+		'searchFields' => 'content,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Content.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif'
+	),
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_multiblog_domain_model_comment', 'Comment');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_multiblog_domain_model_comment');
+$TCA['tx_multiblog_domain_model_comment'] = array(
+	'ctrl' => array(
+		'title'	=> 'commenttext',
+		'post' => 'commentname',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			
+		),
+		'searchFields' => 'commentname,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Comment.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif'
+	),
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_multiblog_domain_model_postcategory', 'Posts');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_multiblog_domain_model_postcategory');
+$TCA['tx_multiblog_domain_model_postcategory'] = array(
+	'ctrl' => array(
+		'title'	=> 'Categories n:m',
+		'post' => 'category',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			
+		),
+		'searchFields' => 'posttitel,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Postcategory.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif'
+	),
 );
 
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'setup');
 
-
-
-$extensionName = t3lib_div::underscoredToUpperCamelCase($_EXTKEY);
-$pluginSignature = strtolower($extensionName) . '_blog';  
- 
- 
-
-
-//***************************************************************************************************************************************************************//
-// Blogs | Haupttabelle für die einzelnen Blog Definitionen                                    
-//***************************************************************************************************************************************************************//
-
-t3lib_extMgm::addLLrefForTCAdescr       ( 'tx_multiblog_domain_model_blog',
-                                          'Blogs' );
-t3lib_extMgm::allowTableOnStandardPages ( 'tx_multiblog_domain_model_blog');
-
-$TCA['tx_multiblog_domain_model_blog'] = array (
-	'ctrl' => array (
-		'title'                    => 'Blog',
-		'label'                    => 'blogtitel',
-		'tstamp'                   => 'tstamp',
-		'crdate'                   => 'crdate',
-	//	'versioningWS'             => 2,
-	//	'versioning_followPages'   => TRUE,
-	//	'origUid'                  => 't3_origuid',
-		'languageField'            => 'sys_language_uid',
-		'transOrigPointerField'    => 'l18n_parent',
-		'transOrigDiffSourceField' => 'l18n_diffsource',
-		'delete'                   => 'deleted',
-		'enablecolumns'            => array ( 'disabled' => 'hidden' ),
-		'dynamicConfigFile'        => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Blog.php',
-		'iconfile'                 => t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'
-	)
-);
-
-//***************************************************************************************************************************************************************//
-// Blogeinträge ENTRYS       //                                  
-//***************************************************************************************************************************************************************//
-
-t3lib_extMgm::addLLrefForTCAdescr       ( 'tx_multiblog_domain_model_entry',
-                                          'EXT:multiblog/Resources/Private/Language/locallang_csh_tx_multiblog_domain_model_entry.xml' );
-t3lib_extMgm::allowTableOnStandardPages ( 'tx_multiblog_domain_model_entry');
-
-$TCA['tx_multiblog_domain_model_entry'] = array (
-	'ctrl' => array (
-		'title'                    => 'Blogeintrag',
-		'label'                    => 'entrytitel',
-		'tstamp'                   => 'tstamp',
-		'crdate'                   => 'crdate',
-	//	'versioningWS'             => 2,
-	//	'versioning_followPages'   => TRUE,
-	//	'origUid'                  => 't3_origuid',
-		'languageField'            => 'sys_language_uid',
-		'transOrigPointerField'    => 'l18n_parent',
-		'transOrigDiffSourceField' => 'l18n_diffsource',
-		'delete'                   => 'deleted',
-		'enablecolumns'            => array ( 'disabled' => 'hidden' ),
-		'dynamicConfigFile'        => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Entry.php',
-// Nachfolgender Link muß noch angepasst werden
-		'iconfile'                 => t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'
-	)
-);
-//***************************************************************************************************************************************************************//
-// Kommentare                                 
-//***************************************************************************************************************************************************************//
-
-t3lib_extMgm::addLLrefForTCAdescr       ( 'tx_multiblog_domain_model_comment',
-                                          'EXT:community/Resources/Private/Language/locallang_csh_tx_community_domain_model_profil.xml' );
-t3lib_extMgm::allowTableOnStandardPages ( 'tx_multiblog_domain_model_comment');
-
-$TCA['tx_multiblog_domain_model_comment'] = array (
-	'ctrl' => array (
-		'title'                    => 'Kommentar',
-		'label'                    => 'commenttitel',
-		'tstamp'                   => 'tstamp',
-		'crdate'                   => 'crdate',
-	//	'versioningWS'             => 2,
-	//	'versioning_followPages'   => TRUE,
-	//	'origUid'                  => 't3_origuid',
-		'languageField'            => 'sys_language_uid',
-		'transOrigPointerField'    => 'l18n_parent',
-		'transOrigDiffSourceField' => 'l18n_diffsource',
-		'delete'                   => 'deleted',
-		'enablecolumns'            => array ( 'disabled' => 'hidden' ),
-		'dynamicConfigFile'        => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Comment.php',
-// Nachfolgender Link muß noch angepasst werden
-		'iconfile'                 => t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'
-	)
-);
-
-//***************************************************************************************************************************************************************//
-// Hilfstabelle Kategorien                               
-//***************************************************************************************************************************************************************//
-
-t3lib_extMgm::addLLrefForTCAdescr       ( 'tx_multiblog_domain_model_kategorie',
-                                          'EXT:community/Resources/Private/Language/locallang_csh_tx_community_domain_model_profil.xml' );
-t3lib_extMgm::allowTableOnStandardPages ( 'tx_multiblog_domain_model_kategorie');
-
-$TCA['tx_multiblog_domain_model_kategorie'] = array (
-	'ctrl' => array (
-		'title'                    => 'Kategorie',
-		'label'                    => 'kategorie',
-		'tstamp'                   => 'tstamp',
-		'crdate'                   => 'crdate',
-	//	'versioningWS'             => 2,
-	//	'versioning_followPages'   => TRUE,
-	//	'origUid'                  => 't3_origuid',
-		'languageField'            => 'sys_language_uid',
-		'transOrigPointerField'    => 'l18n_parent',
-		'transOrigDiffSourceField' => 'l18n_diffsource',
-		'delete'                   => 'deleted',
-		'enablecolumns'            => array ( 'disabled' => 'hidden' ),
-		'dynamicConfigFile'        => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Kategorie.php',
-// Nachfolgender Link muß noch angepasst werden
-		'iconfile'                 => t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'
-	)
-);
 
 
 ?>
