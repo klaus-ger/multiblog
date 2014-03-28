@@ -5,22 +5,30 @@
 
 
 **New Features in this Version:**
-* one Blog entry contains several content parts
+* one blog post contains several content parts (with image options)
 * Ajax / EID for Comments
-* n:m Category Relations
+* n:m Category Relations, FAL for Images
 * SEO Fields for Blog and Posts
+* Ready for TYPO3 6.2 !
 
 **Basis Features**
+* Usable as single blog or multiple blogs in one installation
+* Complete Frontend editing of the blogs through blog owner
+* Commenting system included
+* Continuous development
+* Since 2 years in production enviroment with 20 blogs an over 1.000 posts in one installation
 
-Testet in TYPO3 6.2 !
 
-Here an example screenshoot of the a detail Page:
+####Screenshoots
 
-<p align="center" >
-  <img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/singleview.png" >
-</p>
-And Screenshoots of the backend editing:
-<p align="left" >
-  <img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/backendediting1.png" >
-<img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/backendediting2.png" >
-</p>
+  <img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/singleview.png" width="200px">
+  <img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/backendediting1.png" width="200px">
+  <img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/backendediting2.png" width="200px">
+
+
+####More information
+<p>Installation - easy and fast</p>
+<p>Start your Blog - view and styling options</p>
+<p>Commenting System</p>
+<p></p>
+<p></p>
