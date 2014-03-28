@@ -10,6 +10,8 @@
 * n:m Category Relations
 * SEO Fields for Blog and Posts
 
+**Basis Features**
+
 Testet in TYPO3 6.2 !
 
 Here an example screenshoot of the a detail Page:
