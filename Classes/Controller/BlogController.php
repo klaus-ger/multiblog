@@ -86,11 +86,15 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             //load last Post
         }
 
+        //loadSticky Posts
+        $sticky = $this->postRepository->findStickyPosts($blog->getUid());
+        
         $this->setSidebarValues($blog->getUid());
         $this->setSeoHeader($blog->getUid(), 0);
         
         $this->view->assign('blog', $blog);
         $this->view->assign('posts', $posts);
+        $this->view->assign('sticky', $sticky[0]);
     }
 
     /**

@@ -1,3 +1,35 @@
+<f:if condition="{sticky}">
+        <div class="multiblog-postpreview clearafter">
+        <div class="multiblog-sticky-image">
+            <f:if condition="{sticky.image.originalResource.originalFile.uid}">
+        <f:image src="{sticky.image.originalResource.originalFile.uid}" alt="bb" width="190" class="s"/>
+            </f:if>
+            <f:image src="typo3conf/ext/multiblog/Resources/Public/Icons/icon_sticky.png" width="27" height="24" alt="sticky post" />
+        </div>
+            
+        <div class="multiblog-postpreview-content">
+          
+        <div class="multiblog-postheader">
+            <f:link.action action="singleView" arguments="{post: sticky.uid}">
+            {sticky.posttitel}
+            </f:link.action>
+        </div>
+        <div class="multiblog-postteaser">
+            {sticky.postintro}
+        </div>
+            <f:link.action action="singleView" arguments="{post: sticky.uid}">
+               read more 
+            </f:link.action>
+            
+        labels:
+        <f:for each="{sticky.category}" as="cat">
+             {cat.kategory}
+            
+        </f:for>
+        </div>
+    </div>
+</f:if>
+
 
 <f:for each="{posts}" as="post">
     <div class="multiblog-postpreview clearafter">

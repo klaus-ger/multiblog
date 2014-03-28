@@ -28,6 +28,28 @@ namespace T3developer\Multiblog\Domain\Repository;
 class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     //protected $defaultOrderings = array('category' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
+        /**
+     * find Sticky Posts by Blog
+     * 
+     * @param int $blogId Blog Uid
+     * @return object
+     */
+    public function findStickyPosts($blogId) {
+        $orderings = array('postdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('blogid', $blogId),
+                    $query->equals('poststatus', 1),
+                    $query->equals('poststicky', 1)
+                ))
+        );
+
+        return $query->execute();
+    }
+
+    
     /**
      * find Posts by Blog
      * 
@@ -42,7 +64,8 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         $query->matching(
                 $query->logicalAnd(array(
                     $query->equals('blogid', $blogId),
-                    $query->equals('poststatus', 1)
+                    $query->equals('poststatus', 1),
+                    $query->equals('poststicky', 0)
                 ))
         );
 
@@ -67,6 +90,7 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
                 $query->logicalAnd(array(
                     $query->equals('blogid', $blog),
                     $query->equals('poststatus', 1),
+                    $query->equals('poststicky', 0),
                     $query->lessThan('postdate' , $timestamp)
                 ))
         );
@@ -91,6 +115,7 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
                 $query->logicalAnd(array(
                     $query->equals('blogid', $blog),
                     $query->equals('poststatus', 1),
+                    $query->equals('poststicky', 0),
                     $query->greaterThan('postdate' , $timestamp)
                 ))
         );

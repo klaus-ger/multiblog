@@ -24,7 +24,7 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                                     , --div--;Layout;;;1-1-1
                                     , blogstyle
                                     , blogstyle_teaserimages
-                                    , sticky_post'),
+                                    '),
     ),
     'palettes' => array(
         '1' => array('showitem' => ''),

@@ -34,8 +34,18 @@ a {text-decoration: none;}
     clear: both;
 }
 .multiblog-postpreview-image {
-    width: 200px;
     float: left;
+    text-align: right;
+    width: 200px;
+}
+.multiblog-sticky-image {
+    float: left;
+    text-align: right;
+    width: 230px;
+}
+.multiblog-sticky-image img {
+    vertical-align: top;
+        
 }
 .multiblog-postpreview-content {
     float: right;
