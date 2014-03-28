@@ -294,6 +294,22 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         public function setFiles($files) {
                 $this->files = $files;
         }
+        public function getPostseodescription() {
+            return $this->postseodescription;
+        }
+
+        public function setPostseodescription($postseodescription) {
+            $this->postseodescription = $postseodescription;
+        }
+
+        public function getPostlink() {
+            return $this->postlink;
+        }
+
+        public function setPostlink($postlink) {
+            $this->postlink = $postlink;
+        }
+
 
 }
 
