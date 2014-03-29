@@ -91,66 +91,73 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @var \int
      */
     protected $postcommentoption;
-    
-        /**
+
+    /**
      * SEO Description
      *
      * @var \string
      * 
      */
     protected $postseodescription;
-    
-        /**
+
+    /**
      * Link for real URL
      *
      * @var \string
      * 
      */
     protected $postlink;
-    
-            /**
-         * Image
-         * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-         */
-        protected $image;
 
+    /**
+     * Image
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     */
+    protected $image;
+
+    /**
+     * Files
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    protected $files;
+
+    /**
+     * category
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\Multiblog\Domain\Model\Category>
+     */
+    protected $category;
+
+    /**
+     * count comments
+     * 
+     * This value is live calculated and not stored in the DB!
+     * @var int
+     */
+    protected $contComments;
+
+    /**
+     * __construct
+     *
+     * @return Category
+     */
+    public function __construct() {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all ObjectStorage properties.
+     *
+     * @return void
+     */
+    protected function initStorageObjects() {
         /**
-         * Files
-         * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+         * Do not modify this method!
+         * It will be rewritten on each save in the extension builder
+         * You may modify the constructor of this class instead
          */
-        protected $files;
-
-    
-    	/**
-	 * category
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\Multiblog\Domain\Model\Category>
-	 */
-	protected $category;
-
-	/**
-	 * __construct
-	 *
-	 * @return Category
-	 */
-	public function __construct() {
-		//Do not remove the next line: It would break the functionality
-		$this->initStorageObjects();
-	}
-
-	/**
-	 * Initializes all ObjectStorage properties.
-	 *
-	 * @return void
-	 */
-	protected function initStorageObjects() {
-		/**
-		 * Do not modify this method!
-		 * It will be rewritten on each save in the extension builder
-		 * You may modify the constructor of this class instead
-		 */
-		$this->category = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}
+        $this->category = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
     public function getPosttitel() {
         return $this->posttitel;
@@ -216,100 +223,106 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->postcommentoption = $postcommentoption;
     }
 
-    
-    
-    	/**
-	 * Adds a Event
-	 *
-	 * @param \T3developer\Multiblog\Domain\Model\Category $category
-	 * @return void
-	 */
-	public function addCategory(\T3developer\Multiblog\Domain\Model\Category $category) {
-		$this->category->attach($category);
-	}
+    /**
+     * Adds a Event
+     *
+     * @param \T3developer\Multiblog\Domain\Model\Category $category
+     * @return void
+     */
+    public function addCategory(\T3developer\Multiblog\Domain\Model\Category $category) {
+        $this->category->attach($category);
+    }
 
-	/**
-	 * Removes a Event
-	 *
-	 * @param \T3developer\Multiblog\Domain\Model\Category $category The Event to be removed
-	 * @return void
-	 */
-	public function removeCategory(\T3developer\Multiblog\Domain\Model\Category $category) {
-		$this->category->detach($category);
-	}
+    /**
+     * Removes a Event
+     *
+     * @param \T3developer\Multiblog\Domain\Model\Category $category The Event to be removed
+     * @return void
+     */
+    public function removeCategory(\T3developer\Multiblog\Domain\Model\Category $category) {
+        $this->category->detach($category);
+    }
 
-	/**
-	 * Returns the Category
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\Multiblog\Domain\Model\Category> $category
-	 */
-	public function getCategory() {
-		return $this->category;
-	}
+    /**
+     * Returns the Category
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\Multiblog\Domain\Model\Category> $category
+     */
+    public function getCategory() {
+        return $this->category;
+    }
 
-	/**
-	 * Sets the events
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\Multiblog\Domain\Model\Category> $category
-	 * @return void
-	 */
-	public function setCategory(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $category) {
-		$this->category = $category;
-	}
-        
-        /**
-         * Returns the image
-         *
-         * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
-         */
-        public function getImage() {
-                return $this->image;
-        }
+    /**
+     * Sets the events
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\Multiblog\Domain\Model\Category> $category
+     * @return void
+     */
+    public function setCategory(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $category) {
+        $this->category = $category;
+    }
 
-        /**
-         * Sets the image
-         *
-         * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
-         * @return void
-         */
-        public function setImage($image) {
-                $this->image = $image;
-        }
+    /**
+     * Returns the image
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
+     */
+    public function getImage() {
+        return $this->image;
+    }
 
-        /**
-         * Returns the files
-         *
-         * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
-         */
-        public function getFiles() {
-                return $this->files;
-        }
+    /**
+     * Sets the image
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
+     * @return void
+     */
+    public function setImage($image) {
+        $this->image = $image;
+    }
 
-        /**
-         * Sets the files
-         *
-         * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
-         * @return void
-         */
-        public function setFiles($files) {
-                $this->files = $files;
-        }
-        public function getPostseodescription() {
-            return $this->postseodescription;
-        }
+    /**
+     * Returns the files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
+     */
+    public function getFiles() {
+        return $this->files;
+    }
 
-        public function setPostseodescription($postseodescription) {
-            $this->postseodescription = $postseodescription;
-        }
+    /**
+     * Sets the files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
+     * @return void
+     */
+    public function setFiles($files) {
+        $this->files = $files;
+    }
 
-        public function getPostlink() {
-            return $this->postlink;
-        }
+    public function getPostseodescription() {
+        return $this->postseodescription;
+    }
 
-        public function setPostlink($postlink) {
-            $this->postlink = $postlink;
-        }
+    public function setPostseodescription($postseodescription) {
+        $this->postseodescription = $postseodescription;
+    }
 
+    public function getPostlink() {
+        return $this->postlink;
+    }
+
+    public function setPostlink($postlink) {
+        $this->postlink = $postlink;
+    }
+
+    public function getContComments() {
+        return $this->contComments;
+    }
+
+    public function setContComments($contComments) {
+        $this->contComments = $contComments;
+    }
 
 }
 

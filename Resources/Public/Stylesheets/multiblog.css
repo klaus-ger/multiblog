@@ -52,14 +52,16 @@ a {text-decoration: none;}
     width: 600px;
 }
 .multiblog-postheader {
-    font-family: Coda, serif;
+    color: #5B6169;
+    display: inline-block;
+    font-family: Coda,serif;
     font-size: 24px;
     font-weight: 300;
     letter-spacing: -1px;
     line-height: 30px;
-    word-spacing: 2px;
-    color: #5B6169;
     margin-bottom: 10px;
+    padding-right: 5px;
+    word-spacing: 2px;
 }
 h2.multiblog {
     font-family: Coda, serif;
@@ -70,6 +72,17 @@ h2.multiblog {
     word-spacing: 2px;
     color: #5B6169;
     margin-bottom: 10px;
+    display: inline;
+}
+.count-comment {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    background: #fff url(../icons/icon_comment.png) 0 0 no-repeat; 
+    width: 33px;
+    height: 27px;
+    vertical-align: top;
+    text-align: center;
 }
 b {
     font-weight: 600;

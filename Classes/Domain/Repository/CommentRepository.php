@@ -71,7 +71,25 @@ class CommentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         return $query->execute();
     }
 
-
+     /**
+     * count approved Comments By Post
+     * 
+     * @param int $post Post Uid
+     *
+     * @return object
+     */
+    public function countCommentsperPost($post){
+        $orderings = array('commentdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('postid', $post),
+                    $query->equals('commentapprove', 1)
+                ))
+        );
+        return $query->execute()->count();
+    }
 
 }
 ?>

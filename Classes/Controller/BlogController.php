@@ -88,10 +88,21 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         //loadSticky Posts
         $sticky = $this->postRepository->findStickyPosts($blog->getUid());
+        if ($sticky[0] != '') {
+            $countComments = $this->commentRepository->countCommentsperPost($sticky[0]->getUid());
+            $sticky[0]->setContComments($countComments);
+        }
+        
+        //Count comments for posts
+        foreach ($posts as $post){
+            $postCount = $this->commentRepository->countCommentsperPost($post->getUid());
+            $post->setContComments($postCount);
+        }
+        
         
         $this->setSidebarValues($blog->getUid());
         $this->setSeoHeader($blog->getUid(), 0);
-        
+
         $this->view->assign('blog', $blog);
         $this->view->assign('posts', $posts);
         $this->view->assign('sticky', $sticky[0]);
@@ -108,7 +119,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $content = $this->contentRepository->findByPostid($post->getuid());
 
         $comments = $this->commentRepository->findApprovedByPostid($post->getUid());
-
+        $post->setContComments(count($comments));
 
         //find prev / next posts
         $prev = $this->postRepository->findPreviousEntry($post->getPostdate()->getTimestamp(), $blog->getUid());
@@ -116,7 +127,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $this->setSidebarValues($blog->getUid());
         $this->setSeoHeader($blog->getUid(), $post->getUid());
-        
+
         $this->view->assign('post', $post);
         $this->view->assign('content', $content);
         $this->view->assign('comments', $comments);
@@ -185,28 +196,28 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     public function setSeoHeader($blogId, $postId = 0) {
         $seo['title'] = '';
         $seo['description'] = '';
-        
+
         $blog = $this->blogRepository->findByUid($blogId);
-        
-        if($postId > 0) {
+
+        if ($postId > 0) {
             //Single Post Focus
             $post = $this->postRepository->findByUid($postId);
             $seo['title'] = $post->getPosttitel();
             $seo['description'] = $post->getPostseodescription();
         }
-        
-        if($postId == 0 || $seo['title'] ==''){
+
+        if ($postId == 0 || $seo['title'] == '') {
             $seo['title'] = $blog->getBlogseotitle();
         }
-        if($postId == 0 || $seo['description'] ==''){
+        if ($postId == 0 || $seo['description'] == '') {
             $seo['description'] = $blog->getBlogseodescription();
         }
-        
-        
-        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta name="description" content="'. $seo['description'] . '" /> ');
+
+
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta name="description" content="' . $seo['description'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->setTitle($seo['title']);
-        
     }
+
 }
 
 ?>

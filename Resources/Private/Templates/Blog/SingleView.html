@@ -11,8 +11,13 @@
 
         <div class="multiblog col-main">
             <h2 class="multiblog">
-                {post.posttitel}
+                {post.posttitel} 
             </h2>
+            
+            <f:if condition="{post.postcommentoption}">
+                <div class="count-comment">{post.contComments}</div>
+            </f:if>
+            
             <div class="multiblog postteaser">
                 {post.postintro}
             </div>

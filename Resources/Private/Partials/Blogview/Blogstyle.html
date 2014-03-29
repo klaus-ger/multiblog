@@ -1,31 +1,37 @@
 <f:if condition="{sticky}">
-        <div class="multiblog-postpreview clearafter">
+    <div class="multiblog-postpreview clearafter">
+        
         <div class="multiblog-sticky-image">
             <f:if condition="{sticky.image.originalResource.originalFile.uid}">
-        <f:image src="{sticky.image.originalResource.originalFile.uid}" alt="bb" width="190" class="s"/>
+                <f:image src="{sticky.image.originalResource.originalFile.uid}" alt="bb" width="190" class="s"/>
             </f:if>
             <f:image src="typo3conf/ext/multiblog/Resources/Public/Icons/icon_sticky.png" width="27" height="24" alt="sticky post" />
         </div>
-            
+
         <div class="multiblog-postpreview-content">
-          
-        <div class="multiblog-postheader">
-            <f:link.action action="singleView" arguments="{post: sticky.uid}">
-            {sticky.posttitel}
-            </f:link.action>
-        </div>
-        <div class="multiblog-postteaser">
-            {sticky.postintro}
-        </div>
-            <f:link.action action="singleView" arguments="{post: sticky.uid}">
-               read more 
-            </f:link.action>
+
+            <div class="multiblog-postheader">
+                <f:link.action action="singleView" arguments="{post: sticky.uid}">
+                    {sticky.posttitel}
+                </f:link.action>
+            </div>
             
-        labels:
-        <f:for each="{sticky.category}" as="cat">
-             {cat.kategory}
+            <f:if condition="{sticky.postcommentoption}">
+                <div class="count-comment">{sticky.contComments}</div>
+            </f:if>
             
-        </f:for>
+            <div class="multiblog-postteaser">
+                {sticky.postintro}
+            </div>
+            <f:link.action action="singleView" arguments="{post: sticky.uid}">
+                read more 
+            </f:link.action>
+
+            labels:
+            <f:for each="{sticky.category}" as="cat">
+                {cat.kategory}
+
+            </f:for>
         </div>
     </div>
 </f:if>
@@ -35,29 +41,34 @@
     <div class="multiblog-postpreview clearafter">
         <div class="multiblog-postpreview-image">
             <f:if condition="{post.image.originalResource.originalFile.uid}">
-        <f:image src="{post.image.originalResource.originalFile.uid}" alt="bb" />
+                <f:image src="{post.image.originalResource.originalFile.uid}" alt="bb" />
             </f:if>
         </div>
         <div class="multiblog-postpreview-content">
-          
-        <div class="multiblog-postheader">
-            <f:link.action action="singleView" arguments="{post: post.uid}">
-            {post.posttitel}
-            </f:link.action>
-        </div>
-        <div class="multiblog-postteaser">
-            {post.postintro}
-        </div>
-            <f:link.action action="singleView" arguments="{post: post.uid}">
-               read more 
-            </f:link.action>
+
+            <div class="multiblog-postheader">
+                <f:link.action action="singleView" arguments="{post: post.uid}">
+                    {post.posttitel}
+                </f:link.action>
+            </div>
             
-        labels:
-        <f:for each="{post.category}" as="cat">
-             {cat.kategory}
+            <f:if condition="{post.postcommentoption}">
+                <div class="count-comment">{post.contComments}</div>
+            </f:if>
             
-        </f:for>
+            <div class="multiblog-postteaser">
+                {post.postintro}
+            </div>
+            <f:link.action action="singleView" arguments="{post: post.uid}">
+                read more 
+            </f:link.action>
+
+            labels:
+            <f:for each="{post.category}" as="cat">
+                {cat.kategory}
+
+            </f:for>
         </div>
     </div>
-    
+
 </f:for>
