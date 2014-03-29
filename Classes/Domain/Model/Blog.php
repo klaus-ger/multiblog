@@ -129,6 +129,13 @@ class Blog extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $widgetAllPosts;
 
+       /**
+     * Widget Meta
+     *
+     * @var \int
+     */
+    protected $widgetMeta;
+    
     /**
      * Blogsyle
      *
@@ -292,6 +299,14 @@ class Blog extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setBlogseotitle($blogseotitle) {
         $this->blogseotitle = $blogseotitle;
     }
+    public function getWidgetMeta() {
+        return $this->widgetMeta;
+    }
+
+    public function setWidgetMeta($widgetMeta) {
+        $this->widgetMeta = $widgetMeta;
+    }
+
 
 }
 

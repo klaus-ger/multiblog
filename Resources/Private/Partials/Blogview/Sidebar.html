@@ -14,5 +14,6 @@
 <f:if condition="{blog.widgetCategory} == 1">
     <f:render partial="Widgets/WidgetCategory" arguments="{_all}" />
 </f:if>
-
+<f:if condition="{blog.widgetMeta} == 1">
     <f:render partial="Widgets/Widget_Blogedit" arguments="{_all}" />
+</f:if>
