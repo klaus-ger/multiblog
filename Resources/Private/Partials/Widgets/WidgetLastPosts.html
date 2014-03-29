@@ -1,0 +1,37 @@
+<!-- Widget Template für Neueste Artikel
+*    Ext: Multiblog
+-->
+
+
+<div class="multiblog_widget">
+
+    <div class="multiblog_widgetheader">
+         <f:translate key="LLL:{settings.langFile}:widget.NewArticle.Header" />
+    </div>
+
+    <div class="multiblog_widgetcontent ">
+        <f:for each="{sidebar.lastPosts}" as="teaserentry">
+             <div class="multiblog_widgetLastComment_entry clearafter">
+            <div class="multiblog_widgetLastComment_subhead">
+            <f:format.date format="d.m.Y">{teaserentry.postdate}</f:format.date> |
+                        <f:translate key="LLL:{settings.langFile}:widget.NewArticle.Category" />
+                        <f:for each="{teaserentry.category}" as="lastpostcat" iteration="lastpostiter">
+                            <f:if condition="{lastpostiter.isFirst}==1">
+                            {lastpostcat.kategory}
+                            </f:if>
+
+            </f:for>
+            </div>
+            <div class="multiblog_widgetLastComment_header">
+                <b>{teaserentry.posttitel}</b>
+            </div>	
+
+            <div class="multiblog_widgetLastComment_text">
+                <f:format.crop maxCharacters="70" append="&nbsp;...">{teaserentry.postintro}</f:format.crop>
+                <f:link.action action="showSingleEntry" controller="Entry" arguments="{blogid: teaserentry.blogid, uid: teaserentry.uid}"><em> [mehr]</em></f:link.action>
+
+            </div>	
+             </div>
+        </f:for>
+    </div>
+</div>

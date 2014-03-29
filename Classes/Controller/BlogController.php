@@ -184,6 +184,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $sidebar['categories'] = $this->categoryRepository->findByBlogid($blogId);
         $sidebar['comments'] = $this->commentRepository->findLastByBlogid($blogId, 3);
+        $sidebar['lastPosts'] = $this->postRepository->findPostsByLimitAndBlogId($blogId, 5);
         $this->view->assign('sidebar', $sidebar);
     }
 

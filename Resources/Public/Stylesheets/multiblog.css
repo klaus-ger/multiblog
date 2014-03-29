@@ -115,6 +115,7 @@ i {
     font-style: italic;
     color: #8A929B;
     color: #9BA3AA;
+    margin-top: 10px;
 }
 
 /*section-content*/
@@ -203,6 +204,9 @@ i {
 }
 .multiblog_widgetLastComment_subhead {
     font-family: Coda, serif;
+}
+.multiblog_widgetLastComment_header {
+    font-size: 14px;
 }
 /*************************************************************/
 /* Frontend editing

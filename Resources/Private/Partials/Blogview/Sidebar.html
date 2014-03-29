@@ -3,13 +3,16 @@
     <f:render partial="Widgets/WidgetAboutBlog" arguments="{_all}" />
 </f:if>
 
-<f:if condition="{blog.widgetCategory} == 1">
-    <f:render partial="Widgets/WidgetCategory" arguments="{_all}" />
+<f:if condition="{blog.widgetRecentPost} == 1">
+    <f:render partial="Widgets/WidgetLastPosts" arguments="{_all}" />
 </f:if>
 
 <f:if condition="{blog.widgetComments} == 1">
     <f:render partial="Widgets/WidgetLastComments" arguments="{_all}" />
 </f:if>
 
+<f:if condition="{blog.widgetCategory} == 1">
+    <f:render partial="Widgets/WidgetCategory" arguments="{_all}" />
+</f:if>
 
     <f:render partial="Widgets/Widget_Blogedit" arguments="{_all}" />
