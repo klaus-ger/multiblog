@@ -1,28 +1,46 @@
 <f:layout name="Blogview" />
 
 <f:section name="main">
+
     <div class="multiblog postintro clearafter">
+        <f:if condition="{post.postshowteaser}==1">
+            <f:then>
+                <div class="multiblog col-left">
+                    <f:if condition="{post.image.originalResource.originalFile.uid}">
+                        <f:image src="{post.image.originalResource.originalFile.uid}" alt="bb" />
+                    </f:if>
+                </div>
 
-        <div class="multiblog col-left">
-            <f:if condition="{post.image.originalResource.originalFile.uid}">
-                <f:image src="{post.image.originalResource.originalFile.uid}" alt="bb" />
-            </f:if>
-        </div>
+                <div class="multiblog col-main">
+                    <h2 class="multiblog">
+                        {post.posttitel} 
+                    </h2>
 
-        <div class="multiblog col-main">
-            <h2 class="multiblog">
-                {post.posttitel} 
-            </h2>
-            
-            <f:if condition="{post.postcommentoption}">
-                <div class="count-comment">{post.contComments}</div>
-            </f:if>
-            
-            <div class="multiblog postteaser">
-                {post.postintro}
-            </div>
-        </div>
+                    <f:if condition="{post.postcommentoption}">
+                        <div class="count-comment">{post.contComments}</div>
+                    </f:if>
 
+                    <div class="multiblog postteaser">
+                        {post.postintro}
+                    </div>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="multiblog col-left">
+
+                </div>
+
+                <div class="multiblog col-main">
+                    <h2 class="multiblog">
+                        {post.posttitel} 
+                    </h2>
+
+                    <f:if condition="{post.postcommentoption}">
+                        <div class="count-comment">{post.contComments}</div>
+                    </f:if>
+                </div>
+            </f:else>
+        </f:if>
     </div>
 
 

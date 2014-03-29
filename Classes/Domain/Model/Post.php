@@ -93,6 +93,13 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $postcommentoption;
 
     /**
+     * show teaser on single page view
+     *
+     * @var \int
+     */
+    protected $postshowteaser;
+
+    /**
      * SEO Description
      *
      * @var \string
@@ -322,6 +329,14 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setContComments($contComments) {
         $this->contComments = $contComments;
+    }
+
+    public function getPostshowteaser() {
+        return $this->postshowteaser;
+    }
+
+    public function setPostshowteaser($postshowteaser) {
+        $this->postshowteaser = $postshowteaser;
     }
 
 }

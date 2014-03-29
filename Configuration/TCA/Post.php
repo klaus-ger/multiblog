@@ -23,6 +23,7 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                                     
                                     
                                     --div--;Content;;;1-1-1, 
+                                    postshowteaser,
                                     postcontent,
                                     
                                     --div--;Post Meta;;;1-1-1,
@@ -209,6 +210,21 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                 )
             ),
         ),
+        
+               'postshowteaser' => array(
+            'exclude' => 0,
+            'label' => 'Show teaser on single Post view',
+            'config' => array(
+               'type' => 'check',
+                'default' => '1',
+                'items' => array(
+                    '1' => array(
+                        '0' => 'show'
+                    )
+                )
+            ),
+        ),
+        
  'image' => array(
                 'exclude' => 1,
                 'label' => 'Image',
