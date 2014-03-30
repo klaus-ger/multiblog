@@ -2,7 +2,7 @@
 
 <f:section name="main">
 
-    
+    <f:if condition="{view} == 'blogview'">
       
         <f:if condition="{blog.blogstyle} == 1">
             <f:render partial="Blogview/Blogstyle" arguments="{_all}"/>
@@ -10,9 +10,12 @@
         <f:if condition="{blog.blogstyle} == 0">
             Show last entry full
         </f:if>
-  
+   
+    </f:if>
     
-    
+    <f:if condition="{view} == 'singleview'">
+        <f:render partial="Blogview/SingleView" arguments="{_all}"/>
+    </f:if>
 
 
 </f:section>

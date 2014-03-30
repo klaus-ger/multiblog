@@ -24,7 +24,7 @@ if (TYPO3_MODE === 'FE' && !isset($_REQUEST['eID'])) {
 	),
 	// non-cacheable actions
 	array(
-		'Blog' => ' index
+		'Blog' => ' 
                           
                           , ajaxNewComment',
 		
