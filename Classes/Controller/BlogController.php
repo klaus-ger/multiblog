@@ -67,15 +67,60 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
     /**
      * Index view
-     *
+     * 
+     * All actions are sent to the index view with the parameters
+     * like single postId or categoryId because we need nice URLs 
+     * without eg. action links and so on
+     * 
+     * We can rewrite the parameters via real url, see documentation!
      * 
      */
     public function indexAction() {
+
+        //check get variables
         if ($this->request->hasArgument('blogId')) {
             $blogId = $this->request->getArgument('blogId');
         } else {
             $blogId = 1;
         }
+        if ($this->request->hasArgument('postId')) {
+            $postId = $this->request->getArgument('postId');
+        } else {
+            $postId = 0;
+        }
+        if ($this->request->hasArgument('categoryId')) {
+            $categoryId = $this->request->getArgument('categoryId');
+        } else {
+            $categoryId = 0;
+        }
+
+        $blog = $this->blogRepository->findByUid($blogId);
+
+        //Check which view has to be displayed
+        //Case: Blog view | Startpage of the blog
+        if ($postId == 0 && $categoryId == 0) {
+            $this->blogView($blog->getUid());
+        }
+        //Case: Single Post View
+        if ($postId > 0) {
+            $this->singleView($blog->getUid(), $postId);
+        }
+        //Case: Category View
+        if ($categoryId > 0) {
+            $this->categoryView($blog->getUid(), $categoryId);
+        }
+
+        //general view values
+        $this->setSeoHeader($blogId, $postId);
+        $this->setSidebarValues($blog->getUid());
+        $this->view->assign('blog', $blog);
+    }
+
+    /**
+     * Blogview
+     */
+    public function blogview($blogId) {
+        //TODO: split this in blogview and one post view
         $blog = $this->blogRepository->findByUid($blogId);
 
         //check if Blog has single view or blog view
@@ -92,31 +137,27 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             $countComments = $this->commentRepository->countCommentsperPost($sticky[0]->getUid());
             $sticky[0]->setContComments($countComments);
         }
-        
+
         //Count comments for posts
-        foreach ($posts as $post){
+        foreach ($posts as $post) {
             $postCount = $this->commentRepository->countCommentsperPost($post->getUid());
             $post->setContComments($postCount);
         }
-        
-        
-        $this->setSidebarValues($blog->getUid());
-        $this->setSeoHeader($blog->getUid(), 0);
 
-        $this->view->assign('blog', $blog);
+
         $this->view->assign('posts', $posts);
         $this->view->assign('sticky', $sticky[0]);
+        $this->view->assign('view', 'blogview');
     }
 
     /**
-     * Blogview - List of Post Teaser
-     * @param int $post postUid
+     * SingleView
      */
-    public function singleViewAction($post) {
+    public function singleView($blogId, $postId) {
 
-        $post = $this->postRepository->findByUid($post);
+        $post = $this->postRepository->findByUid($postId);
         $blog = $this->blogRepository->findByUid($post->getBlogid());
-        $content = $this->contentRepository->findByPostid($post->getuid());
+        $content = $this->contentRepository->findByPostid($post->getUid());
 
         $comments = $this->commentRepository->findApprovedByPostid($post->getUid());
         $post->setContComments(count($comments));
@@ -126,7 +167,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $next = $this->postRepository->findNextEntry($post->getPostdate()->getTimestamp(), $blog->getUid());
 
         $this->setSidebarValues($blog->getUid());
-        $this->setSeoHeader($blog->getUid(), $post->getUid());
+
 
         $this->view->assign('post', $post);
         $this->view->assign('content', $content);
@@ -135,6 +176,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->view->assign('prev', $prev[0]);
         $this->view->assign('next', $next[0]);
         $this->view->assign('blog', $blog);
+        $this->view->assign('view', 'singleview');
     }
 
     /**
@@ -201,22 +243,121 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $blog = $this->blogRepository->findByUid($blogId);
 
         if ($postId > 0) {
-            //Single Post Focus
             $post = $this->postRepository->findByUid($postId);
+        }
+
+        //title
+        if ($post) {
             $seo['title'] = $post->getPosttitel();
+        } else {
+            $seo['title'] = $blog->getBlogtitel();
+        }
+
+        //description
+        if ($post) {
             $seo['description'] = $post->getPostseodescription();
+        } else {
+            $seo['description'] = $blog->getBlogdescription();
         }
 
-        if ($postId == 0 || $seo['title'] == '') {
-            $seo['title'] = $blog->getBlogseotitle();
-        }
-        if ($postId == 0 || $seo['description'] == '') {
-            $seo['description'] = $blog->getBlogseodescription();
+        //image    
+        if ($post) {
+            if ($post->getImage()) {
+                $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
+            } else {
+                if ($blog->getBlogpicture()) {
+                    $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
+                }
+            }
+        } else {
+            if ($blog->getBlogpicture()) {
+                $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
+            }
         }
 
+        //detaillink
+        if ($post) {
+            $link = str_replace(' ', '-', $post->getPosttitel());
+            $og['pagelink'] = $this->settings['linkSingleView'] . $link;
+        } else {
+            $og['pagelink'] = $this->settings['linkSingleView'];
+        }
 
-        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta name="description" content="' . $seo['description'] . '" /> ');
+        //domain link
+        $og['domainlink'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'];
+
+        //Sitename
+        $og['sitename'] = $this->settings['sitename'];
+
+
+        // typ
+        if ($post) {
+            $og['typ'] = 'article';
+        } else {
+            $og['typ'] = 'blog';
+        }
+        
+        //google+ Publisher
+        if($this->settings['author'] != ''){
+            $og['author'] = $this->settings['author'];
+        }
+        
+        //create date
+        if ($post) {
+            $og['crdate'] = date(DATE_ATOM, $post->getPostdate()->getTimestamp() );
+        } else {
+            $og['crdate'] = date(DATE_ATOM, mktime(0, 0, 0, 4, 1, 2013  ));;
+        }
+        
+        //render the page header
         $GLOBALS['TSFE']->getPageRenderer()->setTitle($seo['title']);
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta name="description" content="' . $seo['description'] . '" /> ');
+
+        //og
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:title" content="' . $seo['description'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:type" content="' . $og['typ'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:url" content="' .  $og['pagelink']  . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:image" content="' . $og['image'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:description" content="' . $seo['description'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:site_name" content="' . $og['sitename'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="article:published_time" content="' . $og['crdate'] . '" /> ');
+        
+        //$GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="author" content="' . $og['author'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta itemprop="name" content="' . $seo['title'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta itemprop="description" content="' . $seo['description'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta itemprop="image" content="' . $og['image'] . '" /> ');
+        
+        //$GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="author" content="' . 'blog' . '" /> ');
+// <!-- Google Authorship and Publisher Markup -->
+//<link rel="author" href="https://plus.google.com/[Google+_Profile]/posts"/>
+//<link rel="publisher" href=”https://plus.google.com/[Google+_Page_Profile]"/>
+//
+//<!-- Schema.org markup for Google+ -->
+//<meta itemprop="name" content="The Name or Title Here">
+//<meta itemprop="description" content="This is the page description">
+//<meta itemprop="image" content="http://www.example.com/image.jpg">
+//
+//<!-- Twitter Card data -->
+//<meta name="twitter:card" content="summary_large_image">
+//<meta name="twitter:site" content="@publisher_handle">
+//<meta name="twitter:title" content="Page Title">
+//<meta name="twitter:description" content="Page description less than 200 characters">
+//<meta name="twitter:creator" content="@author_handle">
+//<!-- Twitter summary card with large image must be at least 280x150px -->
+//<meta name="twitter:image:src" content="http://www.example.com/image.html">
+//
+//<!-- Open Graph data -->
+//<meta property="og:title" content="Title Here" />
+//<meta property="og:type" content="article" />
+//<meta property="og:url" content="http://www.example.com/" />
+//<meta property="og:image" content="http://example.com/image.jpg" />
+//<meta property="og:description" content="Description Here" />
+//<meta property="og:site_name" content="Site Name, i.e. Moz" />
+//<meta property="article:published_time" content="2013-09-17T05:59:00+01:00" />
+//<meta property="article:modified_time" content="2013-09-16T19:08:47+01:00" />
+//<meta property="article:section" content="Article Section" />
+//<meta property="article:tag" content="Article Tag" />
+//<meta property="fb:admins" content="Facebook numberic ID" /> 
     }
 
 }
