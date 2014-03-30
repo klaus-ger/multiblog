@@ -9,5 +9,14 @@ plugin.tx_multiblog {
                 
 		# cat=plugin.tx_multiblog//a; type=string; label=PID of the Edit Plugin
 		pidBlogedit = 
+
+                # cat=plugin.tx_multiblog//a; type=string; label=Url to the single view of the blog
+                linkSingleView = 
+
+                # cat=plugin.tx_multiblog//a; type=string; label=Sitename
+                sitename = 
+
+                # cat=plugin.tx_multiblog//a; type=string; label=Sitename
+                author = https://plus.google.com/[Google+_Profile]/posts"/
 	}
 }

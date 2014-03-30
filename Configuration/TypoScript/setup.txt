@@ -11,7 +11,13 @@ plugin.tx_multiblog {
                 pidEditPlugin    = {$plugin.tx_multiblog.settings.pidBlogedit}
                 storagePid       = {$plugin.tx_multiblog.persistence.storagePid}
                 langFile         = {$plugin.tx_multiblog.settings.langFile}
-    }
+                linkSingleView   = {$plugin.tx_multiblog.settings.linkSingleView}
+                sitename         = {$plugin.tx_multiblog.settings.sitename}
+                author         = {$plugin.tx_multiblog.settings.author}
+        }
+        features {
+		skipDefaultArguments = 1
+	}
 }
 
 page.includeCSS {
