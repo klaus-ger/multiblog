@@ -8,8 +8,8 @@
 * one blog post contains several content parts (with image options)
 * Ajax / EID for Comments
 * n:m Category Relations, FAL for Images
-* SEO Fields and Meta for Blog and Posts
-* Share Buttons for facebbok, google+ and twitter
+* SEO Fields and Meta-Tags for Blog and Posts
+* Share Buttons for facebook, google+ and twitter
 * Ready for TYPO3 6.2 !
 
 **Basis Features**
