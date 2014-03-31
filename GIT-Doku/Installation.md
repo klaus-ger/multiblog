@@ -1,4 +1,4 @@
-##Multiblog
+##Installation Multiblog
 
 
 ###A TYPO3 Blog Extension
