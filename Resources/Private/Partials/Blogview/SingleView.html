@@ -1,111 +1,129 @@
+ 
+<div class="multiblog postintro clearafter">
+    <f:if condition="{post.postshowteaser}==1">
+        <f:then>
+            <div class="multiblog col-left">
+                <f:if condition="{post.image.originalResource.originalFile.uid}">
+                    <f:image src="{post.image.originalResource.originalFile.uid}" alt="bb" />
+                </f:if>
+            </div>
 
-   
-    <div class="multiblog postintro clearafter">
-        <f:if condition="{post.postshowteaser}==1">
+            <div class="multiblog col-main">
+                <h2 class="multiblog">
+                    {post.posttitel} 
+                </h2>
+
+                <f:if condition="{post.postcommentoption}">
+                    <div class="count-comment">{post.contComments}</div>
+                </f:if>
+
+                <div class="multiblog postteaser">
+                    <f:format.html>{post.postintro}</f:format.html>
+                </div>
+            </div>
+        </f:then>
+        <f:else>
+            <div class="multiblog col-left">
+
+            </div>
+
+            <div class="multiblog col-main">
+                <h2 class="multiblog">
+                    {post.posttitel} 
+                </h2>
+
+                <f:if condition="{post.postcommentoption}">
+                    <div class="count-comment">{post.contComments}</div>
+                </f:if>
+            </div>
+        </f:else>
+    </f:if>
+</div>
+
+
+<f:for each="{content}" as="cont">
+    <div class="multiblog postcontent clearafter">
+        <f:if condition="{cont.postpicture.originalResource.originalFile.uid}">
             <f:then>
                 <div class="multiblog col-left">
-                    <f:if condition="{post.image.originalResource.originalFile.uid}">
-                        <f:image src="{post.image.originalResource.originalFile.uid}" alt="bb" />
+                    <f:if condition="{cont.imageposition} == 3">
+                        <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" />
                     </f:if>
                 </div>
-
                 <div class="multiblog col-main">
-                    <h2 class="multiblog">
-                        {post.posttitel} 
-                    </h2>
-
-                    <f:if condition="{post.postcommentoption}">
-                        <div class="count-comment">{post.contComments}</div>
+                    <f:if condition="{cont.imageposition} == 0">
+                        <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-top"/>
                     </f:if>
-
-                    <div class="multiblog postteaser">
-                        {post.postintro}
-                    </div>
+                    <f:if condition="{cont.imageposition} == 2">
+                        <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-right"/>
+                    </f:if>
+                    <f:format.html>{cont.postcontent}</f:format.html>
+                    <f:if condition="{cont.imageposition} == 1">
+                        <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-bottom"/>
+                    </f:if>
                 </div>
             </f:then>
             <f:else>
                 <div class="multiblog col-left">
 
                 </div>
-
                 <div class="multiblog col-main">
-                    <h2 class="multiblog">
-                        {post.posttitel} 
-                    </h2>
-
-                    <f:if condition="{post.postcommentoption}">
-                        <div class="count-comment">{post.contComments}</div>
-                    </f:if>
+                    <f:format.html>{cont.postcontent}</f:format.html>
                 </div>
             </f:else>
+
+
         </f:if>
     </div>
+</f:for>
 
 
-    <f:for each="{content}" as="cont">
-        <div class="multiblog postcontent clearafter">
-            <f:if condition="{cont.postpicture.originalResource.originalFile.uid}">
-                <f:then>
-                    <div class="multiblog col-left">
-                        <f:if condition="{cont.imageposition} == 3">
-                            <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" />
-                        </f:if>
-                    </div>
-                    <div class="multiblog col-main">
-                        <f:if condition="{cont.imageposition} == 0">
-                            <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-top"/>
-                        </f:if>
-                        <f:if condition="{cont.imageposition} == 2">
-                            <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-right"/>
-                        </f:if>
-                        <f:format.html>{cont.postcontent}</f:format.html>
-                        <f:if condition="{cont.imageposition} == 1">
-                            <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-bottom"/>
-                        </f:if>
-                    </div>
-                </f:then>
-                <f:else>
-                    <div class="multiblog col-left">
-
-                    </div>
-                    <div class="multiblog col-main">
-                        <f:format.html>{cont.postcontent}</f:format.html>
-                    </div>
-                </f:else>
-
-
-            </f:if>
-        </div>
-    </f:for>
-
-
-    <div class="multiblog labelrow clearafter">
-        <div class="multiblog col-left">
-
-        </div>
-        <div class="multiblog col-main">
-            labels:
-            <f:for each="{post.category}" as="cat">
-                {cat.kategory}
-
-            </f:for>
-            <br />
-            <f:if condition="{next.posttitel}">
-                <f:link.action action="singleView" arguments="{post: next.uid}" class="multiblog next-link">
-                    &laquo; {next.posttitel} 
-                </f:link.action>
-            </f:if>
-            <f:if condition="{prev.posttitel}">
-                <f:link.action action="singleView" arguments="{post: prev.uid}" class="multiblog prev-link">
-                    {prev.posttitel} &raquo;
-                </f:link.action>
-            </f:if>
-        </div>
-
+<div class="multiblog labelrow clearafter">
+    <div class="multiblog col-left">
 
     </div>
+    <div class="multiblog col-main">
+         <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_label.png" alt="labels" />
+        <f:for each="{post.category}" as="cat">
+            {cat.kategory},&nbsp;
+
+        </f:for>
+        <br /><br />
+        
+    </div>
+</div>  
 
 
+<div class="multiblog labelrow clearafter">
+    <div class="multiblog col-left">
 
+    </div>
+    <div class="multiblog col-main">
+        <div class="share-text">&nbsp;</div>
+        <div class="facebook">&nbsp;</div>
+        <div class="google">&nbsp;</div>
+        <div class="twitter">&nbsp;</div>
+    </div>
+</div>
+
+<div class="multiblog labelrow clearafter">
+    <div class="multiblog col-left">
+
+    </div>
+    <div class="multiblog col-main">
+        
+        <br />
+        <f:if condition="{next.posttitel}">
+            <f:link.action action="index" arguments="{postId: next.uid}" class="multiblog next-link">
+                &laquo; {next.posttitel} 
+            </f:link.action>
+        </f:if>
+        <f:if condition="{prev.posttitel}">
+            <f:link.action action="index" arguments="{postId: prev.uid}" class="multiblog prev-link">
+                {prev.posttitel} &raquo;
+            </f:link.action>
+        </f:if>
+    </div>
+</div> 
 
 
