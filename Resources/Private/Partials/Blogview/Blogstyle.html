@@ -11,7 +11,7 @@
         <div class="multiblog-postpreview-content">
 
             <div class="multiblog-postheader">
-                <f:link.action action="singleView" arguments="{post: sticky.uid}">
+                <f:link.action action="index" arguments="{postId: sticky.uid}">
                     {sticky.posttitel}
                 </f:link.action>
             </div>
@@ -21,7 +21,7 @@
             </f:if>
             
             <div class="multiblog-postteaser">
-                {sticky.postintro}
+                <f:format.html>{sticky.postintro}</f:format.html>
             </div>
             <f:link.action action="singleView" arguments="{post: sticky.uid}">
                 read more 
@@ -47,7 +47,7 @@
         <div class="multiblog-postpreview-content">
 
             <div class="multiblog-postheader">
-                <f:link.action action="singleView" arguments="{post: post.uid}">
+                <f:link.action action="index" arguments="{postId: post.uid}">
                     {post.posttitel}
                 </f:link.action>
             </div>
@@ -57,7 +57,7 @@
             </f:if>
             
             <div class="multiblog-postteaser">
-                {post.postintro}
+                <f:format.html>{post.postintro}</f:format.html>
             </div>
             <f:link.action action="index" arguments="{postId: post.uid}">
                 read more 
