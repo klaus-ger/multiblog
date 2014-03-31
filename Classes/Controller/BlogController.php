@@ -83,6 +83,11 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         } else {
             $blogId = 1;
         }
+        if ($this->request->hasArgument('page')) {
+            $page = $this->request->getArgument('page');
+        } else {
+            $page = 1;
+        }
         if ($this->request->hasArgument('postId')) {
             $postId = $this->request->getArgument('postId');
         } else {
@@ -99,7 +104,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         //Check which view has to be displayed
         //Case: Blog view | Startpage of the blog
         if ($postId == 0 && $categoryId == 0) {
-            $this->blogView($blog->getUid());
+            $this->blogView($blog->getUid(), $page);
         }
         //Case: Single Post View
         if ($postId > 0) {
@@ -119,13 +124,66 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     /**
      * Blogview
      */
-    public function blogview($blogId) {
+    public function blogview($blogId, $page) {
         //TODO: split this in blogview and one post view
         $blog = $this->blogRepository->findByUid($blogId);
 
+
         //check if Blog has single view or blog view
         if ($blog->getBlogstyle() == 1) {
-            $posts = $this->postRepository->findPostsByLimitAndBlogId($blog->getUid(), 8);
+
+            $itemsPerPage = 2;
+            //count all visible post 
+            $countPosts = $this->postRepository->countPostByBlogId($blog->getUid());
+
+            if ($countPosts < $itemsPerPage) {
+                $posts = $this->postRepository->findPostsByLimitAndBlogId($blog->getUid(), 8);
+            } else {
+                $queryOffset = $itemsPerPage * ($page - 1);
+                if ($queryOffset < 1) {
+                    $queryOffset = 0;
+                }
+                $posts = $this->postRepository->findPostsByLimitOffsetAndBlogId($blog->getUid(), $queryOffset, $itemsPerPage);
+
+                //build paginator
+                $pages = ceil($countPosts / $itemsPerPage);
+                //We limit the page menu to 10 pages
+                //Case I: the calculatet pages are below 10
+                if ($pages <= 10) {
+                    $minPagination = 1;
+                    $maxPagination = $pages;
+                }
+
+                //Case II: the calculated pages are more than 10 
+                if ($pages > 10) {
+                    $maxPagination = $page + 5;
+                    if ($maxPagination > $pages) {
+                        $maxPagination = $pages;
+                    }
+                    $minPagination = $maxPagination - 11;
+                    if ($minPagination < 1) {
+                        $minPagination = 1;
+                        $maxPagination = 11;
+                    }
+                }
+                //Now we bild the page navigation
+                for ($i = $minPagination; $i <= $maxPagination; $i++) {
+                    $pagination['pages'][$i]['text'] = $i;
+                }
+
+                //Build next / prev links
+                if ($page > 1) {
+                    $pagination['prev'] = $page - 1;
+                }
+                if ($page < $pages) {
+                    $pagination['next'] = $page + 1;
+                }
+
+
+                //write the actual page for css
+                $pagination['current'] = $page;
+                $this->view->assign('pagination', $pagination);
+            }
             //$posts = $this->postRepository->findAll();
         } else {
             //load last Post
@@ -298,19 +356,20 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         } else {
             $og['typ'] = 'blog';
         }
-        
+
         //google+ Publisher
-        if($this->settings['author'] != ''){
+        if ($this->settings['author'] != '') {
             $og['author'] = $this->settings['author'];
         }
-        
+
         //create date
         if ($post) {
-            $og['crdate'] = date(DATE_ATOM, $post->getPostdate()->getTimestamp() );
+            $og['crdate'] = date(DATE_ATOM, $post->getPostdate()->getTimestamp());
         } else {
-            $og['crdate'] = date(DATE_ATOM, mktime(0, 0, 0, 4, 1, 2013  ));;
+            $og['crdate'] = date(DATE_ATOM, mktime(0, 0, 0, 4, 1, 2013));
+            ;
         }
-        
+
         //render the page header
         $GLOBALS['TSFE']->getPageRenderer()->setTitle($seo['title']);
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta name="description" content="' . $seo['description'] . '" /> ');
@@ -319,24 +378,24 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         //og
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:title" content="' . $seo['title'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:type" content="' . $og['typ'] . '" /> ');
-        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:url" content="' .  $og['pagelink']  . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:url" content="' . $og['pagelink'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:image" content="' . $og['image'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:description" content="' . $seo['description'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:site_name" content="' . $og['sitename'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="article:published_time" content="' . $og['crdate'] . '" /> ');
-        
+
         //$GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="author" content="' . $og['author'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta itemprop="name" content="' . $seo['title'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta itemprop="description" content="' . $seo['description'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta itemprop="image" content="' . $og['image'] . '" /> ');
-        
-        
+
+
         //Set array for bulding the share links
         $share['image'] = $og['image'];
         $share['text'] = $seo['description'];
         $share['title'] = $seo['title'];
         $this->view->assign('share', $share);
-       
+
 // <!-- Google Authorship and Publisher Markup -->
 //<link rel="author" href="https://plus.google.com/[Google+_Profile]/posts"/>
 //<link rel="publisher" href=”https://plus.google.com/[Google+_Page_Profile]"/>

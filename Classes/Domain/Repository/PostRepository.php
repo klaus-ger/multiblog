@@ -28,7 +28,7 @@ namespace T3developer\Multiblog\Domain\Repository;
 class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     //protected $defaultOrderings = array('category' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
-        /**
+    /**
      * find Sticky Posts by Blog
      * 
      * @param int $blogId Blog Uid
@@ -49,7 +49,6 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         return $query->execute();
     }
 
-    
     /**
      * find Posts by Blog
      * 
@@ -72,7 +71,31 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         return $query->execute();
     }
 
-    
+    /**
+     * find Posts by Blog
+     * 
+     * @param int $blogId Blog Uid
+     * @param int $queryOffset Offset
+     * @param int $itemsPerPage item per page
+     * @return object
+     */
+    public function findPostsByLimitOffsetAndBlogId($blogId, $queryOffset, $itemsPerPage) {
+        $orderings = array('postdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
+        $query->setOffset($queryOffset);
+        $query->setLimit($itemsPerPage);
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('blogid', $blogId),
+                    $query->equals('poststatus', 1),
+                    $query->equals('poststicky', 0)
+                ))
+        );
+
+        return $query->execute();
+    }
+
     /**
      * find previos post in blog
      * 
@@ -81,7 +104,7 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * 
      * @return object
      */
-    public function findPreviousEntry($timestamp, $blog){
+    public function findPreviousEntry($timestamp, $blogId) {
         $orderings = array('postdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
         $query = $this->createQuery();
         $query->setOrderings($orderings);
@@ -91,14 +114,13 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
                     $query->equals('blogid', $blog),
                     $query->equals('poststatus', 1),
                     $query->equals('poststicky', 0),
-                    $query->lessThan('postdate' , $timestamp)
+                    $query->lessThan('postdate', $timestamp)
                 ))
         );
         return $query->execute();
-    
     }
-    
-        /**
+
+    /**
      * find previos post in blog
      * 
      * @param int $timestamp timestamp from actual post
@@ -106,7 +128,7 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * 
      * @return object
      */
-    public function findNextEntry($timestamp, $blog){
+    public function findNextEntry($timestamp, $blogId) {
         $orderings = array('postdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
         $query = $this->createQuery();
         $query->setOrderings($orderings);
@@ -116,13 +138,31 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
                     $query->equals('blogid', $blog),
                     $query->equals('poststatus', 1),
                     $query->equals('poststicky', 0),
-                    $query->greaterThan('postdate' , $timestamp)
+                    $query->greaterThan('postdate', $timestamp)
                 ))
         );
         return $query->execute();
-    
     }
-    
+
+    /**
+     * Count visible Posts by Blog ID
+     * 
+     * @param int $blogId Blog Uid
+     * 
+     * @return object
+     */
+    public function countPostByBlogId($blogId) {
+        $query = $this->createQuery();
+
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('blogid', $blogId),
+                    $query->equals('poststatus', 1)
+                ))
+        );
+        return $query->execute()->count();
+    }
+
 }
 
 ?>

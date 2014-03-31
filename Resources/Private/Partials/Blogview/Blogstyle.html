@@ -1,6 +1,6 @@
 <f:if condition="{sticky}">
     <div class="multiblog-postpreview clearafter">
-        
+
         <div class="multiblog-sticky-image">
             <f:if condition="{sticky.image.originalResource.originalFile.uid}">
                 <f:image src="{sticky.image.originalResource.originalFile.uid}" alt="bb" width="190" class="s"/>
@@ -15,11 +15,11 @@
                     {sticky.posttitel}
                 </f:link.action>
             </div>
-            
+
             <f:if condition="{sticky.postcommentoption}">
                 <div class="count-comment">{sticky.contComments}</div>
             </f:if>
-            
+
             <div class="multiblog-postteaser">
                 <f:format.html>{sticky.postintro}</f:format.html>
             </div>
@@ -51,11 +51,11 @@
                     {post.posttitel}
                 </f:link.action>
             </div>
-            
+
             <f:if condition="{post.postcommentoption}">
                 <div class="count-comment">{post.contComments}</div>
             </f:if>
-            
+
             <div class="multiblog-postteaser">
                 <f:format.html>{post.postintro}</f:format.html>
             </div>
@@ -72,3 +72,40 @@
     </div>
 
 </f:for>
+
+<!-- pagination -->
+<div class="cofo_paginator">
+    <f:if condition="{pagination}">
+        Seiten:&nbsp;&nbsp;
+        <f:if condition="{pagination.first}">
+            <f:link.action action="index" arguments="{page: pagination.first}" class="paginator-page">
+                |<
+            </f:link.action>
+        </f:if>
+        <f:if condition="{pagination.prev}">
+            <f:link.action action="index" arguments="{page: pagination.prev}" class="paginator-page">
+                <
+            </f:link.action>
+        </f:if>
+        <f:for each="{pagination.pages}" as="item">
+            <f:link.action action="index" arguments="{page: item.text}"
+                           class="paginator-page {f:if(condition: '{0:pagination.current} == {0:item.text}',
+                                               then: ' active', else: '')}">
+                               {item.text}
+                           </f:link.action>
+            </f:for>
+            <f:if condition="{pagination.next}">
+                <f:link.action action="index" arguments="{page:pagination.next}" class="paginator-page">
+                >
+            </f:link.action>
+        </f:if>
+        <f:if condition="{pagination.last}">
+            <f:link.action action="index" arguments="{page: pagination.last}" class="paginator-page">
+                >|
+            </f:link.action>
+        </f:if>
+    </f:if>
+
+    <br class="clear-all">
+</div>
+<!-- End pagination -->
