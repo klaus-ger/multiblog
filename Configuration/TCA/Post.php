@@ -139,6 +139,7 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                 'rows' => 6,
                
             ),
+            'defaultExtras' => 'richtext[]:rte_transform[mode=ts_css]',
         ),
         'postpicture' => array(
             'exclude' => 0,
