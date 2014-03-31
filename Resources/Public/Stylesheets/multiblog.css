@@ -45,7 +45,7 @@ a {text-decoration: none;}
 }
 .multiblog-sticky-image img {
     vertical-align: top;
-        
+
 }
 .multiblog-postpreview-content {
     float: right;
@@ -63,7 +63,7 @@ a {text-decoration: none;}
     padding-right: 5px;
     word-spacing: 2px;
 }
-h2.multiblog {
+h2.multiblog, .multiblog h3 {
     font-family: Coda, serif;
     font-size: 24px;
     font-weight: 300;
@@ -74,6 +74,9 @@ h2.multiblog {
     margin-bottom: 10px;
     display: inline;
 }
+.multiblog h3 {
+    font-size: 18px;
+}
 .count-comment {
     display: inline-block;
     font-size: 10px;
@@ -83,6 +86,9 @@ h2.multiblog {
     height: 27px;
     vertical-align: top;
     text-align: center;
+}
+p {
+    margin-bottom: 10px;
 }
 b {
     font-weight: 600;
@@ -174,11 +180,62 @@ i {
     color: #fff;
     cursor: pointer;
 }
+/*************************************************************/
+/* Share icons
+/*************************************************************/
+.share-text {
+    float: left;
+    margin: 0 0px 0 0;
+    background: #fff url(../icons/icon_share.png) 0 0 no-repeat;
+    width: 120px;
+    height: 50px;
+}
+.facebook{
+    background: #fff url(../icons/facebook_grey.png) 0 0 no-repeat;
+    width: 48px;
+    height: 48px;
+    float: left;
+    margin: 0 20px;
+}
+.twitter{
+    background: #fff url(../icons/twitter_grey.png) 0 0 no-repeat;
+    width: 48px;
+    height: 48px;
+    float: left;
+    margin: 0 20px;
+}
+.google{
+    background: #fff url(../icons/google.png) 0 0 no-repeat;
+    width: 48px;
+    height: 48px;
+    float: left;
+    margin: 0 20px;
+}
+
 
 /*************************************************************/
 /* Widgets
 /*************************************************************/
-
+.widget_icon_about {
+    background: #fff url(../icons/icon_side_about.png) 0 center no-repeat;
+    padding-left: 20px;
+}
+.widget_icon_recentpost {
+    background: #fff url(../icons/icon_side_pencil.png) 0 center no-repeat;
+    padding-left: 20px;
+}
+.widget_icon_lastcomments{
+    background: #fff url(../icons/icon_side_comment.png) 0 center no-repeat;
+    padding-left: 20px;
+}
+.widget_icon_lastcomments{
+    background: #fff url(../icons/icon_side_comment.png) 0 center no-repeat;
+    padding-left: 20px;
+}
+.widget_icon_category {
+    background: #fff url(../icons/icon_side_label.png) 0 center no-repeat;
+    padding-left: 20px;
+}
 .multiblog_widget {
     border-bottom: 1px solid #EDEDED;
     margin-bottom: 10px;
@@ -192,7 +249,9 @@ i {
     word-spacing: 2px;
     color: #5B6169;
 }
-
+.multiblog_widgetcontent  {
+    padding-left: 20px;
+}
 
 .multiblog_widgetLastComment_entry {
     border-bottom: 1px dotted #EDEDED;
