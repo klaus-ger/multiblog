@@ -277,7 +277,9 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         //detaillink
         if ($post) {
-            $link = str_replace(' ', '-', $post->getPosttitel());
+            $link = strtolower($post->getPosttitel());
+            $link = str_replace(':', '', $link);
+            $link = str_replace(' ', '-', $link);
             $og['pagelink'] = $this->settings['linkSingleView'] . $link;
         } else {
             $og['pagelink'] = $this->settings['linkSingleView'];
@@ -312,9 +314,10 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         //render the page header
         $GLOBALS['TSFE']->getPageRenderer()->setTitle($seo['title']);
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta name="description" content="' . $seo['description'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta name="canonical" content="' . $og['pagelink'] . '" /> ');
 
         //og
-        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:title" content="' . $seo['description'] . '" /> ');
+        $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:title" content="' . $seo['title'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:type" content="' . $og['typ'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:url" content="' .  $og['pagelink']  . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="og:image" content="' . $og['image'] . '" /> ');
@@ -327,7 +330,13 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta itemprop="description" content="' . $seo['description'] . '" /> ');
         $GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta itemprop="image" content="' . $og['image'] . '" /> ');
         
-        //$GLOBALS['TSFE']->getPageRenderer()->addMetaTag('<meta property="author" content="' . 'blog' . '" /> ');
+        
+        //Set array for bulding the share links
+        $share['image'] = $og['image'];
+        $share['text'] = $seo['description'];
+        $share['title'] = $seo['title'];
+        $this->view->assign('share', $share);
+       
 // <!-- Google Authorship and Publisher Markup -->
 //<link rel="author" href="https://plus.google.com/[Google+_Profile]/posts"/>
 //<link rel="publisher" href=”https://plus.google.com/[Google+_Page_Profile]"/>
