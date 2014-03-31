@@ -46,6 +46,14 @@ $(document).ready(function () {
     });
     
     
-    
+    var url = $(location).attr('href');
+    var fblink = '';
+    fblink += '<a onClick=\"window.open(\'https://www.facebook.com/sharer/sharer.php?u=';
+    fblink += url;
+    fblink += '\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');\" href=\"javascript: void(0)\">';
+    fblink += '<img width="48" height="48" src="typo3conf/ext/multiblog/Resources/Public/Icons/facebook_grey.png" alt="share on Facebook">';
+    fblink += '</a>'
+        
+    $('.facebook').html(fblink);
 });
 
