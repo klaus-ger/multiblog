@@ -20,6 +20,7 @@
             
             <label index="post.DateText">Posted on:</label>
             <label index="post.CategoryText">Categories: </label>
+            <label index="post.readmore">read more</label>
             
             <label index="comments.Header">Comments:</label>
             <label index="comments.DateText">posted on</label>
@@ -154,7 +155,7 @@
             
             <label index="post.DateText">Geschrieben am:</label>
             <label index="post.CategoryText">Einsortiert in:</label>
-            <label index="post.readmore">read more</label>	
+            <label index="post.readmore">mehr</label>	
             
             <label index="comments.Header">Kommentare:</label>
             <label index="comments.DateText">schrieb am</label>
