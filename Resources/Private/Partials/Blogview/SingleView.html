@@ -83,11 +83,15 @@
 
     </div>
     <div class="multiblog col-main">
-         <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_label.png" alt="labels" />
-        <f:for each="{post.category}" as="cat">
-            {cat.kategory},&nbsp;
-
-        </f:for>
+         <div class="multiblog-postlabels">
+                <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_label.png" alt="labels" />
+                <f:for each="{post.category}" as="cat" iteration="catiter">
+                    {cat.kategory}<f:if condition="{catiter.isLast}==0">, &nbsp;</f:if>
+                </f:for>
+                &nbsp;&nbsp;&nbsp;
+                <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_time.png" alt="date" />
+                <f:format.date format="d.m.Y">{post.postdate}</f:format.date> 
+            </div>
         <br /><br />
         
     </div>
