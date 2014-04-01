@@ -52,8 +52,26 @@ $(document).ready(function () {
     fblink += url;
     fblink += '\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');\" href=\"javascript: void(0)\">';
     fblink += '<img width="48" height="48" src="typo3conf/ext/multiblog/Resources/Public/Icons/facebook_grey.png" alt="share on Facebook">';
-    fblink += '</a>'
+    fblink += '</a>';
         
     $('.facebook').html(fblink);
+    
+    var googlelink = '';
+    googlelink += '<a href=\"https://plus.google.com/share?url=';
+    googlelink += url;
+    googlelink += '\" onclick=\"javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;\">';
+    googlelink += '<img width="48" height="48" src="typo3conf/ext/multiblog/Resources/Public/Icons/google.png" alt="share on Facebook">';
+    googlelink += '</a>';
+ 
+    $('.google').html(googlelink);
+    
+    var twitterlink = '';
+    twitterlink += '<a onClick=\"window.open(\'http://twitter.com/share?url=';
+    twitterlink += url;
+    twitterlink += '\',\'sharer\',\'toolbar=0,status=0,width=548,height=325\');\" href=\"javascript: void(0)\">';
+    twitterlink += '<img width="48" height="48" src="typo3conf/ext/multiblog/Resources/Public/Icons/twitter_grey.png" alt="share on Twitter">';
+    twitterlink += '</a>';
+    
+    $('.twitter').html(twitterlink);
 });
 
