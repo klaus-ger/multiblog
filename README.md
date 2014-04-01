@@ -28,7 +28,7 @@
 
 
 ####More information
-* [Installation - easy and smart](https://github.com/klaus-ger/multiblog/blob/master/GIT-Doku/Installation.md)
+* [Installation - easy and smart](https://github.com//klaus-ger/multiblog/master/GIT-Doku/Installation.md)
 <p>Installation - easy and fast</p>
 <p>Start your Blog - view and styling options</p>
 <p>Commenting System</p>

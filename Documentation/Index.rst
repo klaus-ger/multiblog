@@ -14,7 +14,7 @@ Extension Name
 :Extension name: Multiblog
 :Extension key: multiblog
 :Version: 1.0
-:Description: manuals covering TYPO3 extension "Euromedia ProduktDB"
+:Description: A Blog Extension for TYPO3. Including Commentsystem, Social Sharing. Works with TYPO3 6.1 and 6.2
 :Language: en
 :Author: Klaus Heuer
 :Creation: 2014-02-19
