@@ -30,7 +30,7 @@
 
                 <div class="multiblog_widgetLastComment_text">
                     <f:format.crop maxCharacters="70" append="&nbsp;...">{teaserentry.postintro}</f:format.crop>
-                    <f:link.action action="showSingleEntry" controller="Entry" arguments="{blogid: teaserentry.blogid, uid: teaserentry.uid}"> [<f:translate key="LLL:{settings.langFile}:post.readmore" />]</f:link.action>
+                    <f:link.action action="index" controller="Blog" arguments="{postId: teaserentry.uid}"> [<f:translate key="LLL:{settings.langFile}:post.readmore" />]</f:link.action>
 
                 </div>	
             </div>
