@@ -210,6 +210,9 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
     /**
      * SingleView
+     * 
+     * @param int $blogId Blog Uid
+     * @param int $postId PostUid
      */
     public function singleView($blogId, $postId) {
 
