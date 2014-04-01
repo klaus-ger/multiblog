@@ -111,7 +111,7 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         $query->setLimit(1);
         $query->matching(
                 $query->logicalAnd(array(
-                    $query->equals('blogid', $blog),
+                    $query->equals('blogid', $blogId),
                     $query->equals('poststatus', 1),
                     $query->equals('poststicky', 0),
                     $query->lessThan('postdate', $timestamp)
@@ -135,7 +135,7 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         $query->setLimit(1);
         $query->matching(
                 $query->logicalAnd(array(
-                    $query->equals('blogid', $blog),
+                    $query->equals('blogid', $blogId),
                     $query->equals('poststatus', 1),
                     $query->equals('poststicky', 0),
                     $query->greaterThan('postdate', $timestamp)
