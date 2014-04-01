@@ -59,24 +59,29 @@
             <div class="multiblog-postteaser">
                 <f:format.html>{post.postintro}</f:format.html>
             </div>
-            <f:link.action action="index" arguments="{postId: post.uid}">
-                read more 
+
+            <div class="multiblog-postlabels">
+                <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_label.png" alt="labels" />
+                <f:for each="{post.category}" as="cat" iteration="catiter">
+                    {cat.kategory}<f:if condition="{catiter.isLast}==0">, &nbsp;</f:if>
+                </f:for>
+                &nbsp;&nbsp;&nbsp;
+                <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_time.png" alt="date" />
+                <f:format.date format="d.m.Y">{post.postdate}</f:format.date> 
+            </div>
+            <f:link.action action="index" arguments="{postId: post.uid}" class="multiblog-readmore-link">
+                 <f:translate key="LLL:{settings.langFile}:post.readmore" /> 
             </f:link.action>
-
-            labels:
-            <f:for each="{post.category}" as="cat">
-                {cat.kategory}
-
-            </f:for>
         </div>
     </div>
 
 </f:for>
 
 <!-- pagination -->
-<div class="cofo_paginator">
+<div class="multiblog-postpreview-image"></div>
+<div class="multiblog-postpreview-content">
     <f:if condition="{pagination}">
-        Seiten:&nbsp;&nbsp;
+        
         <f:if condition="{pagination.first}">
             <f:link.action action="index" arguments="{page: pagination.first}" class="paginator-page">
                 |<

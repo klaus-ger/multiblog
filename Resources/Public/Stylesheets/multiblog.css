@@ -87,6 +87,13 @@ h2.multiblog, .multiblog h3 {
     vertical-align: top;
     text-align: center;
 }
+.multiblog-postlabels, .multiblog-readmore-link {
+    font-family: Coda,serif;
+}
+.multiblog-readmore-link {
+    font-weight: bold;
+    color: #8A929B;
+}
 p {
     margin-bottom: 10px;
 }
@@ -96,6 +103,13 @@ b {
 i {
     font-style: italic;
 }
+/*pagination*/
+.paginator-page {
+    padding: 2px 5px;
+    background-color: #ededed;
+    border:1px solid #ccc;
+}
+
 /*************************************************************/
 /* Blog Single Page
 /*************************************************************/
