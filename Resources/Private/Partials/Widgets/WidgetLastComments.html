@@ -17,7 +17,7 @@
 
             <div class="multiblog_widgetLastComment_text">
                 <f:format.crop maxCharacters="70" append="&nbsp;...">{teasercomment.commenttext}</f:format.crop>
-                <f:link.action action="singleView" controller="Blog" arguments="{post: teasercomment.postid}"><em> [mehr]</em></f:link.action>
+                <f:link.action action="singleView" controller="Blog" arguments="{post: teasercomment.postid}">[<f:translate key="LLL:{settings.langFile}:post.readmore" />]</f:link.action>
 
             </div>	
             </div>
