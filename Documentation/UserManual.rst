@@ -17,32 +17,28 @@ Its recommended to use realURL for correct writing of the post links. In the fol
 Blogoptions
 ~~~~~~~~~~~
 
-.. figure:: Images/UserManual/BE_screen01.png
+.. figure:: Images/BE_screen01.png
 		:width: 200px
 		:alt: Backend view
 
-.. figure:: Images/UserManual/BE_screen02.png
+.. figure:: Images/BE_screen02.png
 		:width: 200px
 		:alt: Backend view		
 
 Writing a Post
 ~~~~~~~~~~~
-.. figure:: Images/UserManual/BE_screen03.png
+.. figure:: Images/BE_screen03.png
 		:width: 200px
 		:alt: Backend view
 
-.. figure:: Images/UserManual/BE_screen04.png
+.. figure:: Images/BE_screen04.png
 		:width: 200px
 		:alt: Backend view
 
-.. figure:: Images/UserManual/BE_screen05.png
+.. figure:: Images/BE_screen05.png
 		:width: 200px
 		:alt: Backend view
 
 FAQ
 ====
-
-Possible subsection: FAQ
-
-.. _User manual:
-.. _Introduction Package: http://demo.typo3.org/
+none
