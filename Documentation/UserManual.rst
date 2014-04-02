@@ -17,28 +17,29 @@ Its recommended to use realURL for correct writing of the post links. In the fol
 Blogoptions
 ~~~~~~~~~~~
 
-.. figure:: Images/BE_screen01.png
+.. figure:: Images/BE_screen_01.png
 		:width: 200px
 		:alt: Backend view
 
-.. figure:: Images/BE_screen02.png
+.. figure:: Images/BE_screen_02.png
 		:width: 200px
 		:alt: Backend view		
 
 Writing a Post
 ~~~~~~~~~~~
-.. figure:: Images/BE_screen03.png
+.. figure:: Images/BE_screen_03.png
 		:width: 200px
 		:alt: Backend view
 
-.. figure:: Images/BE_screen04.png
+.. figure:: Images/BE_screen_04.png
 		:width: 200px
 		:alt: Backend view
 
-.. figure:: Images/BE_screen05.png
+.. figure:: Images/BE_screen_05.png
 		:width: 200px
 		:alt: Backend view
 
 FAQ
 ====
+
 none
