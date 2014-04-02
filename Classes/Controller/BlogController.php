@@ -216,7 +216,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         // find category
         if($categoryId != 0){
             $category = $this->categoryRepository->findByUid($categoryId);
-            $this->view->assign('category', $category);
+            $this->view->assign('categoryfilter', $category);
         }
         $this->view->assign('posts', $posts);
         $this->view->assign('sticky', $sticky[0]);
