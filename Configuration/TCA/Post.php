@@ -157,7 +157,7 @@ $TCA['tx_multiblog_domain_model_post'] = array(
 				'foreign_table' => 'tx_multiblog_domain_model_content',
 				'foreign_field' => 'postid',
 				
-				 'maxitems' => 2,
+				 'maxitems' => 99,
 			),
 		),
         'postdate' => array(
