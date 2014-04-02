@@ -32,46 +32,46 @@ if (TYPO3_MODE === 'FE' && !isset($_REQUEST['eID'])) {
 	)
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'T3developer.' . $_EXTKEY,
-	'blogedit',
-	array(
-		'Blogedit' => ' login
-                              , index
-                              , postNew
-                              , postEdit
-                              , postCreate
-                              , postUpdate
-                              , kategoryShow
-                              , kategoryAdd
-                              , widgetsShow
-                              , widgetsUpdate
-                              , blogstyleShow
-                              , blogstyleUpdate
-                              , usersettingsShow
-                              , usersettingsUpdate',
-		
-	),
-	// non-cacheable actions
-	array(
-		'Blogedit' => ' login
-                              , index
-                              , postNew
-                              , postEdit
-                              , postCreate
-                              , postUpdate
-                              , kategoryShow
-                              , kategoryAdd
-                              , widgetsShow
-                              , widgetsUpdate
-                              , blogstyleShow
-                              , blogstyleUpdate
-                              , usersettingsShow
-                              , usersettingsUpdate',
-		
-		
-	)
-);
+//\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+//	'T3developer.' . $_EXTKEY,
+//	'blogedit',
+//	array(
+//		'Blogedit' => ' login
+//                              , index
+//                              , postNew
+//                              , postEdit
+//                              , postCreate
+//                              , postUpdate
+//                              , kategoryShow
+//                              , kategoryAdd
+//                              , widgetsShow
+//                              , widgetsUpdate
+//                              , blogstyleShow
+//                              , blogstyleUpdate
+//                              , usersettingsShow
+//                              , usersettingsUpdate',
+//		
+//	),
+//	// non-cacheable actions
+//	array(
+//		'Blogedit' => ' login
+//                              , index
+//                              , postNew
+//                              , postEdit
+//                              , postCreate
+//                              , postUpdate
+//                              , kategoryShow
+//                              , kategoryAdd
+//                              , widgetsShow
+//                              , widgetsUpdate
+//                              , blogstyleShow
+//                              , blogstyleUpdate
+//                              , usersettingsShow
+//                              , usersettingsUpdate',
+//		
+//		
+//	)
+//);
 $TYPO3_CONF_VARS['FE']['eID_include']['ajaxDispatcher'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('multiblog').'Classes/EIDispatcher.php';
 
 

@@ -10,11 +10,11 @@ if (!defined('TYPO3_MODE')) {
 	'singleblog',
 	'Blog Single'
 );
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	$_EXTKEY,
-	'blogedit',
-	'Blog Edit'
-);
+//\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+//	$_EXTKEY,
+//	'blogedit',
+//	'Blog Edit'
+//);
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Multiblog');
 
