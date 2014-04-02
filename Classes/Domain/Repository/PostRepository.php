@@ -87,6 +87,7 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         $query->setLimit($itemsPerPage);
         $query->matching(
                 $query->logicalAnd(array(
+                    
                     $query->equals('blogid', $blogId),
                     $query->equals('poststatus', 1),
                     $query->equals('poststicky', 0)
@@ -153,16 +154,89 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      */
     public function countPostByBlogId($blogId) {
         $query = $this->createQuery();
-
         $query->matching(
                 $query->logicalAnd(array(
                     $query->equals('blogid', $blogId),
-                    $query->equals('poststatus', 1)
+                    $query->equals('poststatus', 1),
+                    
                 ))
         );
         return $query->execute()->count();
     }
 
+      /**
+     * Count visible Posts by Blog ID
+     * 
+     * @param int $blogId Blog Uid
+       * @param int $categoryId Description
+     * 
+     * @return object
+     */
+    public function countPostByBlogIdCategory($blogId, $categoryId) {
+        $query = $this->createQuery();
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->contains('category', $categoryId),
+                    $query->equals('blogid', $blogId),
+                    $query->equals('poststatus', 1),
+                    
+                ))
+        );
+        return $query->execute()->count();
+    }
+    
+        /**
+     * find Posts by Blog & Category
+     * 
+     * @param int $blogId Blog Uid
+     * 
+     * @param int $itemsPerPage item per page
+         * @param int $category category
+     * @return object
+     */
+    public function findPostsByLimitBlogIdCategory($blogId,  $itemsPerPage, $category) {
+        $orderings = array('postdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
+        $query->setLimit($itemsPerPage);
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->contains('category', $category),
+                    $query->equals('blogid', $blogId),
+                    $query->equals('poststatus', 1),
+                    $query->equals('poststicky', 0)
+                ))
+        );
+
+        return $query->execute();
+    }
+    
+        /**
+     * find Posts by Blog
+     * 
+     * @param int $blogId Blog Uid
+     * @param int $queryOffset Offset
+     * @param int $itemsPerPage item per page
+         *  @param int $category category
+     * @return object
+     */
+    public function findPostsByLimitOffsetBlogIdCategory($blogId, $queryOffset, $itemsPerPage, $category) {
+        $orderings = array('postdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
+        $query->setOffset($queryOffset);
+        $query->setLimit($itemsPerPage);
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->contains('category', $category),
+                    $query->equals('blogid', $blogId),
+                    $query->equals('poststatus', 1),
+                    $query->equals('poststicky', 0)
+                ))
+        );
+
+        return $query->execute();
+    }
 }
 
 ?>

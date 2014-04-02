@@ -103,16 +103,12 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         //Check which view has to be displayed
         //Case: Blog view | Startpage of the blog
-        if ($postId == 0 && $categoryId == 0) {
-            $this->blogView($blog->getUid(), $page);
+        if ($postId == 0) {
+            $this->blogView($blog->getUid(), $page, $categoryId);
         }
         //Case: Single Post View
         if ($postId > 0) {
             $this->singleView($blog->getUid(), $postId);
-        }
-        //Case: Category View
-        if ($categoryId > 0) {
-            $this->categoryView($blog->getUid(), $categoryId);
         }
 
         //general view values
@@ -124,7 +120,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     /**
      * Blogview
      */
-    public function blogview($blogId, $page) {
+    public function blogview($blogId, $page, $categoryId) {
         //TODO: split this in blogview and one post view
         $blog = $this->blogRepository->findByUid($blogId);
 
@@ -133,18 +129,31 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         if ($blog->getBlogstyle() == 1) {
 
             $itemsPerPage = 2;
-            //count all visible post 
-            $countPosts = $this->postRepository->countPostByBlogId($blog->getUid());
+            //count all visible post
+            if ($categoryId < 1) {
+                $countPosts = $this->postRepository->countPostByBlogId($blog->getUid(), $categoryId);
+            } else {
+                $countPosts = $this->postRepository->countPostByBlogIdCategory($blog->getUid(), $categoryId);
+            }
 
+            //posts fits to one page
             if ($countPosts < $itemsPerPage) {
-                $posts = $this->postRepository->findPostsByLimitAndBlogId($blog->getUid(), 8);
+                if ($categoryId < 1) {
+                    $posts = $this->postRepository->findPostsByLimitAndBlogId($blog->getUid(), 100);
+                } else {
+                    $posts = $this->postRepository->findPostsByLimitBlogIdCategory($blog->getUid(), 100, $categoryId);
+                }
+                //posts needs several pages, fetch posts only for the displayed page
             } else {
                 $queryOffset = $itemsPerPage * ($page - 1);
                 if ($queryOffset < 1) {
                     $queryOffset = 0;
                 }
-                $posts = $this->postRepository->findPostsByLimitOffsetAndBlogId($blog->getUid(), $queryOffset, $itemsPerPage);
-
+                if ($categoryId < 1) {
+                    $posts = $this->postRepository->findPostsByLimitOffsetAndBlogId($blog->getUid(), $queryOffset, $itemsPerPage, $categoryId);
+                } else {
+                    $posts = $this->postRepository->findPostsByLimitOffsetBlogIdCategory($blog->getUid(), $queryOffset, $itemsPerPage, $categoryId);
+                }
                 //build paginator
                 $pages = ceil($countPosts / $itemsPerPage);
                 //We limit the page menu to 10 pages
@@ -190,10 +199,12 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         }
 
         //loadSticky Posts
-        $sticky = $this->postRepository->findStickyPosts($blog->getUid());
-        if ($sticky[0] != '') {
-            $countComments = $this->commentRepository->countCommentsperPost($sticky[0]->getUid());
-            $sticky[0]->setContComments($countComments);
+        if ($page == 1) {
+            $sticky = $this->postRepository->findStickyPosts($blog->getUid());
+            if ($sticky[0] != '') {
+                $countComments = $this->commentRepository->countCommentsperPost($sticky[0]->getUid());
+                $sticky[0]->setContComments($countComments);
+            }
         }
 
         //Count comments for posts
@@ -202,7 +213,11 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             $post->setContComments($postCount);
         }
 
-
+        // find category
+        if($categoryId != 0){
+            $category = $this->categoryRepository->findByUid($categoryId);
+            $this->view->assign('category', $category);
+        }
         $this->view->assign('posts', $posts);
         $this->view->assign('sticky', $sticky[0]);
         $this->view->assign('view', 'blogview');

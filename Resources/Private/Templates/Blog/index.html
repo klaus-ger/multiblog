@@ -16,6 +16,10 @@
     <f:if condition="{view} == 'singleview'">
         <f:render partial="Blogview/SingleView" arguments="{_all}"/>
     </f:if>
+    
+    <f:if condition="{view} == 'categoryview'">
+        <f:render partial="Blogview/CategoryView" arguments="{_all}"/>
+    </f:if>
 
 
 </f:section>
