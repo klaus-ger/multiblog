@@ -42,4 +42,6 @@ Writing a Post
 FAQ
 ====
 
-none
+Images: You can add to the post teaser or each content section of a post one image only. 
+
+Facebook sharing: For a correct sharing must the page indexed by facebook. You can do this manually, just submit your pagelink of a single post on https://developers.facebook.com/tools/debug/
