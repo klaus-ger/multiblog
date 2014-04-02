@@ -46,20 +46,20 @@ The content of this document is related to TYPO3, a GNU/GPL CMS/Framework availa
 What does it do?
 =================
 
-In this chapter should be given a brief overview of the extension. What does it do? What problem does it solve? Who is interested in this? Basically, this section includes everything people need to know to decide whether they should go on with this extension.
+Multiblog is an easy to use blogsystem whith several widgets and social sharing function.
+
+Screenshot of a single post
+----------------------------
 
 .. figure:: Images/Blogpost_screen.png
 		:width: 500px
 		:alt: Blogpost
 
-		A sample of a single Post Page (caption of the image)
-
-		Each post have a teaser and several text/image elements- (legend of the image)
-
+		
+Screenshot of the blog view
+----------------------------
 .. figure:: Images/Bloglist_screen.png
 		:width: 500px
 		:alt: Blogslist
 
-		Sample of blog start page (caption of the image)
-
-		How the Frontend of the Introduction Package looks like just after installation (legend of the image)
+		

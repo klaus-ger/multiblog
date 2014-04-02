@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'multiblog',
-	'description' => 'A blog extension for typo3: Complete Frontend Editing of Blogentries, including blog widgets and comment system, multiple blogs in one installation possible. Easy to install and administration. Responsive Design, works perfectly with the extension responsive_template. TYPO3 6.1 or 6.2 required.',
+	'description' => 'A blog extension for TYPO3: including several blog widgets, comment system, facebook, google+ and twitter sharing buttons and seo fields. Fully social individual meta-tags for each post. Works with TYPO3 6.2 and 6.1',
 	'category' => 'plugin',
 	'author' => 'Klaus Heuer',
 	'author_email' => 'klaus.heuer@t3-developer.com',

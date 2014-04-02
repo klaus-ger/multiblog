@@ -2,25 +2,42 @@
 Users manual
 ============
 
-Target group: **Editors**
+Setup:
+---------
+* Install the extension an set the storage folder PID in the constant editor of the template.
+* Insert the Blog plugin on a full-width page.
+* Create a Frontend Usergroup and User in the storage folder of the blog.
+* Add a blog in the list view of the storage folder
+* Add some categories in the list view of the storage folder
+* Add a Post in the list view of the storage folder
 
-Here should be described how to use the extension from the editor pespective.
+Its recommended to use realURL for correct writing of the post links. In the folder multiblog/realURL_config is a sample configuration for writing URLs like www.myweb.com/this-is-my-post.
 
-* How it works?
-* How to install the plugin on a web page?
-* What options are available?
 
-Language should be non-technical, explaining, using small examples. Don't use to many acronyms unless they have been explained. Don't be confusing by putting information targeting administrators.
+Blogoptions
+~~~~~~~~~~~
 
-Provide screenshots of a neutral Backend such as the `Introduction Package`_ for instance. Keep in mind that the User manual chapter is a candidate to be re-used in a larger documentation compilation. Let imagine a company / organisation is generating a specific documentation towards its clients or end users and can possibly take advantage of the `User manual`_.
-
-.. figure:: Images/UserManual/BackendView.png
-		:width: 500px
+.. figure:: Images/UserManual/BE_screen01.png
+		:width: 200px
 		:alt: Backend view
 
-		Default Backend view (caption of the image)
+.. figure:: Images/UserManual/BE_screen02.png
+		:width: 200px
+		:alt: Backend view		
 
-		The Backend view of TYPO3 after the user has clicked on module "Page". (legend of the image)
+Writing a Post
+~~~~~~~~~~~
+.. figure:: Images/UserManual/BE_screen03.png
+		:width: 200px
+		:alt: Backend view
+
+.. figure:: Images/UserManual/BE_screen04.png
+		:width: 200px
+		:alt: Backend view
+
+.. figure:: Images/UserManual/BE_screen05.png
+		:width: 200px
+		:alt: Backend view
 
 FAQ
 ====
