@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'multiblog',
-	'description' => 'A blog extension for TYPO3: including several blog widgets, comment system, facebook, google+ and twitter sharing buttons and seo fields. Fully social individual meta-tags for each post. Works with TYPO3 6.2 and 6.1',
+	'description' => 'A blog extension for TYPO3: including several blog widgets, comment system, facebook, google+ and twitter sharing buttons and seo fields. Fully social individual meta-tags for each post. Works with TYPO3 6.2 and 6.1. Do NOT update old versions of multiblog - actual there is no update script for the new content structure.',
 	'category' => 'plugin',
 	'author' => 'Klaus Heuer',
 	'author_email' => 'klaus.heuer@t3-developer.com',
@@ -27,7 +27,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'modify_tables' => '',
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
-	'version' => '0.9.5',
+	'version' => '0.9.6',
 	'constraints' => array(
 		'depends' => array(
 			
