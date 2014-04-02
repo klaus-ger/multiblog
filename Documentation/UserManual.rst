@@ -7,6 +7,7 @@ Setup:
 * Install the extension an set the storage folder PID in the constant editor of the template.
 * Insert the Blog plugin on a full-width page.
 * Make shure that you don't render a title tag oder meta tags on the page with the blog plugin. This is done by the extension.
+* Add to the page typoscript of your storage folder: TCEMAIN.clearCacheCmd = PID of the Blogplugin
 
 * Create a Frontend Usergroup and User in the storage folder of the blog.
 * Add a blog in the list view of the storage folder

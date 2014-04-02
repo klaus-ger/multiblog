@@ -44,6 +44,7 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl']['_DEFAULT'] = array(
 					),
 				)
 			),
+                        // '1' is the PID of the page with the blog plugin
 			'1' => 'extDetailConfiguration'
 		),
 
