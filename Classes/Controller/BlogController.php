@@ -126,8 +126,9 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 
         //check if Blog has single view or blog view
-        if ($blog->getBlogstyle() == 1) {
-
+        // this is a feauture in next versions!
+        //if ($blog->getBlogstyle() == 1) {
+        if(1 == 1){
             $itemsPerPage = 2;
             //count all visible post
             if ($categoryId < 1) {

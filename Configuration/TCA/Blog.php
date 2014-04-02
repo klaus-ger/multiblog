@@ -14,21 +14,17 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
                                     , blogtitel
                                     , blogowner
                                     , blogwritermail
-                                    , blogcss
-                                    , blogpicture
-                                    , lastentry
+                                    
                                     
                                     , --div--;Widgets;;;1-1-1
                                     , --palette--;Widgets;widgets
                                     , blogdescription; About Blog text
-                                    , --div--;Layout;;;1-1-1
-                                    , blogstyle
-                                    , blogstyle_teaserimages
+                                    
                                     '),
     ),
     'palettes' => array(
         '1' => array('showitem' => ''),
-        'widgets' => array('showitem' => 'widget_about_blog, widget_recent_post;;1, widget_category, widget_comments, widget_all_posts, widget_meta ', 'canNotCollapse' => 1)
+        'widgets' => array('showitem' => 'widget_about_blog, widget_recent_post;;1, widget_category, widget_comments ', 'canNotCollapse' => 1)
     ),
     'columns' => array(
         'sys_language_uid' => array(
