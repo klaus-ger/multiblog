@@ -1,56 +1,68 @@
-..  Editor configuration
-	...................................................
-	* utf-8 with BOM as encoding
-	* tab indent with 4 characters for code snippet.
-	* optional: soft carriage return preferred.
+﻿.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
 
-.. Includes roles, substitutions, ...
-.. include:: _IncludedDirectives.rst
+.. include:: Includes.txt
 
-=================
-Extension Name
-=================
 
-:Extension name: Multiblog
-:Extension key: multiblog
-:Version: 1.0
-:Description: A Blog Extension for TYPO3. Including Commentsystem, Social Sharing. Works with TYPO3 6.1 and 6.2
-:Language: en
-:Author: Klaus Heuer
-:Creation: 2014-02-19
-:Generation: 09:17
-:Licence: Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
+.. _start:
 
-The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org
-<http://www.typo3.org/>`_
+=============================================================
+Multiblog - A Blogextension for TYPO3
+=============================================================
 
-**Table of Contents**
+.. only:: html
+
+    :Classification:
+        multiblog
+
+    :Version:
+        |release|
+
+    :Language:
+        en
+
+    :Description:
+        A Blogextension including a comment system, several widgets and social sharing functions. Works with TYPO3 6.1 and 6.2
+
+    :Keywords:
+        Frontend, Blog
+
+    :Copyright:
+        2014
+
+    :Author:
+        Klaus Heuer
+
+    :Email:
+        klaus.heuer@t3-developer.com
+
+    :Repository:
+        https://github.com/klaus-ger/multiblog/
+
+    :License:
+        This document is published under the Open Content License
+        available from http://www.opencontent.org/opl.shtml
+
+    :Rendered:
+        |today|
+
+    
+
+    The content of this document is related to TYPO3,
+    a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+
+
+    **Table of Contents**
 
 .. toctree::
-	:maxdepth: 2
+    :maxdepth: 5
+    :titlesonly:
+    :glob:
 
-	
-	UserManual
-	ProjectInformation
-
-
-What does it do?
-=================
-
-Multiblog is an easy to use blogsystem whith several widgets and social sharing function.
-
-Screenshot of a single post
-----------------------------
-
-.. figure:: Images/Blogpost_screen.png
-		:width: 500px
-		:alt: Blogpost
-
-		
-Screenshot of the blog view
-----------------------------
-.. figure:: Images/Bloglist_screen.png
-		:width: 500px
-		:alt: Blogslist
-
-		
+    Introduction/Index
+    Installation/Index
+    Blogsetup/Index
+    Blogging/Index
+    FAQs/Index
