@@ -1,3 +1,4 @@
+{namespace vh=T3developer\Multiblog\ViewHelpers}
 <div class="multiblog-edit-stage clearafter">
   
     <f:form method="post" controller="Blogedit" action="postSave" name="post" object="{post}" enctype="multipart/form-data"  >
@@ -15,8 +16,7 @@
             <br />
             <div class="multiblog-form-postcontent">
                 <div class="multiblog-form-postcontent-header multiblog-arrow-down">
-
-                    <b>Teaser:</b> <f:format.crop maxCharacters="60" append="&nbsp;...">{post.postintro}</f:format.crop>
+                    <b>Teaser:</b>  <vh:ContentHeader content="{post.postintro}" />
                 </div>
                 <div class="multiblog-form-postcontent-content">
 
@@ -123,7 +123,7 @@
 
                 <div class="multiblog-form-row clearafter">
                     <div class="multiblog-float-left">Hold Post in Front (sticky)</div>
-                    <f:form.checkbox property="postcommentoption" value="1" checked="{post.postcommentoption} == 1" class="multiblog-float-right"/> 
+                    <f:form.checkbox property="poststicky" value="1" checked="{post.poststicky} == 1" class="multiblog-float-right"/> 
                 </div>
 
                 <div class="multiblog-form-row clearafter">
@@ -133,7 +133,7 @@
 
                 <div class="multiblog-form-row clearafter">
                     <div class="multiblog-float-left">Allow Comments</div>
-                    <f:form.checkbox property="poststicky" value="1" checked="{post.poststicky} == 1" class="multiblog-float-right"/>  
+                    <f:form.checkbox property="postcommentoption" value="1" checked="{post.postcommentoption} == 1" class="multiblog-float-right"/>  
                 </div>
 
 
