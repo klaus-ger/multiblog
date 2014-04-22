@@ -51,6 +51,7 @@ CREATE TABLE tx_multiblog_domain_model_post (
 
 	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
         crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        cruser_id INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
         deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
         hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
 	
@@ -129,6 +130,7 @@ CREATE TABLE tx_multiblog_domain_model_comment (
 
 	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
         crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        cruser_id INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
         deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
         hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
 	
@@ -206,6 +208,7 @@ CREATE TABLE tx_multiblog_domain_model_postcategory (
 
 	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
         crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        cruser_id INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
         deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
         hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
 	
