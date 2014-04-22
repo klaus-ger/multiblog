@@ -24,7 +24,7 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
     ),
     'palettes' => array(
         '1' => array('showitem' => ''),
-        'widgets' => array('showitem' => 'widget_about_blog, widget_recent_post;;1, widget_category, widget_comments ', 'canNotCollapse' => 1)
+        'widgets' => array('showitem' => 'widget_about_blog, widget_recent_post;;1, widget_category, widget_comments, widget_meta ', 'canNotCollapse' => 1)
     ),
     'columns' => array(
         'sys_language_uid' => array(

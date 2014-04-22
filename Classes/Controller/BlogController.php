@@ -128,6 +128,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         //check if Blog has single view or blog view
         // this is a feauture in next versions!
         //if ($blog->getBlogstyle() == 1) {
+        $blog->setBlogstyle(1);
         if(1 == 1){
             $itemsPerPage = 10;
             //count all visible post
@@ -338,19 +339,19 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         }
 
         //image    
-        if ($post) {
-            if ($post->getImage()) {
-                $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
-            } else {
-                if ($blog->getBlogpicture()) {
-                    $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
-                }
-            }
-        } else {
-            if ($blog->getBlogpicture()) {
-                $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
-            }
-        }
+//        if ($post) {
+//            if ($post->getImage()) {
+//               // $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
+//            } else {
+//                if ($blog->getBlogpicture()) {
+//               //  $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
+//                }
+//            }
+//        } else {
+//            if ($blog->getBlogpicture()) {
+//                $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
+//            }
+//        }
 
         //detaillink
         if ($post) {

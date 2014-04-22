@@ -137,7 +137,6 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                 'type' => 'text',
                 'cols' => 48,
                 'rows' => 6,
-               
             ),
             'defaultExtras' => 'richtext[]:rte_transform[mode=ts_css]',
         ),
@@ -150,16 +149,15 @@ $TCA['tx_multiblog_domain_model_post'] = array(
             ),
         ),
         'postcontent' => Array(
-			'exclude' => 0,	
-			'label' => 'Content',
-			'config' => Array(
-				'type' => 'inline',
-				'foreign_table' => 'tx_multiblog_domain_model_content',
-				'foreign_field' => 'postid',
-				
-				 'maxitems' => 99,
-			),
-		),
+            'exclude' => 0,
+            'label' => 'Content',
+            'config' => Array(
+                'type' => 'inline',
+                'foreign_table' => 'tx_multiblog_domain_model_content',
+                'foreign_field' => 'postid',
+                'maxitems' => 99,
+            ),
+        ),
         'postdate' => array(
             'exclude' => 0,
             'label' => 'postdate',
@@ -174,7 +172,7 @@ $TCA['tx_multiblog_domain_model_post'] = array(
         ),
         'poststatus' => array(
             'exclude' => 0,
-            'label' => 'poststatus',
+            'label' => 'Status',
             'config' => array(
                 'type' => 'select',
                 'items' => array(
@@ -202,7 +200,7 @@ $TCA['tx_multiblog_domain_model_post'] = array(
             'exclude' => 0,
             'label' => 'Comments',
             'config' => array(
-               'type' => 'check',
+                'type' => 'check',
                 'default' => '1',
                 'items' => array(
                     '1' => array(
@@ -211,12 +209,11 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                 )
             ),
         ),
-        
-               'postshowteaser' => array(
+        'postshowteaser' => array(
             'exclude' => 0,
             'label' => 'Show teaser on single Post view',
             'config' => array(
-               'type' => 'check',
+                'type' => 'check',
                 'default' => '1',
                 'items' => array(
                     '1' => array(
@@ -225,28 +222,30 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                 )
             ),
         ),
-        
- 'image' => array(
-                'exclude' => 1,
-                'label' => 'Image',
-                'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image', array(
-                        'appearance' => array(
-                                'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
-                        ),
-                        'minitems' => 0,
-                        'maxitems' => 1,
-                ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
-        ),
         'files' => array(
-                'exclude' => 1,
-                'label' => 'Files',
-                'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', array(
-                        'appearance' => array(
-                                'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
-                        ),
-                ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+            'exclude' => 1,
+            'label' => 'Files',
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', array(
+                'appearance' => array(
+                    'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
+                ),
+                 'minitems' => 0,
+                'maxitems' => 1,
+                    ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
         ),
-
+        
+        
+        'image' => array(
+            'exclude' => 1,
+            'label' => 'Image',
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', array(
+                'appearance' => array(
+                    'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
+                ),
+                'minitems' => 0,
+                'maxitems' => 1,
+                    ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+        ),
         'category' => array(
             'exclude' => 0,
             'label' => 'Category',
@@ -300,7 +299,6 @@ $TCA['tx_multiblog_domain_model_post'] = array(
                 'size' => 30
             ),
         ),
-       
     ),
 );
 ?>

@@ -1,0 +1,194 @@
+<div class="multiblog-edit-stage clearafter">
+  
+    <f:form method="post" controller="Blogedit" action="postSave" name="post" object="{post}" enctype="multipart/form-data"  >
+        <div class="multiblog-edit-stage-main">
+
+            <h1><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.header" /></h1>
+            <f:form.hidden property="postUid" value="{post.uid}" />
+            <f:form.hidden property="blogUid" value="{blog.uid}" />
+
+            <label class="multiblog">
+                <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.title" />
+            </label>
+
+            <f:form.textfield property="posttitel" value="{posttitel}" class="multiblog-formfield multiblog-edit-form-textfield"/>
+            <br />
+            <div class="multiblog-form-postcontent">
+                <div class="multiblog-form-postcontent-header multiblog-arrow-down">
+
+                    <b>Teaser:</b> <f:format.crop maxCharacters="60" append="&nbsp;...">{post.postintro}</f:format.crop>
+                </div>
+                <div class="multiblog-form-postcontent-content">
+
+
+
+                    <f:form.textarea id="editor1" property="postintro" class="multiblog-formfield multiblog-edit-form-textarea"  value="{postintro}" rows="10" cols="90"/>
+
+                    <label class="multiblog">
+                        <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.image" />
+                    </label>
+
+                    <div class="multiblog-imagerow clearfix">
+
+
+                        <f:for each="{post.image}" as="img" iteration="iter">
+
+                            <div class="multiblog-imagerow-left">
+                                <f:image src="{img.originalResource.originalFile.uid}" alt="" maxWidth="150" maxHeight="150"/>
+                            </div>
+                            <div class="multiblog-imagerow-right">
+                                <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imageremove" />
+                                <f:form.checkbox property="imagedelete" value="1" /> 
+                            </div>
+
+
+
+                        </f:for>
+                        <f:form.upload  name="image[0]" /> 
+
+                        <br /><br />
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <label class="multiblog">
+                <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.content" />
+            </label>
+
+            <f:for each="{contentparts}" as="content" iteration="iter">
+                <div class="multiblog-form-postcontent">
+                    <div class="multiblog-form-postcontent-header multiblog-arrow-down">
+
+                        <b>Content:</b> <f:format.crop maxCharacters="60" append="&nbsp;...">{content.postcontent}</f:format.crop>
+                    </div>
+                    <div class="multiblog-form-postcontent-content">
+                        <f:form.textarea id="content{iter.cycle}"property="content.postcontent" class="multiblog-formfield multiblog-edit-form-textarea multiblog-editor"  value="{content.postcontent}" rows="10" cols="90"/>
+
+
+                        <label class="multiblog">
+                            <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.image" />
+                        </label>
+                        <f:if condition="{content.postpicture}" >
+                            <f:then>
+
+                                <div class="multiblog-imagerow clearfix">
+                                    <div class="multiblog-imagerow-left">
+                                        <f:image src="{content.postpicture.originalResource.originalFile.uid}" alt="" maxWidth="150" maxHeight="150"/>  
+                                    </div>
+                                    <div class="multiblog-imagerow-right">
+                                        <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imageremove" />
+                                        <f:form.checkbox property="imagedelete" value="1" /> 
+                                        <br />
+                                        <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imageposition" />
+                                        <f:form.radio property="imageposition" value="0" checked="{content.imageposition} == 0"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositiontop" /> &nbsp;&nbsp;
+                                        <f:form.radio property="imageposition" value="1" checked="{content.imageposition} == 1"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionbottom" /> &nbsp;&nbsp;       
+                                        <f:form.radio property="imageposition" value="2" checked="{content.imageposition} == 2"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionright" /> &nbsp;&nbsp;
+                                        <f:form.radio property="imageposition" value="3" checked="{content.imageposition} == 3"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionleft" />       
+
+                                    </div>
+                                </div>
+
+                            </f:then>
+                            <f:else>
+                                <f:form.upload  name="file[0]" />
+                                <br /><br />
+                            </f:else>
+                        </f:if>
+                    </div>
+                </div>
+            </f:for>
+
+        </div>
+        <div class="multiblog-edit-stage-right">
+            <div class="multiblog-edit-sidebarframe first">
+
+                <div class="multiblog-form-row clearafter">
+                    <div class="multiblog-float-left"><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.date" /></div>
+                    <f:form.textfield   property="postdate" value="{f:format.date(date: '{post.postdate}', format: 'd.m.Y')}" size="12" class="datepicker multiblog-formfield multiblog-edit-form-sidebarframe-textfield multiblog-float-right"/>  
+                </div>
+
+                <div class="multiblog-form-row clearafter">
+                    <div class="multiblog-float-left"><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.status" /></div>
+                    <div class="multiblog-float-right">
+                        <f:form.radio property="poststatus" value="1" /> <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.online" /> &nbsp;&nbsp;
+                        <f:form.radio property="poststatus" value="0" /> <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.draft" />       
+                    </div>
+                </div>
+
+
+                <div class="multiblog-form-row clearafter">
+                    <div class="multiblog-float-left">Hold Post in Front (sticky)</div>
+                    <f:form.checkbox property="postcommentoption" value="1" checked="{post.postcommentoption} == 1" class="multiblog-float-right"/> 
+                </div>
+
+                <div class="multiblog-form-row clearafter">
+                    <div class="multiblog-float-left">Show teaser on single Page</div>
+                    <f:form.checkbox property="postshowteaser" value="1" checked="{post.postshowteaser} == 1" class="multiblog-float-right"/>  
+                </div>
+
+                <div class="multiblog-form-row clearafter">
+                    <div class="multiblog-float-left">Allow Comments</div>
+                    <f:form.checkbox property="poststicky" value="1" checked="{post.poststicky} == 1" class="multiblog-float-right"/>  
+                </div>
+
+
+            </div>
+
+            <div class="multiblog-edit-sidebarframe">
+                <div class="multiblog-cat-select">
+                    Categories
+                    <f:for each="{post.category}" as="existingCat">
+                        <div class="cat-active" data-id="{existingCat.uid}">{existingCat.kategory}</div>
+                    </f:for>
+                </div>
+                <f:form.hidden property="categories" value="" class="jqCatselect"/>
+
+                <div class="multiblog-cat-add">
+                    Add Category
+
+
+                </div>
+                <div class="jqCatselectList hidden">
+                    <f:for each="{categoryTree}" as="cat">
+                        <div class="multiblog-edit-catrow" data-id="{cat.maincat.uid}">
+                            {cat.maincat.kategory}
+                        </div>
+
+                        <f:for each="{cat.subcats}" as="subcat">
+                            <div class="multiblog-edit-catrow" data-id="{subcat.uid}">
+                                {subcat.kategory}
+                            </div>
+                        </f:for>
+
+                    </f:for>
+                    <div><b><em>Click on category to add.</em></b></div>
+                </div>
+            </div>
+
+            <div class="multiblog-edit-sidebarframe">
+                Post SEO Description<br />
+                <f:form.textarea property="postseodescription" class=""  value="{post.postseodescription}" rows="5" cols="20"class="multiblog-formfield multiblog-edit-form-sidebarframe-textarea"/>
+            </div>
+
+            <f:form.submit class="submit btn_save" value="{f:translate(key:'blogedit.button.createarticle')}"/>
+            <input type="button" class="btn_cancel" value="{f:translate(key:'blogedit.button.cancel')}" name="back_button" onClick="javascript:history.back(1)" />
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </f:form>
+</div>

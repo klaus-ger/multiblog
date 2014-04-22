@@ -53,16 +53,34 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     protected $categoryRepository;
 
+    /**
+     * @var T3developer\Multiblog\Domain\Repository\ContentRepository 
+     * @inject 
+     */
+    protected $contentRepository;
+
+    /**
+     * @var T3developer\Multiblog\Domain\Repository\FileReferenceRepository 
+     * @inject 
+     */
+    protected $fileReferenceRepository;
+
+    /**
+     * @var \T3developer\Multiblog\Domain\Repository\FileRepository   
+     * @inject
+     */
+    protected $fileRepository;
     
+    
+
     public function initializeAction() {
-        if (isset($this->arguments['entry'])) {
+        if (isset($this->arguments['post'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['entry']
+            $this->arguments['post']
                     ->getPropertyMappingConfiguration()->allowProperties('postdate')
                     ->forProperty('postdate')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
         }
-        
     }
 
     /**
@@ -71,11 +89,11 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * 
      */
     public function indexAction() {
-        $blogUid = $this->findsBlogUidByLoggedInUser();
+        $blog = $this->findsBlogByLoggedInUser();
 
-        $posts = $this->postRepository->findByBlogid($blogUid);
+        $posts = $this->postRepository->findPostByBlogid($blog->getUid());
 
-
+        $this->view->assign('blog', $blog);
         $this->view->assign('entrys', $posts);
 
         $this->view->assign('menu', 'articles-all');
@@ -99,7 +117,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $entry->setBlogid($blogUid);
         $entry->setPoststatus(0);
         $entry->setPostdate(time());
-        
+
         //search categories
         $categories = $this->categoryRepository->findByBlogid($blogUid);
 
@@ -113,9 +131,26 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     /**
      * Shows the form for editing a post
+     * 
      */
     public function postEditAction() {
-        
+        if ($this->request->hasArgument('postUid')) {
+            $postUid = $this->request->getArgument('postUid');
+        }
+        $blog = $this->findsBlogByLoggedInUser();
+        $post = $this->postRepository->findByUid($postUid);
+        $contentparts = $this->contentRepository->findByPostid($postUid);
+
+        $categoryTree = $this->findCategoryTree($post->getUid());
+
+        $this->view->assign('blog', $blog);
+        $this->view->assign('post', $post);
+        $this->view->assign('contentparts', $contentparts);
+        $this->view->assign('categoryTree', $categoryTree);
+
+        $this->view->assign('menu', 'article-edit');
+        $this->view->assign('main-menu', 'articles');
+        $this->view->assign('post-menu', '1');
     }
 
     /**
@@ -123,16 +158,16 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \T3developer\Multiblog\Domain\Model\Post $entry
      * @dontvalidate  $entry
      */
-        public function postCreateAction() {
-            if ($this->request->hasArgument('entry')){
-                $entry = $this->request->getArgument('entry');
-            }
+    public function postCreateAction() {
+        if ($this->request->hasArgument('entry')) {
+            $entry = $this->request->getArgument('entry');
+        }
 
-         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entry);
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entry);
         //$this->postRepository->add($entry);
-
         //$this->redirect('index');
     }
+
 //    public function postCreateAction(\T3developer\Multiblog\Domain\Model\Post $entry) {
 //
 //
@@ -141,12 +176,187 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 //
 //        $this->redirect('index');
 //    }
+    /**
+     * Updates a post
+     * @dontvalidate  $postNew
+     */
+    public function postSaveAction() {
+        if ($this->request->hasArgument('post')) {
+            $post = $this->request->getArgument('post');
+        }
+
+        if ($post['postUid'] > 0) {
+            $DBPost = $this->postRepository->findByUid($post['postUid']);
+            //clear all category
+            foreach ($DBPost->getCategory() as $object) {
+                $DBPost->removeCategory($object);
+            }
+        } else {
+            $DBPost = new \T3developer\Multiblog\Domain\Model\Post;
+        }
+
+        //converting values
+        $timestamp = strtotime($post['postdate']);
+
+        //attach categories
+        $catArray = explode(',', $post['categories']);
+        foreach ($catArray as $newcatuid) {
+            $newcat = $this->categoryRepository->findByUid($newcatuid);
+            if ($newcat) {
+                $DBPost->addCategory($newcat);
+            }
+        }
+
+
+        //set values
+        $DBPost->setBlogid($post['blogUid']);
+
+        $DBPost->setPosttitel($post['posttitel']);
+        $DBPost->setPostdate($timestamp);
+        $DBPost->setPoststatus($post['poststatus']);
+        $DBPost->setPoststicky($post['poststicky']);
+        $DBPost->setPostcommentoption($post['postcommentoption']);
+        $DBPost->setPostshowteaser($post['postshowteaser']);
+        $DBPost->setPostseodescription($post['postseodescription']);
+        $DBPost->setPostintro($post['postintro']);
+
+        if ($post['imagedelete'] == 1) {
+            $images = $DBPost->getImage();
+            foreach ($images as $img) {
+                $reference = $this->fileReferenceRepository->findByUid($img->getUid());
+                $this->fileReferenceRepository->remove($reference);
+                $DBPost->setImage(null);
+            }
+        }
+
+        if (!empty($_FILES['tx_multiblog_blogedit'])) {
+
+            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+            $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
+            /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
+            $storage = $storageRepository->findByUid('1');
+
+            for ($index = 0; $index < count($_FILES['tx_multiblog_blogedit']['name']['image']); $index++) {
+                // setting up file data
+                $fileData = array();
+                $fileData['name'] = $_FILES['tx_multiblog_blogedit']['name']['image'][$index];
+                $fileData['type'] = $_FILES['tx_multiblog_blogedit']['type']['image'][$index];
+                $fileData['tmp_name'] = $_FILES['tx_multiblog_blogedit']['tmp_name']['image'][$index];
+                $fileData['size'] = $_FILES['tx_multiblog_blogedit']['size']['image'][$index];
+
+                if ($fileData['name']) {
+                    // this will already handle the moving of the file to the storage:
+                    $newFileObject = $storage->addFile(
+                            $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
+                    );
+                    $newFileObject = $storage->getFile($newFileObject->getIdentifier());
+                    $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
+
+                    /** @var \T3developer\Multiblog\Domain\Model\FileReference $newFileReference */
+                    $newFileReference = $this->objectManager->get('T3developer\Multiblog\Domain\Model\FileReference');
+                    $newFileReference->setFile($newFile);
+
+                    $DBPost->addImage($newFileReference);
+                }
+            }
+        }
+
+
+        $this->postRepository->update($DBPost);
+
+        $this->redirect('index');
+    }
 
     /**
      * Updates a post
      */
-    public function postUpdateAction() {
-        
+    public function postSavesAction() {
+        if ($this->request->hasArgument('post')) {
+            $post = $this->request->getArgument('post');
+        }
+
+        if ($post['postUid'] > 0) {
+            $DBPost = $this->postRepository->findByUid($post['postUid']);
+            //clear all category
+            foreach ($DBPost->getCategory() as $object) {
+                $DBPost->removeCategory($object);
+            }
+        } else {
+            $DBPost = new \T3developer\Multiblog\Domain\Model\Post;
+        }
+
+        //converting values
+        $timestamp = strtotime($post['postdate']);
+
+
+        //attach categories
+        $catArray = explode(',', $post['categories']);
+        foreach ($catArray as $newcatuid) {
+            $newcat = $this->categoryRepository->findByUid($newcatuid);
+            $DBPost->addCategory($newcat);
+        }
+
+
+        //set values
+        $DBPost->setBlogid($post['blogUid']);
+
+        $DBPost->setPosttitel($post['posttitel']);
+        $DBPost->setPostdate($timestamp);
+        $DBPost->setPoststatus($post['poststatus']);
+        $DBPost->setPoststicky($post['poststicky']);
+        $DBPost->setPostcommentoption($post['postcommentoption']);
+        $DBPost->setPostshowteaser($post['postshowteaser']);
+        $DBPost->setPostseodescription($post['postseodescription']);
+        $DBPost->setPostintro($post['postintro']);
+
+//        if ($post['imagedelete'] == 1) {
+//            $images = $DBPost->getImage();
+//            foreach($images as $img){
+//              //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($img, 'img');
+//               //   $DBPost->removeImage($img);
+//            }
+//            
+        //       }
+
+        if (!empty($_FILES['tx_multiblog_blogedit'])) {
+
+
+            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+            $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
+            /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
+            $storage = $storageRepository->findByUid('1');
+
+            for ($index = 0; $index < count($_FILES['tx_multiblog_blogedit']['name']['image']); $index++) {
+                // setting up file data
+                $fileData = array();
+                $fileData['name'] = $_FILES['tx_multiblog_blogedit']['name']['image'][$index];
+                $fileData['type'] = $_FILES['tx_multiblog_blogedit']['type']['image'][$index];
+                $fileData['tmp_name'] = $_FILES['tx_multiblog_blogedit']['tmp_name']['image'][$index];
+                $fileData['size'] = $_FILES['tx_multiblog_blogedit']['size']['image'][$index];
+
+                if ($fileData['name']) {
+                    // this will already handle the moving of the file to the storage:
+                    $newFileObject = $storage->addFile(
+                            $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
+                    );
+                    $newFileObject = $storage->getFile($newFileObject->getIdentifier());
+                    $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
+
+                    /** @var \T3developer\Multiblog\Domain\Model\FileReference $newFileReference */
+                    $newFileReference = $this->objectManager->get('T3developer\Multiblog\Domain\Model\FileReference');
+                    $newFileReference->setFile($newFile);
+
+                    $DBPost->addImage($newFileReference);
+                }
+            }
+        }
+
+
+
+        //$this->postRepository->update($DBPost);
+        //$this->redirect('index');
+        $post = 'hallo';
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($post);
     }
 
     /**
@@ -156,20 +366,20 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $blogUid = $this->findsBlogUidByLoggedInUser();
 
         $blog = $this->blogRepository->findByUid($blogUid);
-        
+
         //build category Tree
         $mainCategories = $this->categoryRepository->findMainCatByBlog($blogUid);
-        
+
         foreach ($mainCategories as $mainCat) {
             $cat[$mainCat->getUid()]['main'] = $mainCat;
             $cat[$mainCat->getUid()]['sub'] = $this->categoryRepository->findByTopkategory($mainCat->getUid());
         }
-        
+
         //build objects for new category form
         $newKat = new \T3developer\Multiblog\Domain\Model\Category;
         $newKat->setBlogid($blogUid);
-        
-        
+
+
         $this->view->assign('blog', $blog);
         $this->view->assign('categories', $cat);
         $this->view->assign('newKat', $newKat);
@@ -182,13 +392,13 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * Adds a categories
      *
-    * @param \T3developer\Multiblog\Domain\Model\Category $newKat Description
+     * @param \T3developer\Multiblog\Domain\Model\Category $newKat Description
      * @dontvalidate $newKat
      */
     public function kategoryAddAction(\T3developer\Multiblog\Domain\Model\Category $newKat) {
-        
+
         $this->categoryRepository->add($newKat);
-        
+
         $this->redirect('kategoryShow');
     }
 
@@ -279,17 +489,29 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * ************************************************************************ */
 
     /**
+     * Build the category Tree for a blog
+     */
+    public function findCategoryTree($blogId) {
+        $maiCats = $this->categoryRepository->findMainCatByBlog($blogId);
+
+        foreach ($maiCats as $cat) {
+            $catTree[$cat->getUid()]['maincat'] = $cat;
+            $catTree[$cat->getUid()]['subcats'] = $this->categoryRepository->findByTopkategory($cat->getUid());
+        }
+        return $catTree;
+    }
+
+    /**
      * Finds the BlogUid by Logged In FE User
      * 
      */
-    public function findsBlogUidByLoggedInUser() {
+    public function findsBlogByLoggedInUser() {
 
         $blogOwner = $GLOBALS['TSFE']->fe_user->user[uid];
-        $blog = $this->blogRepository->findByblogwriter($blogOwner);
+        $blog = $this->blogRepository->findByBlogowner($blogOwner);
 
         if ($blog[0] != NULL) {
-            $blogUid = $blog[0]->getUid();
-            return $blogUid;
+            return $blog[0];
         } else {
             $this->redirect('login');
         }

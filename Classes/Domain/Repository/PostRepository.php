@@ -237,6 +237,22 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
+    
+    /**
+     * Find Posts by BlogId, for Blog Edit page
+     * 
+     *  @param int $blogId Blog Uid
+     */
+    public function findPostByBlogid($blogId){
+        $orderings = array('postdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
+         $query->matching(
+                $query->equals('blogid', $blogId)
+        );
+
+        return $query->execute();
+    }
 }
 
 ?>

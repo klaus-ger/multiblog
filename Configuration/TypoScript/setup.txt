@@ -1,3 +1,25 @@
+config.tx_extbase {
+	persistence {
+		classes {
+			T3developer\Multiblog\Domain\Model\File {
+				mapping {
+					tableName = sys_file
+				}
+			}
+			T3developer\Multiblog\Domain\Model\FileReference {
+				mapping {
+					tableName = sys_file_reference
+					columns {
+						uid_local.mapOnProperty = file
+					}
+				}
+			}
+		}
+		# make sure ref_index is updated
+		updateReferenceIndex = 1
+	}
+}
+
 plugin.tx_multiblog {
 	view {
 		templateRootPath = EXT:multiblog/Resources/Private/Templates/
@@ -24,15 +46,21 @@ page.includeCSS {
         multiblog      = EXT:multiblog/Resources/Public/Stylesheets/Multiblog.css
         multiblog.media = screen
 
+        jqueryui      = EXT:multiblog/Resources/Public/jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.min.css
+        jqueryui.media = screen
         
     }
 
 page.includeJSFooter {
-        multiblog       = EXT:multiblog/Resources/Public/Javascript/multiblog.js
-       
-
-
         
-    }
-
+        multiblog       = EXT:multiblog/Resources/Public/Javascript/multiblog.js
+        jqueryui        = EXT:multiblog/Resources/Public/jquery-ui/jquery-ui-1.10.3.custom.min.js
+        datepickerln    = EXT:multiblog/Resources/Public/jquery-ui/ui/i18n/ui.datepicker-de.js
+}
+page.includeJS {
+        multiblogedit       = EXT:multiblog/Resources/Public/ckeditor/ckeditor.js
+}
 config.noPageTitle = 2
+
+
+

@@ -23,17 +23,17 @@
                      
             <tr class="{cycle}">
             <td class="multiblog-edit-textlink">
-                <f:link.action action="artikelEdit" arguments="{singleEntry: entry.uid}" class="multiblog-edit-textlink">
+                <f:link.action action="postEdit" arguments="{postUid: entry.uid}" class="multiblog-edit-textlink">
                        <f:format.crop maxCharacters="50" append="&nbsp;...">{entry.posttitel}</f:format.crop>
                 </f:link.action>
             </td>
             <td class="multiblog-edit-list-smalltext" width="30%">
-            <f:format.crop maxCharacters="30" append="&nbsp;..."><f:if condition="{entry.entrykategorie1.uid} > 1">{entry.entrykategorie1.kategorie}</f:if><f:if condition="{entry.entrykategorie2.uid} > 1">, {entry.entrykategorie2.kategorie}</f:if><f:if condition="{entry.entrykategorie3.uid} > 1">, {entry.entrykategorie3.kategorie}</f:if><f:if condition="{entry.entrykategorie4.uid} > 1">, {entry.entrykategorie4.kategorie}</f:if></f:format.crop>
+            <f:format.crop maxCharacters="30" append="&nbsp;..."><f:for each="{entry.category}" as="cat" iteration="catiter">{cat.kategory}<f:if condition="{catiter.isLast}==0">, &nbsp;</f:if></f:for></f:format.crop>
             
             
             </td>
             <td class="multiblog-edit-list-smalltext" width="10%">
-            <f:if condition="{entry.entrystatus}">
+            <f:if condition="{entry.poststatus}">
                 <f:then>
                     <f:translate key="LLL:{settings.langFile}:blogedit.articlestatus.online" />
                 </f:then>
@@ -43,7 +43,7 @@
             </f:if>
             </td>
             <td class="multiblog-edit-list-smalltext" width="12%">
-            <f:format.date format="d.m.Y">{entry.entrydate}</f:format.date>
+           <f:format.date format="d.m.Y">{entry.postdate}</f:format.date> 
             </td>
             </tr>  
 

@@ -57,17 +57,12 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $postintro;
 
-    /**
-     * postpicture
-     *
-     * @var \string
-     */
-    protected $postpicture;
+
 
     /**
      * postdate
      *
-     * @var \DateTime
+     * @var \int
      */
     protected $postdate;
 
@@ -116,16 +111,12 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $postlink;
 
     /**
-     * Image
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * File reference for FAL
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\Multiblog\Domain\Model\FileReference>
+     * 
      */
     protected $image;
-
-    /**
-     * Files
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     */
-    protected $files;
 
     /**
      * category
@@ -164,6 +155,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
          * You may modify the constructor of this class instead
          */
         $this->category = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->image = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     public function getPosttitel() {
@@ -269,44 +261,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->category = $category;
     }
 
-    /**
-     * Returns the image
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
-     */
-    public function getImage() {
-        return $this->image;
-    }
-
-    /**
-     * Sets the image
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
-     * @return void
-     */
-    public function setImage($image) {
-        $this->image = $image;
-    }
-
-    /**
-     * Returns the files
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
-     */
-    public function getFiles() {
-        return $this->files;
-    }
-
-    /**
-     * Sets the files
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
-     * @return void
-     */
-    public function setFiles($files) {
-        $this->files = $files;
-    }
-
     public function getPostseodescription() {
         return $this->postseodescription;
     }
@@ -338,6 +292,38 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setPostshowteaser($postshowteaser) {
         $this->postshowteaser = $postshowteaser;
     }
+
+    /**
+     * Returns the images
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getImage() {
+        return $this->image;
+    }
+    
+    	/**
+	 * Sets the files
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $image
+	 * @return void
+	 */
+	public function setImage($image) {
+		$this->image = $image;
+	}
+        
+
+        
+        /**
+	 * Adds a file
+	 *
+	 * @param \T3developer\Multiblog\Domain\Model\FileReference $image
+	 *
+	 * @return void
+	 */
+	public function addImage(\T3developer\Multiblog\Domain\Model\FileReference $image) {
+		$this->image->attach($image);
+	}
 
 }
 

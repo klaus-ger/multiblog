@@ -10,23 +10,15 @@ if (!defined('TYPO3_MODE')) {
 	'singleblog',
 	'Blog Single'
 );
-//\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-//	$_EXTKEY,
-//	'blogedit',
-//	'Blog Edit'
-//);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	$_EXTKEY,
+	'blogedit',
+	'Blog Edit'
+);
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Multiblog');
 
-//$extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToLowerCamelCase($_EXTKEY);
-//$pluginSignature = strtolower($extensionName) . '_products';
-//
-//$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Product.xml');
-//
-//$pluginSignature2 = strtolower($extensionName) . '_productteaser';
-//$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature2] = 'pi_flexform';
-//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature2, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Productteaser.xml');
 
 
 
@@ -38,7 +30,7 @@ $TCA['tx_multiblog_domain_model_blog'] = array(
 		'label' => 'blogtitel',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
+
 		'dividers2tabs' => TRUE,
 
 		'versioningWS' => 2,
@@ -66,7 +58,6 @@ $TCA['tx_multiblog_domain_model_post'] = array(
 		'label' => 'posttitel',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => TRUE,
 
 		'versioningWS' => 2,
@@ -94,10 +85,8 @@ $TCA['tx_multiblog_domain_model_category'] = array(
 		'label' => 'kategory',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		//'cruser_id' => 'cruser_id',
 		'dividers2tabs' => TRUE,
-
-		'versioningWS' => 2,
+                'versioningWS' => 2,
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
@@ -122,10 +111,8 @@ $TCA['tx_multiblog_domain_model_content'] = array(
 		'label' => 'postcontent',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		//'cruser_id' => 'cruser_id',
 		'dividers2tabs' => TRUE,
-
-		'versioningWS' => 2,
+                'versioningWS' => 2,
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
@@ -150,10 +137,8 @@ $TCA['tx_multiblog_domain_model_comment'] = array(
 		'post' => 'commentname',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => TRUE,
-
-		'versioningWS' => 2,
+                'versioningWS' => 2,
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
@@ -178,10 +163,8 @@ $TCA['tx_multiblog_domain_model_postcategory'] = array(
 		'post' => 'category',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => TRUE,
-
-		'versioningWS' => 2,
+                'versioningWS' => 2,
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',

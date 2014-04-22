@@ -46,7 +46,7 @@ class Blog extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Blogowner
      *
-     * @var \string
+     * @var \int
      * @validate NotEmpty
      */
     protected $blogowner;
