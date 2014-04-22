@@ -4,6 +4,7 @@ CREATE TABLE tx_multiblog_domain_model_blog (
 
 	tstamp INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
         crdate INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
+        cruser_id INT(11) UNSIGNED DEFAULT '0' NOT NULL, 
         deleted TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
         hidden TINYINT(4) UNSIGNED DEFAULT '0' NOT NULL, 
 	
