@@ -3,15 +3,17 @@
         <f:translate key="LLL:{settings.langFile}:widget.Categorie.Header" />: {categoryfilter.kategory}
     </div>
 </f:if>  
-
+<f:debug>{sticky}</f:debug>
 <f:if condition="{sticky}">
     <div class="multiblog-postpreview clearafter">
 
         <div class="multiblog-sticky-image">
-            <f:if condition="{sticky.image.originalResource.originalFile.uid}">
-                <f:image src="{sticky.image.originalResource.originalFile.uid}" alt="bb" width="190" class="s"/>
+            <f:for each="{sticky.image}" as="stickyimg">
+            <f:if condition="{stickyimg.originalResource.originalFile.uid}">
+                <f:image src="{stickyimg.originalResource.originalFile.uid}" alt="bb" width="190" class="s"/>
             </f:if>
             <f:image src="typo3conf/ext/multiblog/Resources/Public/Icons/icon_sticky.png" width="27" height="24" alt="sticky post" />
+            </f:for>
         </div>
 
         <div class="multiblog-postpreview-content">
@@ -46,9 +48,11 @@
 <f:for each="{posts}" as="post">
     <div class="multiblog-postpreview clearafter">
         <div class="multiblog-postpreview-image">
-            <f:if condition="{post.image.originalResource.originalFile.uid}">
-                <f:image src="{post.image.originalResource.originalFile.uid}" alt="bb" />
+            <f:for each="{post.image}" as="img">
+            <f:if condition="{img.originalResource.originalFile.uid}">
+                <f:image src="{img.originalResource.originalFile.uid}" alt="bb" />
             </f:if>
+            </f:for>
         </div>
         <div class="multiblog-postpreview-content">
 
