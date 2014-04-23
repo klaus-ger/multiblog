@@ -41,7 +41,7 @@
             <label index="blogedit.menu.article">Articles</label>
             <label index="blogedit.menu.article.all">All Articles</label>
             <label index="blogedit.menu.article.edit">Edit Article</label>
-            <label index="blogedit.menu.article.create">Create Article</label>
+            <label index="blogedit.menu.article.create">Create Post</label>
             <label index="blogedit.menu.article.category">Categories</label>
             <label index="blogedit.menu.comments">Comments</label>
             <label index="blogedit.menu.comments.edit">Edit Comments</label>
@@ -183,6 +183,7 @@
             
             <label index="blogedit.articlelist.header">Artikel Übersicht</label>
             <label index="blogedit.articlelist.newarticle">Neuen Artikel erstellen</label>
+            
             <label index="blogedit.articlelist.pagenavi">Seite: </label>
             <label index="blogedit.articlelist.articleedit">Artikel bearbeiten</label>
             	

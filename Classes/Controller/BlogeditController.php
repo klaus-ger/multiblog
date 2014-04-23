@@ -106,22 +106,25 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * Shows the form for a new Post
      */
     public function postNewAction() {
-        $blogUid = $this->findsBlogUidByLoggedInUser();
-
-        $blog = $this->blogRepository->findByUid($blogUid);
+        $blog = $this->findsBlogByLoggedInUser();
 
         //create new post and set values
-        $entry = new \T3developer\Multiblog\Domain\Model\Post;
-        $entry->setBlogid($blogUid);
-        $entry->setPoststatus(0);
-        $entry->setPostdate(time());
-
-        //search categories
-        $categories = $this->categoryRepository->findByBlogid($blogUid);
+        $post = new \T3developer\Multiblog\Domain\Model\Post;
+        $post->setBlogid($blog->getUid());
+        $post->setPostdate(time());
+        
+        
+        
+        $newContent[0] = new \T3developer\Multiblog\Domain\Model\Content;
+        $newContent[0]->setPostid($blog->getUid());
+        
+        
+        //$categoryTree = $this->findCategoryTree($newContent->getUid());
 
         $this->view->assign('blog', $blog);
-        $this->view->assign('entry', $entry);
-        $this->view->assign('categories', $categories);
+        $this->view->assign('post', $post);
+        $this->view->assign('contentparts', $newContent);
+        $this->view->assign('categoryTree', $categoryTree);
 
         $this->view->assign('menu', 'articlecreate');
         $this->view->assign('main-menu', 'articles');
@@ -252,7 +255,14 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 $DBPost->addImage($newFileReference);
             }//end image handling
         
-        $this->postRepository->update($DBPost);
+            if ($post['postUid'] > 0) {
+                $this->postRepository->update($DBPost);
+            } else {
+                $this->postRepository->add($DBPost);
+                $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+                
+            }
+        
 
         
         
@@ -261,6 +271,9 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         foreach ($post['content'] as $postcontent) {
             if ($postcontent['contentUid'] > 0) {
                 $DBcontent = $this->contentRepository->findByUid($postcontent['contentUid']);
+            } else {
+                $DBcontent = new \T3developer\Multiblog\Domain\Model\Content;
+                $DBcontent->setPostid($DBPost->getUid());
             }
 
             //image handling
@@ -293,8 +306,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                
             }//end image handling
 
-            $DBcontent->setPostcontent($postcontent['postcontent']);
-
+           
             if ($postcontent['imagedelete'] == 1) {
                 $images = $DBcontent->getPostpicture();
                 foreach ($images as $img) {
@@ -304,17 +316,31 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 }
             }
             
-            //TODO: Add Image Position fields
-
-            $this->contentRepository->update($DBcontent);
+             $DBcontent->setPostcontent($postcontent['postcontent']);
+             $DBcontent->setImageposition($postcontent['imageposition']);
+            
+             if ($postcontent['contentUid'] > 0) {
+                 $this->contentRepository->update($DBcontent);
+             } else {
+                 $this->contentRepository->add($DBcontent);
+             }
+            
             $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
             $persistenceManager->persistAll();
             
             $contentcounter++;
         }
-
         
-        $this->redirect('index');
+        //add ContentPart
+         if ($this->request->hasArgument('addContent')) {
+            
+            $newContent = new \T3developer\Multiblog\Domain\Model\Content;
+            $newContent->setPostid($DBPost->getUid());
+            $this->contentRepository->add($newContent);
+        }
+
+        $this->redirect('postEdit', 'Blogedit', NULL, array('postUid' => $DBPost->getUid()));
+        
     }
 
    

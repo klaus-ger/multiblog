@@ -88,10 +88,10 @@
                                         <f:form.checkbox property="content.{iter.cycle}.imagedelete" value="1" /> 
                                         <br />
                                         <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imageposition" />
-                                        <f:form.radio property="imageposition" value="0" checked="{content.imageposition} == 0"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositiontop" /> &nbsp;&nbsp;
-                                        <f:form.radio property="imageposition" value="1" checked="{content.imageposition} == 1"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionbottom" /> &nbsp;&nbsp;       
-                                        <f:form.radio property="imageposition" value="2" checked="{content.imageposition} == 2"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionright" /> &nbsp;&nbsp;
-                                        <f:form.radio property="imageposition" value="3" checked="{content.imageposition} == 3"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionleft" />       
+                                        <f:form.radio property="content.{iter.cycle}.imageposition" value="0" checked="{content.imageposition} == 0"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositiontop" /> &nbsp;&nbsp;
+                                        <f:form.radio property="content.{iter.cycle}.imageposition" value="1" checked="{content.imageposition} == 1"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionbottom" /> &nbsp;&nbsp;       
+                                        <f:form.radio property="content.{iter.cycle}.imageposition" value="2" checked="{content.imageposition} == 2"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionright" /> &nbsp;&nbsp;
+                                        <f:form.radio property="content.{iter.cycle}.imageposition" value="3" checked="{content.imageposition} == 3"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositionleft" />       
 
                                     </div>
                                 </div>
@@ -105,6 +105,13 @@
                     </div>
                 </div>
             </f:for>
+            
+            
+                
+           <f:form.submit class="submit btn_save" value="Add Content Part" name="addContent"/>
+                
+                
+            
 
         </div>
         <div class="multiblog-edit-stage-right">
@@ -178,7 +185,7 @@
                 <f:form.textarea property="postseodescription" class=""  value="{post.postseodescription}" rows="5" cols="20"class="multiblog-formfield multiblog-edit-form-sidebarframe-textarea"/>
             </div>
 
-            <f:form.submit class="submit btn_save" value="{f:translate(key:'blogedit.button.createarticle')}"/>
+            <f:form.submit class="submit btn_save" value="{f:translate(key:'blogedit.button.update')}"/>
             <input type="button" class="btn_cancel" value="{f:translate(key:'blogedit.button.cancel')}" name="back_button" onClick="javascript:history.back(1)" />
 
 
