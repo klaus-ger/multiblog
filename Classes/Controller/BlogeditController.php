@@ -70,8 +70,6 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @inject
      */
     protected $fileRepository;
-    
-    
 
     public function initializeAction() {
         if (isset($this->arguments['post'])) {
@@ -168,14 +166,9 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         //$this->redirect('index');
     }
 
-//    public function postCreateAction(\T3developer\Multiblog\Domain\Model\Post $entry) {
-//
-//
-//        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entry);
-//        $this->postRepository->add($entry);
-//
-//        $this->redirect('index');
-//    }
+
+    
+    
     /**
      * Updates a post
      * @dontvalidate  $postNew
@@ -229,135 +222,102 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             }
         }
 
-        if (!empty($_FILES['tx_multiblog_blogedit'])) {
+        //file upload for teaser
+       
+            //intro has an file
+            if ($_FILES['tx_multiblog_blogedit']['name']['image'][0] != '') {
+                /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+                $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
+                /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
+                $storage = $storageRepository->findByUid('1');
 
-            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-            $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
-            /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
-            $storage = $storageRepository->findByUid('1');
-
-            for ($index = 0; $index < count($_FILES['tx_multiblog_blogedit']['name']['image']); $index++) {
-                // setting up file data
                 $fileData = array();
-                $fileData['name'] = $_FILES['tx_multiblog_blogedit']['name']['image'][$index];
-                $fileData['type'] = $_FILES['tx_multiblog_blogedit']['type']['image'][$index];
-                $fileData['tmp_name'] = $_FILES['tx_multiblog_blogedit']['tmp_name']['image'][$index];
-                $fileData['size'] = $_FILES['tx_multiblog_blogedit']['size']['image'][$index];
-
-                if ($fileData['name']) {
-                    // this will already handle the moving of the file to the storage:
-                    $newFileObject = $storage->addFile(
-                            $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
-                    );
-                    $newFileObject = $storage->getFile($newFileObject->getIdentifier());
-                    $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
-
-                    /** @var \T3developer\Multiblog\Domain\Model\FileReference $newFileReference */
-                    $newFileReference = $this->objectManager->get('T3developer\Multiblog\Domain\Model\FileReference');
-                    $newFileReference->setFile($newFile);
-
-                    $DBPost->addImage($newFileReference);
-                }
-            }
-        }
+                $fileData['name'] = $_FILES['tx_multiblog_blogedit']['name']['image'][0];
+                $fileData['type'] = $_FILES['tx_multiblog_blogedit']['type']['image'][0];
+                $fileData['tmp_name'] = $_FILES['tx_multiblog_blogedit']['tmp_name']['image'][0];
+                $fileData['size'] = $_FILES['tx_multiblog_blogedit']['size']['image'][0];
 
 
+                // this will already handle the moving of the file to the storage:
+                $newFileObject = $storage->addFile(
+                        $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
+                );
+                $newFileObject = $storage->getFile($newFileObject->getIdentifier());
+                $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
+
+                /** @var \T3developer\Multiblog\Domain\Model\FileReference $newFileReference */
+                $newFileReference = $this->objectManager->get('T3developer\Multiblog\Domain\Model\FileReference');
+                $newFileReference->setFile($newFile);
+
+                $DBPost->addImage($newFileReference);
+            }//end image handling
+        
         $this->postRepository->update($DBPost);
 
+        
+        
+        //handle the content parts
+        $contentcounter = 1;
+        foreach ($post['content'] as $postcontent) {
+            if ($postcontent['contentUid'] > 0) {
+                $DBcontent = $this->contentRepository->findByUid($postcontent['contentUid']);
+            }
+
+            //image handling
+
+            if ($_FILES['tx_multiblog_blogedit']['name']['image'][$contentcounter] != '') {
+                /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+                $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
+                /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
+                $storage = $storageRepository->findByUid('1');
+
+                $fileData = array();
+                $fileData['name'] = $_FILES['tx_multiblog_blogedit']['name']['image'][$contentcounter];
+                $fileData['type'] = $_FILES['tx_multiblog_blogedit']['type']['image'][$contentcounter];
+                $fileData['tmp_name'] = $_FILES['tx_multiblog_blogedit']['tmp_name']['image'][$contentcounter];
+                $fileData['size'] = $_FILES['tx_multiblog_blogedit']['size']['image'][$contentcounter];
+
+
+                // this will already handle the moving of the file to the storage:
+                $newFileObject = $storage->addFile(
+                        $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
+                );
+                $newFileObject = $storage->getFile($newFileObject->getIdentifier());
+                $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
+
+                /** @var \T3developer\Multiblog\Domain\Model\FileReference $newFileReference */
+                $newFileReference = $this->objectManager->get('T3developer\Multiblog\Domain\Model\FileReference');
+                $newFileReference->setFile($newFile);
+
+                $DBcontent->addPostpicture($newFileReference);
+               
+            }//end image handling
+
+            $DBcontent->setPostcontent($postcontent['postcontent']);
+
+            if ($postcontent['imagedelete'] == 1) {
+                $images = $DBcontent->getPostpicture();
+                foreach ($images as $img) {
+                    $reference = $this->fileReferenceRepository->findByUid($img->getUid());
+                    $this->fileReferenceRepository->remove($reference);
+                    $DBcontent->setPostpicture(null);
+                }
+            }
+            
+            //TODO: Add Image Position fields
+
+            $this->contentRepository->update($DBcontent);
+            $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+            $persistenceManager->persistAll();
+            
+            $contentcounter++;
+        }
+
+        
         $this->redirect('index');
     }
 
-    /**
-     * Updates a post
-     */
-    public function postSavesAction() {
-        if ($this->request->hasArgument('post')) {
-            $post = $this->request->getArgument('post');
-        }
-
-        if ($post['postUid'] > 0) {
-            $DBPost = $this->postRepository->findByUid($post['postUid']);
-            //clear all category
-            foreach ($DBPost->getCategory() as $object) {
-                $DBPost->removeCategory($object);
-            }
-        } else {
-            $DBPost = new \T3developer\Multiblog\Domain\Model\Post;
-        }
-
-        //converting values
-        $timestamp = strtotime($post['postdate']);
-
-
-        //attach categories
-        $catArray = explode(',', $post['categories']);
-        foreach ($catArray as $newcatuid) {
-            $newcat = $this->categoryRepository->findByUid($newcatuid);
-            $DBPost->addCategory($newcat);
-        }
-
-
-        //set values
-        $DBPost->setBlogid($post['blogUid']);
-
-        $DBPost->setPosttitel($post['posttitel']);
-        $DBPost->setPostdate($timestamp);
-        $DBPost->setPoststatus($post['poststatus']);
-        $DBPost->setPoststicky($post['poststicky']);
-        $DBPost->setPostcommentoption($post['postcommentoption']);
-        $DBPost->setPostshowteaser($post['postshowteaser']);
-        $DBPost->setPostseodescription($post['postseodescription']);
-        $DBPost->setPostintro($post['postintro']);
-
-//        if ($post['imagedelete'] == 1) {
-//            $images = $DBPost->getImage();
-//            foreach($images as $img){
-//              //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($img, 'img');
-//               //   $DBPost->removeImage($img);
-//            }
-//            
-        //       }
-
-        if (!empty($_FILES['tx_multiblog_blogedit'])) {
-
-
-            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-            $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
-            /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
-            $storage = $storageRepository->findByUid('1');
-
-            for ($index = 0; $index < count($_FILES['tx_multiblog_blogedit']['name']['image']); $index++) {
-                // setting up file data
-                $fileData = array();
-                $fileData['name'] = $_FILES['tx_multiblog_blogedit']['name']['image'][$index];
-                $fileData['type'] = $_FILES['tx_multiblog_blogedit']['type']['image'][$index];
-                $fileData['tmp_name'] = $_FILES['tx_multiblog_blogedit']['tmp_name']['image'][$index];
-                $fileData['size'] = $_FILES['tx_multiblog_blogedit']['size']['image'][$index];
-
-                if ($fileData['name']) {
-                    // this will already handle the moving of the file to the storage:
-                    $newFileObject = $storage->addFile(
-                            $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
-                    );
-                    $newFileObject = $storage->getFile($newFileObject->getIdentifier());
-                    $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
-
-                    /** @var \T3developer\Multiblog\Domain\Model\FileReference $newFileReference */
-                    $newFileReference = $this->objectManager->get('T3developer\Multiblog\Domain\Model\FileReference');
-                    $newFileReference->setFile($newFile);
-
-                    $DBPost->addImage($newFileReference);
-                }
-            }
-        }
-
-
-
-        //$this->postRepository->update($DBPost);
-        //$this->redirect('index');
-        $post = 'hallo';
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($post);
-    }
+   
 
     /**
      * Shows all categories

@@ -52,7 +52,7 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     /**
      * Image
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\Multiblog\Domain\Model\FileReference>
      */
     protected $postpicture;
 
@@ -63,6 +63,30 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $imageposition;
+
+    /**
+     * __construct
+     *
+     * @return Category
+     */
+    public function __construct() {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all ObjectStorage properties.
+     *
+     * @return void
+     */
+    protected function initStorageObjects() {
+        /**
+         * Do not modify this method!
+         * It will be rewritten on each save in the extension builder
+         * You may modify the constructor of this class instead
+         */
+        $this->postpicture = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
     public function getPostid() {
         return $this->postid;
@@ -89,22 +113,33 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     }
 
     /**
-     * Returns the image
+     * Returns the images
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $postpicture
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
      */
     public function getPostpicture() {
         return $this->postpicture;
     }
 
     /**
-     * Sets the image
+     * Sets the files
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $postpicture
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $postpicture
      * @return void
      */
     public function setPostpicture($postpicture) {
         $this->postpicture = $postpicture;
+    }
+
+    /**
+     * Adds a file
+     *
+     * @param \T3developer\Multiblog\Domain\Model\FileReference $file
+     *
+     * @return void
+     */
+    public function addPostpicture(\T3developer\Multiblog\Domain\Model\FileReference $file) {
+        $this->postpicture->attach($file);
     }
 
 }

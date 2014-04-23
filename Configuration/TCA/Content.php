@@ -85,16 +85,18 @@ $TCA['tx_multiblog_domain_model_content'] = array(
         ),
 
           'postpicture' => array(
-                'exclude' => 1,
-                'label' => 'Image',
-                'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image', array(
-                        'appearance' => array(
-                                'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
-                        ),
-                        'minitems' => 0,
-                        'maxitems' => 1,
-                ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+              'exclude' => 1,
+            'label' => 'Image',
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', array(
+                'appearance' => array(
+                    'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
+                ),
+                'minitems' => 0,
+                'maxitems' => 1,
+                    ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
         ),
+        
+        
          'imageposition' => array(
             'exclude' => 0,
             'label' => 'Imageposition',

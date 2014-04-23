@@ -61,13 +61,14 @@
             </label>
 
             <f:for each="{contentparts}" as="content" iteration="iter">
+                <f:form.hidden property="content.{iter.cycle}.contentUid" value="{content.uid}" />
                 <div class="multiblog-form-postcontent">
                     <div class="multiblog-form-postcontent-header multiblog-arrow-down">
-
-                        <b>Content:</b> <f:format.crop maxCharacters="60" append="&nbsp;...">{content.postcontent}</f:format.crop>
+                        
+                        <b>Content:</b> <b>Teaser:</b> <vh:ContentHeader content="{content.postcontent}" />
                     </div>
                     <div class="multiblog-form-postcontent-content">
-                        <f:form.textarea id="content{iter.cycle}"property="content.postcontent" class="multiblog-formfield multiblog-edit-form-textarea multiblog-editor"  value="{content.postcontent}" rows="10" cols="90"/>
+                        <f:form.textarea id="content{iter.cycle}"property="content.{iter.cycle}.postcontent" class="multiblog-formfield multiblog-edit-form-textarea multiblog-editor"  value="{content.postcontent}" rows="10" cols="90"/>
 
 
                         <label class="multiblog">
@@ -78,11 +79,13 @@
 
                                 <div class="multiblog-imagerow clearfix">
                                     <div class="multiblog-imagerow-left">
-                                        <f:image src="{content.postpicture.originalResource.originalFile.uid}" alt="" maxWidth="150" maxHeight="150"/>  
+                                        <f:for each="{content.postpicture}" as="contentpic">
+                                        <f:image src="{contentpic.originalResource.originalFile.uid}" alt="" maxWidth="150" maxHeight="150"/>  
+                                        </f:for>
                                     </div>
                                     <div class="multiblog-imagerow-right">
                                         <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imageremove" />
-                                        <f:form.checkbox property="imagedelete" value="1" /> 
+                                        <f:form.checkbox property="content.{iter.cycle}.imagedelete" value="1" /> 
                                         <br />
                                         <f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imageposition" />
                                         <f:form.radio property="imageposition" value="0" checked="{content.imageposition} == 0"/><f:translate key="LLL:{settings.langFile}:blogedit.articleedit.imagepositiontop" /> &nbsp;&nbsp;
@@ -95,7 +98,7 @@
 
                             </f:then>
                             <f:else>
-                                <f:form.upload  name="file[0]" />
+                                <f:form.upload  name="image[{iter.cycle}]" />
                                 <br /><br />
                             </f:else>
                         </f:if>
