@@ -223,7 +223,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     }
 
     /**
-     * Adds a Event
+     * Adds a Category
      *
      * @param \T3developer\Multiblog\Domain\Model\Category $category
      * @return void
@@ -235,7 +235,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Removes a Event
      *
-     * @param \T3developer\Multiblog\Domain\Model\Category $category The Event to be removed
+     * @param \T3developer\Multiblog\Domain\Model\Category $category The Cat to be removed
      * @return void
      */
     public function removeCategory(\T3developer\Multiblog\Domain\Model\Category $category) {

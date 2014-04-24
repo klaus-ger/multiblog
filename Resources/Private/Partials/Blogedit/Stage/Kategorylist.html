@@ -10,13 +10,13 @@
         <f:for each="{categories}" as="topkat">
             <div class="kategorieEditRow">
                 <div class="kategorieEditTopKat">
-                    {topkat.main.kategory}
+                    {topkat.maincat.kategory}
                 </div>
             </div>
 
-            <f:for each="{topkat.sub}" as="subkat">
+            <f:for each="{topkat.subcats}" as="subkat">
 
-                <f:if condition="{subkat.topkategorie} == {topkat.uid}">
+               
                     <div class="kategorieEditRow">
                         <div class="teaserKatSubkat">
                             &nbsp;&nbsp;» {subkat.kategory}
@@ -24,7 +24,7 @@
                     </div>
 
 
-                </f:if>
+              
             </f:for>
         </f:for>
     </div>

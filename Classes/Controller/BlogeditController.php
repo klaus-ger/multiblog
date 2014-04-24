@@ -5,7 +5,7 @@ namespace T3developer\Multiblog\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Klaus Heuer <klaus.heuer@t3-developer.com>, t3-developer.com
+ *  (c) 2014 Klaus Heuer <klaus.heuer@t3-developer.com>
  *  
  *  All rights reserved
  *
@@ -119,7 +119,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $newContent[0]->setPostid($blog->getUid());
         
         
-        //$categoryTree = $this->findCategoryTree($newContent->getUid());
+        $categoryTree = $this->findCategoryTree($blog->getUid());
 
         $this->view->assign('blog', $blog);
         $this->view->assign('post', $post);
@@ -142,7 +142,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $post = $this->postRepository->findByUid($postUid);
         $contentparts = $this->contentRepository->findByPostid($postUid);
 
-        $categoryTree = $this->findCategoryTree($post->getUid());
+        $categoryTree = $this->findCategoryTree($blog->getUid());
 
         $this->view->assign('blog', $blog);
         $this->view->assign('post', $post);
@@ -154,20 +154,6 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->view->assign('post-menu', '1');
     }
 
-    /**
-     * Save a new post
-     * @param \T3developer\Multiblog\Domain\Model\Post $entry
-     * @dontvalidate  $entry
-     */
-    public function postCreateAction() {
-        if ($this->request->hasArgument('entry')) {
-            $entry = $this->request->getArgument('entry');
-        }
-
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entry);
-        //$this->postRepository->add($entry);
-        //$this->redirect('index');
-    }
 
 
     
@@ -184,8 +170,10 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         if ($post['postUid'] > 0) {
             $DBPost = $this->postRepository->findByUid($post['postUid']);
             //clear all category
-            foreach ($DBPost->getCategory() as $object) {
-                $DBPost->removeCategory($object);
+            if($DBPost->getCategory()){
+                foreach ($DBPost->getCategory() as $object) {
+                    $DBPost->removeCategory($object);
+                }
             }
         } else {
             $DBPost = new \T3developer\Multiblog\Domain\Model\Post;
@@ -199,6 +187,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         foreach ($catArray as $newcatuid) {
             $newcat = $this->categoryRepository->findByUid($newcatuid);
             if ($newcat) {
+              //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newcat);
                 $DBPost->addCategory($newcat);
             }
         }
@@ -349,25 +338,19 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * Shows all categories
      */
     public function kategoryShowAction() {
-        $blogUid = $this->findsBlogUidByLoggedInUser();
+        $blog = $this->findsBlogByLoggedInUser();
 
-        $blog = $this->blogRepository->findByUid($blogUid);
+        $categoryTree = $this->findCategoryTree($blog->getUid());
 
-        //build category Tree
-        $mainCategories = $this->categoryRepository->findMainCatByBlog($blogUid);
-
-        foreach ($mainCategories as $mainCat) {
-            $cat[$mainCat->getUid()]['main'] = $mainCat;
-            $cat[$mainCat->getUid()]['sub'] = $this->categoryRepository->findByTopkategory($mainCat->getUid());
-        }
+        $mainCategories = $this->categoryRepository->findMainCatByBlog($blog->getUid());
 
         //build objects for new category form
         $newKat = new \T3developer\Multiblog\Domain\Model\Category;
-        $newKat->setBlogid($blogUid);
+        $newKat->setBlogid($blog->getUid());
 
 
         $this->view->assign('blog', $blog);
-        $this->view->assign('categories', $cat);
+        $this->view->assign('categories', $categoryTree);
         $this->view->assign('newKat', $newKat);
         $this->view->assign('mainCategories', $mainCategories);
 
@@ -470,7 +453,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->redirect('usersettingsShow');
     }
 
-    /*     * *************************************************************************
+    /* * *************************************************************************
      * General functions
      * ************************************************************************ */
 
@@ -488,7 +471,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     }
 
     /**
-     * Finds the BlogUid by Logged In FE User
+     * Finds the Blog by Logged In FE User
      * 
      */
     public function findsBlogByLoggedInUser() {
