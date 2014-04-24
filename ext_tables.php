@@ -146,7 +146,8 @@ $TCA['tx_multiblog_domain_model_content'] = array(
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_multiblog_domain_model_comment');
 $TCA['tx_multiblog_domain_model_comment'] = array(
 	'ctrl' => array(
-		'title'	=> 'commenttext',
+		'title'	=> 'Comment',
+		'label' => 'commenttext',
 		'post' => 'commentname',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
