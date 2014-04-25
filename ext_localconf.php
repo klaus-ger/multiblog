@@ -24,9 +24,7 @@ if (TYPO3_MODE === 'FE' && !isset($_REQUEST['eID'])) {
 	),
 	// non-cacheable actions
 	array(
-		'Blog' => ' 
-                          
-                          , ajaxNewComment',
+		'Blog' => 'ajaxNewComment',
 		
 		
 	)
@@ -44,6 +42,10 @@ if (TYPO3_MODE === 'FE' && !isset($_REQUEST['eID'])) {
                               , postSave
                               , kategoryShow
                               , kategoryAdd
+                              , commentNewList
+                              , commentApprovedList
+                              , commentShow
+                              , commentSave
                               , widgetsShow
                               , widgetsUpdate
                               , blogstyleShow
@@ -62,6 +64,10 @@ if (TYPO3_MODE === 'FE' && !isset($_REQUEST['eID'])) {
                               , postSave
                               , kategoryShow
                               , kategoryAdd
+                              , commentNewList
+                              , commentApprovedList
+                              , commentShow
+                              , commentSave
                               , widgetsShow
                               , widgetsUpdate
                               , blogstyleShow

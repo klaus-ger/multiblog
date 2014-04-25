@@ -3,7 +3,12 @@
 
 ###A TYPO3 Blog Extension
 
+###Important Notes
+There are still some problems with the commenting section an TYPO3 6.2.1 - the Ajax EID Dispatcher ist not 
+(stabel) working. I will change this in the next days ...
 
+I started to include the fronted Blog editing - actual the functions for editing posts and categories are implemented. All other stuff must be done via Backend.
+ 
 **New Features in this Version:**
 * one blog post contains several content parts (with image options)
 * Ajax / EID for Comments

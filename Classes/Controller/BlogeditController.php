@@ -60,6 +60,12 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $contentRepository;
 
     /**
+     * @var T3developer\Multiblog\Domain\Repository\CommentRepository 
+     * @inject 
+     */
+    protected $commentRepository;
+
+    /**
      * @var T3developer\Multiblog\Domain\Repository\FileReferenceRepository 
      * @inject 
      */
@@ -112,13 +118,13 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $post = new \T3developer\Multiblog\Domain\Model\Post;
         $post->setBlogid($blog->getUid());
         $post->setPostdate(time());
-        
-        
-        
+
+
+
         $newContent[0] = new \T3developer\Multiblog\Domain\Model\Content;
         $newContent[0]->setPostid($blog->getUid());
-        
-        
+
+
         $categoryTree = $this->findCategoryTree($blog->getUid());
 
         $this->view->assign('blog', $blog);
@@ -154,10 +160,6 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->view->assign('post-menu', '1');
     }
 
-
-
-    
-    
     /**
      * Updates a post
      * @dontvalidate  $postNew
@@ -170,7 +172,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         if ($post['postUid'] > 0) {
             $DBPost = $this->postRepository->findByUid($post['postUid']);
             //clear all category
-            if($DBPost->getCategory()){
+            if ($DBPost->getCategory()) {
                 foreach ($DBPost->getCategory() as $object) {
                     $DBPost->removeCategory($object);
                 }
@@ -187,7 +189,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         foreach ($catArray as $newcatuid) {
             $newcat = $this->categoryRepository->findByUid($newcatuid);
             if ($newcat) {
-              //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newcat);
+                //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newcat);
                 $DBPost->addCategory($newcat);
             }
         }
@@ -215,46 +217,44 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
 
         //file upload for teaser
-       
-            //intro has an file
-            if ($_FILES['tx_multiblog_blogedit']['name']['image'][0] != '') {
-                /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-                $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
-                /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
-                $storage = $storageRepository->findByUid('1');
+        //intro has an file
+        if ($_FILES['tx_multiblog_blogedit']['name']['image'][0] != '') {
+            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+            $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
+            /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
+            $storage = $storageRepository->findByUid('1');
 
-                $fileData = array();
-                $fileData['name'] = $_FILES['tx_multiblog_blogedit']['name']['image'][0];
-                $fileData['type'] = $_FILES['tx_multiblog_blogedit']['type']['image'][0];
-                $fileData['tmp_name'] = $_FILES['tx_multiblog_blogedit']['tmp_name']['image'][0];
-                $fileData['size'] = $_FILES['tx_multiblog_blogedit']['size']['image'][0];
+            $fileData = array();
+            $fileData['name'] = $_FILES['tx_multiblog_blogedit']['name']['image'][0];
+            $fileData['type'] = $_FILES['tx_multiblog_blogedit']['type']['image'][0];
+            $fileData['tmp_name'] = $_FILES['tx_multiblog_blogedit']['tmp_name']['image'][0];
+            $fileData['size'] = $_FILES['tx_multiblog_blogedit']['size']['image'][0];
 
 
-                // this will already handle the moving of the file to the storage:
-                $newFileObject = $storage->addFile(
-                        $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
-                );
-                $newFileObject = $storage->getFile($newFileObject->getIdentifier());
-                $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
+            // this will already handle the moving of the file to the storage:
+            $newFileObject = $storage->addFile(
+                    $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
+            );
+            $newFileObject = $storage->getFile($newFileObject->getIdentifier());
+            $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
 
-                /** @var \T3developer\Multiblog\Domain\Model\FileReference $newFileReference */
-                $newFileReference = $this->objectManager->get('T3developer\Multiblog\Domain\Model\FileReference');
-                $newFileReference->setFile($newFile);
+            /** @var \T3developer\Multiblog\Domain\Model\FileReference $newFileReference */
+            $newFileReference = $this->objectManager->get('T3developer\Multiblog\Domain\Model\FileReference');
+            $newFileReference->setFile($newFile);
 
-                $DBPost->addImage($newFileReference);
-            }//end image handling
-        
-            if ($post['postUid'] > 0) {
-                $this->postRepository->update($DBPost);
-            } else {
-                $this->postRepository->add($DBPost);
-                $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
-                
-            }
-        
+            $DBPost->addImage($newFileReference);
+        }//end image handling
 
-        
-        
+        if ($post['postUid'] > 0) {
+            $this->postRepository->update($DBPost);
+        } else {
+            $this->postRepository->add($DBPost);
+            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+        }
+
+
+
+
         //handle the content parts
         $contentcounter = 1;
         foreach ($post['content'] as $postcontent) {
@@ -292,10 +292,9 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 $newFileReference->setFile($newFile);
 
                 $DBcontent->addPostpicture($newFileReference);
-               
             }//end image handling
 
-           
+
             if ($postcontent['imagedelete'] == 1) {
                 $images = $DBcontent->getPostpicture();
                 foreach ($images as $img) {
@@ -304,35 +303,32 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     $DBcontent->setPostpicture(null);
                 }
             }
-            
-             $DBcontent->setPostcontent($postcontent['postcontent']);
-             $DBcontent->setImageposition($postcontent['imageposition']);
-            
-             if ($postcontent['contentUid'] > 0) {
-                 $this->contentRepository->update($DBcontent);
-             } else {
-                 $this->contentRepository->add($DBcontent);
-             }
-            
+
+            $DBcontent->setPostcontent($postcontent['postcontent']);
+            $DBcontent->setImageposition($postcontent['imageposition']);
+
+            if ($postcontent['contentUid'] > 0) {
+                $this->contentRepository->update($DBcontent);
+            } else {
+                $this->contentRepository->add($DBcontent);
+            }
+
             $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
             $persistenceManager->persistAll();
-            
+
             $contentcounter++;
         }
-        
+
         //add ContentPart
-         if ($this->request->hasArgument('addContent')) {
-            
+        if ($this->request->hasArgument('addContent')) {
+
             $newContent = new \T3developer\Multiblog\Domain\Model\Content;
             $newContent->setPostid($DBPost->getUid());
             $this->contentRepository->add($newContent);
         }
 
         $this->redirect('postEdit', 'Blogedit', NULL, array('postUid' => $DBPost->getUid()));
-        
     }
-
-   
 
     /**
      * Shows all categories
@@ -369,6 +365,46 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->categoryRepository->add($newKat);
 
         $this->redirect('kategoryShow');
+    }
+
+    /*     * ***********************************************************************
+     * Comments
+     * ************************************************************************ */
+
+    /**
+     * Show List of not approved coments
+     */
+    public function commentNewListAction() {
+        $blog = $this->findsBlogByLoggedInUser();
+
+        $comments = $this->commentRepository->findCommentsByBlogAndStatus($blog->getUid(), 0);
+        
+        $this->view->assign('blog', $blog);
+        $this->view->assign('comments', $comments);
+
+        $this->view->assign('menu', 'newcomments');
+        $this->view->assign('main-menu', 'comments');
+    }
+
+    /**
+     * Show List of not approved coments
+     */
+    public function commentApprovedListAction() {
+        
+    }
+
+    /**
+     * Show List of not approved coments
+     */
+    public function commentShowAction() {
+        
+    }
+
+    /**
+     * Show List of not approved coments
+     */
+    public function commentSaveAction() {
+        
     }
 
     /*     * ***********************************************************************
@@ -453,7 +489,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->redirect('usersettingsShow');
     }
 
-    /* * *************************************************************************
+    /*     * *************************************************************************
      * General functions
      * ************************************************************************ */
 

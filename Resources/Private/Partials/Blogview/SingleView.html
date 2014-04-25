@@ -3,13 +3,13 @@
     <f:if condition="{post.postshowteaser}==1">
         <f:then>
             <div class="multiblog col-left">
-                
-                    <f:for each="{post.image}" as="img">
-                        <f:if condition="{img.originalResource.originalFile.uid}">
-                    <f:image src="{img.originalResource.originalFile.uid}" alt="bb" />
-                     </f:if>
-                    </f:for>
-               
+
+                <f:for each="{post.image}" as="img">
+                    <f:if condition="{img.originalResource.originalFile.uid}">
+                        <f:image src="{img.originalResource.originalFile.uid}" alt="bb" />
+                    </f:if>
+                </f:for>
+
             </div>
 
             <div class="multiblog col-main">
@@ -47,25 +47,29 @@
 
 <f:for each="{content}" as="cont">
     <div class="multiblog postcontent clearafter">
-        <f:if condition="{cont.postpicture.originalResource.originalFile.uid}">
+
+        <f:if condition="{cont.postpicture}">
             <f:then>
-                <div class="multiblog col-left">
-                    <f:if condition="{cont.imageposition} == 3">
-                        <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" />
-                    </f:if>
-                </div>
-                <div class="multiblog col-main">
-                    <f:if condition="{cont.imageposition} == 0">
-                        <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-top"/>
-                    </f:if>
-                    <f:if condition="{cont.imageposition} == 2">
-                        <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-right"/>
-                    </f:if>
-                    <f:format.html>{cont.postcontent}</f:format.html>
-                    <f:if condition="{cont.imageposition} == 1">
-                        <f:image src="{cont.postpicture.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-bottom"/>
-                    </f:if>
-                </div>
+                <f:for each="{cont.postpicture}" as="contentImage">
+                    <div class="multiblog col-left">
+                        <f:if condition="{cont.imageposition} == 3">
+                            <f:image src="{contentImage.originalResource.originalFile.uid}" alt="bb" />
+                        </f:if>
+                    </div>
+                    <div class="multiblog col-main">
+                        <f:if condition="{cont.imageposition} == 0">
+                            <f:image src="{contentImage.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-top"/>
+                        </f:if>
+                        <f:if condition="{cont.imageposition} == 2">
+                            <f:image src="{contentImage.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-right"/>
+                        </f:if>
+                        <f:format.html>{cont.postcontent}</f:format.html>
+                        <f:if condition="{cont.imageposition} == 1">
+                            <f:image src="{contentImage.originalResource.originalFile.uid}" alt="bb" class="multiblog-content-image-bottom"/>
+                        </f:if>
+                    </div>
+
+                </f:for>
             </f:then>
             <f:else>
                 <div class="multiblog col-left">
@@ -75,9 +79,8 @@
                     <f:format.html>{cont.postcontent}</f:format.html>
                 </div>
             </f:else>
-
-
         </f:if>
+
     </div>
 </f:for>
 
@@ -87,17 +90,17 @@
 
     </div>
     <div class="multiblog col-main">
-         <div class="multiblog-postlabels">
-                <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_label.png" alt="labels" />
-                <f:for each="{post.category}" as="cat" iteration="catiter">
-                    {cat.kategory}<f:if condition="{catiter.isLast}==0">, &nbsp;</f:if>
-                </f:for>
-                &nbsp;&nbsp;&nbsp;
-                <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_time.png" alt="date" />
-                <f:format.date format="d.m.Y">{post.postdate}</f:format.date> 
-            </div>
+        <div class="multiblog-postlabels">
+            <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_label.png" alt="labels" />
+            <f:for each="{post.category}" as="cat" iteration="catiter">
+                {cat.kategory}<f:if condition="{catiter.isLast}==0">, &nbsp;</f:if>
+            </f:for>
+            &nbsp;&nbsp;&nbsp;
+            <f:image src="/typo3conf/ext/multiblog/Resources/Public/Icons/icon_side_time.png" alt="date" />
+            <f:format.date format="d.m.Y">{post.postdate}</f:format.date> 
+        </div>
         <br /><br />
-        
+
     </div>
 </div>  
 
@@ -119,7 +122,7 @@
 
     </div>
     <div class="multiblog col-main">
-        
+
         <br />
         <f:if condition="{next.posttitel}">
             <f:link.action action="index" arguments="{postId: next.uid}" class="multiblog next-link">

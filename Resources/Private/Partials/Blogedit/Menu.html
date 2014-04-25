@@ -38,18 +38,18 @@
             <f:translate key="LLL:{settings.langFile}:blogedit.menu.comments" />
         </li>
         <li class="{f:if(condition: '{0:menu} == {0:"newcomments"}', then: ' active', else: ' ')}">
-            <f:link.action action="commentsShowNew" controller="Blogedit">
+            <f:link.action action="commentNewList" controller="Blogedit">
                 <f:translate key="LLL:{settings.langFile}:blogedit.menu.comments.new" />
             </f:link.action>
         </li>
         <li class="{f:if(condition: '{0:menu} == {0:"allcomments"}', then: ' active', else: ' ')}">
-            <f:link.action action="commentsShowAll" controller="Blogedit">
+            <f:link.action action="commentApprovedList" controller="Blogedit">
                 <f:translate key="LLL:{settings.langFile}:blogedit.menu.comments.all" />
             </f:link.action>
         </li>
         <f:if condition="{0:menu} == {0:'commentedit'}">
         <li class="{f:if(condition: '{0:menu} == {0:"commentedit"}', then: ' active', else: ' ')}">
-            <f:link.action action="index" controller="Blogedit">
+            <f:link.action action="commentShow" controller="Blogedit">
                 <f:translate key="LLL:{settings.langFile}:blogedit.menu.comments.edit" />
             </f:link.action>
         </li>

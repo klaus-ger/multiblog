@@ -260,6 +260,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     /**
      * Add a new Comment
      * @dontvalidate identifier
+     * @dontverifyrequesthash
      */
     public function ajaxNewCommentAction() {
         if ($this->request->hasArgument('blogid')) {

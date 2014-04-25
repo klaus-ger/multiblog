@@ -62,7 +62,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * postdate
      *
-     * @var \int
+     * @var \DateTime
      */
     protected $postdate;
 
