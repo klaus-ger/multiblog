@@ -46,7 +46,7 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * posttitel
      *
-     * @var \int
+     * @var \T3developer\Multiblog\Domain\Model\Post
      * 
      */
     protected $postid;
@@ -68,7 +68,7 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         /**
      * comment date
      *
-     * @var \string
+     * @var \DateTime
      */
     protected $commentdate;
     

@@ -246,11 +246,12 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $this->setSidebarValues($blog->getUid());
 
-
+        
         $this->view->assign('post', $post);
         $this->view->assign('content', $content);
         $this->view->assign('comments', $comments);
         $this->view->assign('newComment', $newComment);
+        $this->view->assign('currentUrl', $this->uriBuilder->getRequest()->getRequestUri());
         $this->view->assign('prev', $prev[0]);
         $this->view->assign('next', $next[0]);
         $this->view->assign('blog', $blog);
@@ -259,8 +260,7 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
     /**
      * Add a new Comment
-     * @dontvalidate identifier
-     * @dontverifyrequesthash
+     * 
      */
     public function ajaxNewCommentAction() {
         if ($this->request->hasArgument('blogid')) {
@@ -278,21 +278,21 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         if ($this->request->hasArgument('text')) {
             $text = $this->request->getArgument('text');
         }
-
-        $newComment = new \T3developer\Multiblog\Domain\Model\Comment;
+        
+        $commentRepository = $this->objectManager->get('T3developer\\Multiblog\\Domain\\Repository\\CommentRepository');
+       
+        $newComment = $this->objectManager->get('T3developer\\Multiblog\\Domain\\Model\\Comment'); 
         $newComment->setBlogid($blogid);
         $newComment->setPostid($postid);
         $newComment->setCommentname($name);
         $newComment->setCommentmail($email);
         $newComment->setCommenttext($text);
         $newComment->setCommentdate(time());
-
-        $this->commentRepository->add($newComment);
-        $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-        $persistenceManager->persistAll();
-
-
-        exit;
+        
+        $commentRepository->add($newComment);
+        $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+       
+       exit;
     }
 
     /**

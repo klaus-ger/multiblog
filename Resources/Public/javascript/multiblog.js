@@ -1,49 +1,42 @@
 $(document).ready(function () {
     
+     //send comment via ajax ====================================================
     
-    //send comment via ajax ====================================================
-    //$('.multiblog').on("click", ".jq-send", function() {
-    $('.jq-send').click(function(e) {
-        var blogid = $('#jq-multiblog-blogid').val();
+    $('#jq-send').click(function(e) {
+        var currentUrl = $('.currentUrl').html();
         var postid = $('#jq-multiblog-postid').val();
+        var blogid = $('#jq-multiblog-blogid').val();
         var name   = $('#jq-multiblog-commentname').val();
         var email  = $('#jq-multiblog-commentmail').val();
         var text   = $('#jq-multiblog-commenttext').val();
-        console.log('klick');
+        console.log(text);
         //TODO Add formvalidation
+        
+ 
         $.ajax({
-            async: 'true',
-            url: 'index.php',       
-            type: 'POST',  
+        
+          url: '/?type=5000&tx_multiblog_singleblog[action]=ajaxNewComment&tx_multiblog_singleblog[controller]=Blog',
+        
+          data: 'tx_multiblog_singleblog[postid]=' + postid 
+              + '&tx_multiblog_singleblog[blogid]=' + blogid
+              + '&tx_multiblog_singleblog[name]=' + name
+              + '&tx_multiblog_singleblog[email]=' + email
+              + '&tx_multiblog_singleblog[text]=' + text
+              ,
           
-            data: {
-                eID: "ajaxDispatcher",   
-                request: {
-                    extensionName:  'Multiblog',
-                    pluginName:     'singleblog',
-                    controller: 'Blog', 
-                    action:     'ajaxNewComment',
-                    arguments: {
-                        'blogid': blogid,
-                        'postid': postid,
-                        'name': name,
-                        'email': email,
-                        'text': text
-                    }
-                } 
-            },
-            dataType: "json",  
-            	
             success: function(result) {
+               // console.log(result);
                 $('.comment-form .col-main').html('Thank you for dropping a note.')
             },
             error: function(error) {
-                console.log(error);
+                // console.log('err');
             }
- 
         });
-        
+
     });
+    
+    
+
     
     
     var url = $(location).attr('href');

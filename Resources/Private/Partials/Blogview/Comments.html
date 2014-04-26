@@ -36,11 +36,11 @@
         </h2>
     </div>
     <div class="multiblog col-main">
-        <f:form method="post" controller="Comment" action="create" name="newComment" object="{newComment}" enctype="multipart/form-data" >
+        <f:form method="post" controller="Blog" action="ajaxNewComment" name="newComment" object="{newComment}" >
 
             <f:form.hidden id="jq-multiblog-postid" property="entryid" value="{post.uid}"/>
             <f:form.hidden id="jq-multiblog-blogid" property="blogid" value="{post.blogid}"/>
-
+            <div class="hidden currentUrl">{currentUrl}</div>
 
             <f:form.textfield id="jq-multiblog-commentname" property="commentname" class="multiblog form-input" value="{newComment.commentname}" placeholder="{f:translate(key:'comments.form.placeholder.name')}"/>
             <br />
@@ -51,8 +51,8 @@
             <br />
             <f:translate key="LLL:{settings.langFile}:comments.form.releasenote" />
 
-            <div class="jq-send multiblog-btn"> <f:translate key="LLL:{settings.langFile}:comments.form.buttonSend" /></div>
-
+            <div id="jq-send" class="multiblog-btn"> <f:translate key="LLL:{settings.langFile}:comments.form.buttonSend" /></div>
+             
         </f:form>
     </div>
 
@@ -60,4 +60,6 @@
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
+
 

@@ -1,3 +1,13 @@
+ajaxCall = PAGE
+ajaxCall {
+    typeNum = 5000
+    config.disableAllHeaderCode = 1
+    config.metaCharset = UTF-8
+    10 = COA
+    #10 <  styles.content.get
+    10 < tt_content.list.20.multiblog_singleblog
+}
+
 config.tx_extbase {
 	persistence {
 		classes {
