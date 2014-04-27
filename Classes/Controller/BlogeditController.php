@@ -390,21 +390,53 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * Show List of not approved coments
      */
     public function commentApprovedListAction() {
+        $blog = $this->findsBlogByLoggedInUser();
+
+        $comments = $this->commentRepository->findByBlogid($blog->getUid());
         
+        $this->view->assign('blog', $blog);
+        $this->view->assign('comments', $comments);
+
+        $this->view->assign('menu', 'newcomments');
+        $this->view->assign('main-menu', 'comments');
     }
 
     /**
      * Show List of not approved coments
      */
-    public function commentShowAction() {
+    public function commentEditAction() {
+        if($this->request->hasArgument('commentid')){
+            $commentid = $this->request->getArgument('commentid');
+        }
         
+        $comment = $this->commentRepository->findByUid($commentid);
+        $post = $comment->getPostid();
+        $blog = $this->blogRepository->findByUid($post->getBlogid());
+        
+        $this->view->assign('comment', $comment);
+        $this->view->assign('post', $post);
+        $this->view->assign('blog', $blog);
+        
+        $this->view->assign('menu', 'commentedit');
+        $this->view->assign('main-menu', 'comments');
     }
 
     /**
      * Show List of not approved coments
+     * 
+     * @param T3developer\Multiblog\Domain\Model\Comment $comment
      */
-    public function commentSaveAction() {
+    public function commentSaveAction(\T3developer\Multiblog\Domain\Model\Comment $comment) {
         
+        if($this->request->hasArgument('delete')){
+            $this->commentRepository->remove($comment);
+        
+        $this->redirect('commentNewList');
+        }
+        
+        $this->commentRepository->update($comment);
+        
+        $this->redirect('commentNewList');
     }
 
     /*     * ***********************************************************************

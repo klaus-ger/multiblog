@@ -23,7 +23,7 @@
                      
             <tr class="{cycle}">
             <td class="multiblog-edit-textlink">
-                <f:link.action action="commentEdit" arguments="{uid: comi.uid}" class="multiblog-edit-textlink">
+                <f:link.action action="commentEdit" arguments="{commentid: comi.uid}" class="multiblog-edit-textlink">
                        <f:format.crop maxCharacters="50" append="&nbsp;...">{comi.commenttext}</f:format.crop>                       
                 </f:link.action>
             </td>
@@ -32,7 +32,7 @@
             
             </td>
             <td class="multiblog-edit-list-smalltext" width="10%">
-            <f:if condition="{comi.commentproved}">
+            <f:if condition="{comi.commentapprove}">
                 <f:then>
                     <f:translate key="LLL:{settings.langFile}:blogedit.comments.status.online" />
                 </f:then>

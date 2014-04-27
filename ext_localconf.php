@@ -44,7 +44,7 @@ if (TYPO3_MODE === 'FE' && !isset($_REQUEST['eID'])) {
                               , kategoryAdd
                               , commentNewList
                               , commentApprovedList
-                              , commentShow
+                              , commentEdit
                               , commentSave
                               , widgetsShow
                               , widgetsUpdate
@@ -66,7 +66,7 @@ if (TYPO3_MODE === 'FE' && !isset($_REQUEST['eID'])) {
                               , kategoryAdd
                               , commentNewList
                               , commentApprovedList
-                              , commentShow
+                              , commentEdit
                               , commentSave
                               , widgetsShow
                               , widgetsUpdate
