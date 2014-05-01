@@ -12,7 +12,7 @@
         <f:for each="{sidebar.comments}" as="teasercomment">
             <div class="multiblog_widgetLastComment_entry clearafter">
             <div class="multiblog_widgetLastComment_subhead">
-                {teasercomment.commentname} <f:translate key="LLL:{settings.langFile}:widget.Comments.Text" /> <f:format.date format="d.m.Y">@{teasercomment.commentdate}</f:format.date>
+                {teasercomment.commentname} <f:translate key="LLL:{settings.langFile}:widget.Comments.Text" /> <f:format.date format="d.m.Y">{teasercomment.commentdate}</f:format.date>
             </div>
 
             <div class="multiblog_widgetLastComment_text">
