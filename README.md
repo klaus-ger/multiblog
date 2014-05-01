@@ -3,9 +3,6 @@
 
 ###A TYPO3 Blog Extension
 
-###Important Notes
-
-I started to include the fronted Blog editing - actual the blogsettings are not implemented, please use the backend forms.
 
 ### Last Changes
 * Frontend Editing for Comments fixed
