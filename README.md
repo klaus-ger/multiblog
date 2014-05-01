@@ -26,8 +26,8 @@
 
 ####Screenshoots
 
-  <img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/singleview.png" width="200px">
-  <img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/backendediting1.png" width="200px">
+  <img src="/Documentation/Introduction/Images/Bloglist_screen.png" width="200px">
+  <img src="/Documentation/Introduction/Images/Blogpost_screen.png" width="200px">
   <img src="https://raw.github.com/klaus-ger/multiblog/master/Documentation/backendediting2.png" width="200px">
 
 
