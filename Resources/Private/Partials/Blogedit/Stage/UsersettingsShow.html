@@ -4,7 +4,7 @@
     
     <br >
     <f:form method="post" controller="Blogedit" action="usersettingsUpdate" name="blog" object="{blog}" enctype="multipart/form-data"  >
-   
+        <!--
         <div class="multiblog-edit-form-label">
             <b><f:translate key="LLL:{settings.langFile}:blogedit.usersettings.mail.lable" /></b>
         <br />
@@ -12,7 +12,7 @@
         </div>
         
         <f:form.textfield property="blogwritermail" value="{blogwritermail}" class="multiblog-edit-form-textfield"/><br />
-        
+        -->
         <div class="multiblog-edit-form-label">
             <f:translate key="LLL:{settings.langFile}:blogedit.usersettings.aboutthisblog" /><br />
         </div>
@@ -25,7 +25,7 @@
     
         <br /><br />
         <div class="kategorieEditFormRow">
-            <f:form.submit class="submit button-left" value="{f:translate(key:'blogedit.button.updateusersettings')}"/>
+            <f:form.submit class="submit btn_save" value="{f:translate(key:'blogedit.button.updateusersettings')}"/>
         </div>
     </f:form>   
     
