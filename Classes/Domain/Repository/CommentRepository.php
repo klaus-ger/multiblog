@@ -111,5 +111,26 @@ class CommentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         );
         return $query->execute();
     }
+    
+          /**
+     * find Comments By Blog and Status
+     * 
+     * @param int $blogUid Blog Uid
+     * @param int $status Status
+     *
+     * @return object
+     */
+    public function findCommentsByBlogAndStatusNewTop($blogUid, $status){
+        $orderings = array('commentdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('blogid', $blogUid),
+                    $query->equals('commentapprove', $status)
+                ))
+        );
+        return $query->execute();
+    }
 }
 ?>

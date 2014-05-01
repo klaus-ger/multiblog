@@ -377,7 +377,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function commentNewListAction() {
         $blog = $this->findsBlogByLoggedInUser();
 
-        $comments = $this->commentRepository->findCommentsByBlogAndStatus($blog->getUid(), 0);
+        $comments = $this->commentRepository->findCommentsByBlogAndStatusNewTop($blog->getUid(), 0);
         
         $this->view->assign('blog', $blog);
         $this->view->assign('comments', $comments);
@@ -392,12 +392,12 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function commentApprovedListAction() {
         $blog = $this->findsBlogByLoggedInUser();
 
-        $comments = $this->commentRepository->findByBlogid($blog->getUid());
+        $comments = $this->commentRepository->findCommentsByBlogAndStatusNewTop($blog->getUid(), 1);
         
         $this->view->assign('blog', $blog);
         $this->view->assign('comments', $comments);
 
-        $this->view->assign('menu', 'newcomments');
+        $this->view->assign('menu', 'commentApprovedList');
         $this->view->assign('main-menu', 'comments');
     }
 
@@ -439,7 +439,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->redirect('commentNewList');
     }
 
-    /*     * ***********************************************************************
+    /** ***********************************************************************
      * Settings
      * ************************************************************************ */
 
@@ -447,9 +447,9 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * Shows Form for widget settings
      */
     public function widgetsShowAction() {
-        $blogUid = $this->findsBlogUidByLoggedInUser();
+        $blog = $this->findsBlogByLoggedInUser();
 
-        $blog = $this->blogRepository->findByUid($blogUid);
+        
 
         $this->view->assign('blog', $blog);
 
@@ -473,9 +473,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * Shows Form for blogstyle settings
      */
     public function blogstyleShowAction() {
-        $blogUid = $this->findsBlogUidByLoggedInUser();
-
-        $blog = $this->blogRepository->findByUid($blogUid);
+        $blog = $this->findsBlogByLoggedInUser();
 
         $this->view->assign('blog', $blog);
 
@@ -499,9 +497,7 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * Shows Form for blogstyle settings
      */
     public function usersettingsShowAction() {
-        $blogUid = $this->findsBlogUidByLoggedInUser();
-
-        $blog = $this->blogRepository->findByUid($blogUid);
+        $blog = $this->findsBlogByLoggedInUser();
 
         $this->view->assign('blog', $blog);
 
