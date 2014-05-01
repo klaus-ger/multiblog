@@ -27,8 +27,8 @@
 ####Screenshoots
 
   <img src="/Documentation/Introduction/Images/Bloglist_screen.png" width="200px" align="top">.
-  <img src="/Documentation/Introduction/Images/Blogpost_screen.png" width="200px">.
-  <img src="/Documentation/Blogging/Images/FE_screen_06.png" width="200px">
+  <img src="/Documentation/Introduction/Images/Blogpost_screen.png" width="200px" align="top">.
+  <img src="/Documentation/Blogging/Images/FE_screen_06.png" width="200px" align="top">
 
 ####More information
 * [Installation - easy and smart](https://github.com//klaus-ger/multiblog/master/GIT-Doku/Installation.md)
