@@ -340,20 +340,21 @@ class BlogController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         }
 
         //image    
-//        if ($post) {
-//            if ($post->getImage()) {
-//               // $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
-//            } else {
-//                if ($blog->getBlogpicture()) {
-//               //  $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
-//                }
-//            }
-//        } else {
-//            if ($blog->getBlogpicture()) {
-//                $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $post->getImage()->getOriginalResource()->getPublicUrl();
-//            }
-//        }
-
+        if ($post) {
+            if ($post->getImage()) {
+                $images = $post->getImage();
+                foreach ($images as $image){
+                $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $image->getOriginalResource()->getPublicUrl();
+                }
+            } else {
+                if ($blog->getBlogpicture()) {
+                    $images = $blog->getBlogpicture();
+                    foreach ($images as $image){
+                   $og['image'] = $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] . $image->getBlogpicture()->getOriginalResource()->getPublicUrl();
+                    }  
+                }
+            }
+        }
         //detaillink
         if ($post) {
             $link = strtolower($post->getPosttitel());
