@@ -12,8 +12,10 @@ Setup a Blog
 
 
 * Create a Frontend Usergroup and User in the storage folder of the blog.
-* Add a blog in the list view of the storage folder
-* Add some categories in the list view of the storage folder
+* Add a blog in the list view of the storage folder and choose at least the widget 'Meta' for frontend editing
+* Go to the frontend page of your blog
+* Click on Login (with username and password of the FE user)
+• Start blogging :))
 
 
 
