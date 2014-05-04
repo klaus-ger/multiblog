@@ -57,8 +57,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $postintro;
 
-
-
     /**
      * postdate
      *
@@ -229,6 +227,9 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @return void
      */
     public function addCategory(\T3developer\Multiblog\Domain\Model\Category $category) {
+        if ($this->category == null) {
+            $this->category = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        }
         $this->category->attach($category);
     }
 
@@ -301,29 +302,27 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function getImage() {
         return $this->image;
     }
-    
-    	/**
-	 * Sets the files
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $image
-	 * @return void
-	 */
-	public function setImage($image) {
-		$this->image = $image;
-	}
-        
 
-        
-        /**
-	 * Adds a file
-	 *
-	 * @param \T3developer\Multiblog\Domain\Model\FileReference $image
-	 *
-	 * @return void
-	 */
-	public function addImage(\T3developer\Multiblog\Domain\Model\FileReference $image) {
-		$this->image->attach($image);
-	}
+    /**
+     * Sets the files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $image
+     * @return void
+     */
+    public function setImage($image) {
+        $this->image = $image;
+    }
+
+    /**
+     * Adds a file
+     *
+     * @param \T3developer\Multiblog\Domain\Model\FileReference $image
+     *
+     * @return void
+     */
+    public function addImage(\T3developer\Multiblog\Domain\Model\FileReference $image) {
+        $this->image->attach($image);
+    }
 
 }
 

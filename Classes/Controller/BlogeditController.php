@@ -172,13 +172,15 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         if ($post['postUid'] > 0) {
             $DBPost = $this->postRepository->findByUid($post['postUid']);
             //clear all category
-            if ($DBPost->getCategory()) {
+            if ($DBPost->getCategory() ) {
                 foreach ($DBPost->getCategory() as $object) {
                     $DBPost->removeCategory($object);
                 }
             }
         } else {
             $DBPost = new \T3developer\Multiblog\Domain\Model\Post;
+            $this->postRepository->add($DBPost);
+            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
         }
 
         //converting values
@@ -189,7 +191,6 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         foreach ($catArray as $newcatuid) {
             $newcat = $this->categoryRepository->findByUid($newcatuid);
             if ($newcat) {
-                //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newcat);
                 $DBPost->addCategory($newcat);
             }
         }
@@ -245,12 +246,9 @@ class BlogeditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $DBPost->addImage($newFileReference);
         }//end image handling
 
-        if ($post['postUid'] > 0) {
-            $this->postRepository->update($DBPost);
-        } else {
-            $this->postRepository->add($DBPost);
-            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
-        }
+        
+        $this->postRepository->update($DBPost);
+        
 
 
 
