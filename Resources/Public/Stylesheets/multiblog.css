@@ -8,6 +8,19 @@
 .clearafter:after { content: ''; display: block; clear: both; }
 a {text-decoration: none;}
 
+.multiblog pre, multiblog pre p{
+    margin: 0;
+    margin-bottom: 0 !important;
+    padding: 0;
+    line-height: 20px;
+    font-family: monospace;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    background-color: #F9f9f9
+}
+.multiblog pre {padding: 10px;}
+
+.multiblog strong {font-weight: bold;}
 .wrapper {
     margin: 0 auto;
     max-width: 1200px;
