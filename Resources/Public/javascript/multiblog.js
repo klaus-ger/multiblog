@@ -2,38 +2,68 @@ $(document).ready(function () {
     
      //send comment via ajax ====================================================
     
-    $('#jq-send').click(function(e) {
-        var currentUrl = $('.currentUrl').html();
-        var postid = $('#jq-multiblog-postid').val();
-        var blogid = $('#jq-multiblog-blogid').val();
-        var name   = $('#jq-multiblog-commentname').val();
-        var email  = $('#jq-multiblog-commentmail').val();
-        var text   = $('#jq-multiblog-commenttext').val();
-        console.log(text);
-        //TODO Add formvalidation
-        
- 
-        $.ajax({
-        
-          url: '/?type=5000&tx_multiblog_singleblog[action]=ajaxNewComment&tx_multiblog_singleblog[controller]=Blog',
-        
-          data: 'tx_multiblog_singleblog[postid]=' + postid 
-              + '&tx_multiblog_singleblog[blogid]=' + blogid
-              + '&tx_multiblog_singleblog[name]=' + name
-              + '&tx_multiblog_singleblog[email]=' + email
-              + '&tx_multiblog_singleblog[text]=' + text
-              ,
-          
-            success: function(result) {
-               // console.log(result);
-                $('.comment-form .col-main').html('Thank you for dropping a note.')
-            },
-            error: function(error) {
-                // console.log('err');
-            }
-        });
+	$('#jq-send').click(function(e) {
+		var currentUrl = $('.currentUrl').html();
+		var postid = $('#jq-multiblog-postid').val();
+		var blogid = $('#jq-multiblog-blogid').val();
+		var name   = $('#jq-multiblog-commentname').val();
+		var email  = $('#jq-multiblog-commentmail').val();
+		var text   = $('#jq-multiblog-commenttext').val();
+	
+		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+		var inputVal = new Array(name, email, text);
+		var inputMessage = new Array("name", "email address", "message");
+		
+		$('.error').hide();
+		
+		var error = 0;
+		var errorName = 0;
+		var errorEmail = 0;
+		var errorText = 0;
+		
+		var errorName =( (inputVal[0] == "") ? false : true );
+		if(inputVal[0] == ""){
+			$('#jq-multiblog-commentname').after('<span class="error"> Please enter your ' + inputMessage[0] + '</span>');
+		}
+		
+		var erroreMail = ((inputVal[1] == "" || !emailReg.test(email)) ? false : true );
+		if(inputVal[1] == "" || !emailReg.test(email)){
+			$('#jq-multiblog-commentmail').after('<span class="error"> Please enter your ' + inputMessage[1] + '</span>');
+		}
+		
+		var errorText = ((inputVal[2] == "") ? false : true );
+		if(inputVal[2] == ""){
+			$('#jq-multiblog-commenttext').after('<span class="error"> Please enter your ' + inputMessage[3] + '</span>');
+		};
+		
+		var error1	= (( errorName && erroreMail) ? true : false);
+		var error2	= ((error1 && errorText) ? true : false);
+		var error 	= (( error2 && error1) ? true : false);
 
-    });
+		if(error) { sentPost(); }
+		
+		function sentPost() {
+						$.ajax({
+			  url: '/?type=5000&tx_multiblog_singleblog[action]=ajaxNewComment&tx_multiblog_singleblog[controller]=Blog',
+			
+			  data: 'tx_multiblog_singleblog[postid]=' + postid 
+				  + '&tx_multiblog_singleblog[blogid]=' + blogid
+				  + '&tx_multiblog_singleblog[name]=' + name
+				  + '&tx_multiblog_singleblog[email]=' + email
+				  + '&tx_multiblog_singleblog[text]=' + text
+				  ,
+			  
+				success: function(result) {
+					//console.log(result);
+					$('.commentThx').html('Thank you for dropping a note.')
+					$('.comment-form').hide();
+				},
+				error: function(error) {
+					 //console.log('err');
+				}
+			});
+		}
+	});
     
     
 
